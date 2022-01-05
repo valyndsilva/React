@@ -29,14 +29,18 @@ const myList = (
     </ul>
   );
 
+
 // JSX syntax and HTML
 // In the block of code we see the similarities between JSX syntax and HTML: they both use the angle bracket opening and closing tags (<h1> and </h1>).
 // When used in a React component, JSX will be rendered as HTML in the browser.
 const title = <h1>Welcome all!</h1>
 
+
+
 // JSX attributes
 // The syntax of JSX attributes closely resembles that of HTML attributes. In the block of code, inside of the opening tag of the <h1> JSX element, we see an id attribute with the value "example".
 const example = <h1 id="example">JSX Attributes</h1>;
+
 
 // ReactDOM JavaScript library
 // The JavaScript library react-dom, sometimes called ReactDOM, renders JSX elements to the DOM by taking a JSX expression, creating a corresponding tree of DOM nodes, and adding that tree to the DOM.
@@ -47,22 +51,24 @@ ReactDOM.render(
   );
 
 // Embedding JavaScript in JSX
-// JavaScript expressions may be embedded within JSX expressions. The embedded JavaScript expression must be wrapped in curly braces.
+// JavaScript expressions may be embedded within JSX expressions. 
+// The embedded JavaScript expression must be wrapped in curly braces {}.
 // In the provided example, we are embedding the JavaScript expression 10 * 10 within the <h1> tag. When this JSX expression is rendered to the DOM, the embedded JavaScript expression is evaluated and rendered as 100 as the content of the <h1> tag.
 let expr = <h1>{10 * 10}</h1>;
 // above will be rendered as <h1>100</h1>
+
 
 // The Virtual DOM
 // React uses Virtual DOM, which can be thought of as a blueprint of the DOM. When any changes are made to React elements, the Virtual DOM is updated. 
 // The Virtual DOM finds the differences between it and the DOM and re-renders only the elements in the DOM that changed. 
 // This makes the Virtual DOM faster and more efficient than updating the entire DOM.
 
+
 // JSX and conditional:
 // In JSX, && is commonly used to render an element based on a boolean condition. && works best in conditionals that will sometimes do an action, but other times do nothing at all.
 // If the expression on the left of the && evaluates as true, then the JSX on the right of the && will be rendered. If the first expression is false, however, then the JSX to the right of the && will be ignored and not rendered.
 
-// All of the list items will display if
-// baby is false and age is above 25
+// All of the list items will display if baby is false and age is above 25
 const tasty = (
     <ul>
       <li>Applesauce</li>
@@ -73,6 +79,7 @@ const tasty = (
     </ul>
   );
 
+
 // JSX className
 // In JSX, you can’t use the word class! You have to use className instead. This is because JSX gets translated into JavaScript, and class is a reserved word in JavaScript.
 // When JSX is rendered, JSX className attributes are automatically rendered as class attributes.
@@ -81,6 +88,7 @@ const heading = <h1 className="large-heading">Codecademy</h1>;
  
 // ...will be rendered as this HTML
 <h1 class="large-heading">Codecademy</h1>
+
 
 // JSX conditionals
 // JSX does not support if/else syntax in embedded JavaScript. There are three ways to express conditionals for use with JSX elements:
@@ -117,16 +125,18 @@ const headline = (
   );
 
   
-  // Embedding JavaScript code in JSX
+// Embedding JavaScript code in JSX
   // Any text between JSX tags will be read as text content, not as JavaScript. In order for the text to be read as JavaScript, the code must be embedded between curly braces { }.
 <p>{ Math.random() }</p>
  
  // Above JSX will be rendered something like this: 
  <p>0.88</p>
 
+
 // JSX element event listeners
 // In JSX, event listeners are specified as attributes on elements. An event listener attribute’s name should be written in camelCase, such as onClick for an onclick event, and onMouseOver for an onmouseover event.
 // An event listener attribute’s value should be a function. Event listener functions can be declared inline or as variables and they can optionally take one argument representing the event.
+
 // Basic example
 const handleClick = () => alert("Hello world!");
  
@@ -137,10 +147,14 @@ const handleMouseOver = (event) => event.target.style.color = 'purple';
  
 const button2 = <div onMouseOver={handleMouseOver}>Drag here to change color</div>;
 
+
+
 // Setting JSX attribute values with embedded JavaScript
 // When writing JSX, it’s common to set attributes using embedded JavaScript variables.
 const introClass = "introduction";
 const introParagraph = <p className={introClass}>Hello world</p>;
+
+
 
 // JSX .map() method
 // The array method map() comes up often in React. It’s good to get in the habit of using it alongside JSX.
@@ -151,11 +165,13 @@ const listItems = strings.map(string => <li>{string}</li>);
  
 <ul>{listItems}</ul>
 
+
 // JSX empty elements syntax
 // In JSX, empty elements must explicitly be closed using a closing slash at the end of their tag: <tagName />.
 // A couple examples of empty element tags that must explicitly be closed include <br> and <img>.
 <br />
 <img src="example_url" />
+
 
 // React.createElement() Creates Virtual DOM Elements
 // The React.createElement() function is used by React to actually create virtual DOM elements from JSX. When the JSX is compiled, it is replaced by calls to React.createElement().
@@ -173,6 +189,7 @@ const h1 = React.createElement(
   'Hello world'
 );
  
+
 // JSX key attribute
 // In JSX elements in a list, the key attribute is used to uniquely identify individual elements. It is declared like any other attribute.
 // Keys can help performance because they allow React to keep track of whether individual list items should be rendered, or if the order of individual items is important.
@@ -182,6 +199,7 @@ const h1 = React.createElement(
   <li key="key3">Three</li>
   <li key="key4">Four</li>
 </ul>
+
 
 // Chapter 2: React Components
 
@@ -202,16 +220,18 @@ class MyComponent extends React.Component {
     }
   }
 
+
 // Importing React
 // In order to use React, we must first import the React library. 
 // When we import the library, it creates an object that contains properties needed to make React work, including JSX and creating custom components.
 import React from 'react';
 
+
 // React Components
-// A React component is a reusable piece of code used to define the appearance, behavior, and state of a portion of a web app’s interface. 
+// A React component is a reusable piece of code used to define the 'appearance', 'behavior', and 'state' of a portion of a web app’s interface. 
 // Components are defined as functions or as classes. Using the component as a factory, an infinite number of component instances can be created.
 import React from 'react';
- 
+
 function MyFunctionComponent() {
   return <h1>Hello from a function component!</h1>;
 }
@@ -222,6 +242,7 @@ class MyClassComponent extends React.Component {
   }
 }
 
+
 // JSX Capitalization
 // React requires that the first letter of components be capitalized. JSX will use this capitalization to tell the difference between an HTML tag and a component instance. 
 // If the first letter of a name is capitalized, then JSX knows it’s a component instance; if not, then it’s an HTML element.
@@ -230,6 +251,7 @@ class MyClassComponent extends React.Component {
 <ThisComponent />
 // This is considered a JSX HTML tag. 
 //  <div>
+
 
 // ReactDOM.render()
 // ReactDOM.render()‘s first argument is a component instance. It will render that component instance.
@@ -244,6 +266,8 @@ class MyComponent extends React.Component {
 }
  
 ReactDOM.render(<MyComponent />, document.getElementById('app'));
+
+
 
 // Multi-line JSX Expressions
 // Parentheses are used when writing a multi-line JSX expression. In the example, we see that the component’s render() method is split over multiple lines. Therefore it is wrapped in parentheses.
@@ -263,6 +287,8 @@ render() {
     );
   }
 
+
+
 // Code in render()
 // A React component can contain JavaScript before any JSX is returned. The JavaScript before the return statement informs any logic necessary to render the component.
 // In the example code, we see JavaScript prior to the return statement which rounds the value to an integer.
@@ -273,6 +299,8 @@ class Integer extends React.Component {
       return <p>{asInteger}</p>;
     }
   }
+
+
 
 // Object Properties As Attribute Values
 // In React, JSX attribute values can be set through data stored in regular JavaScript objects. We see this in the example block of code.
@@ -321,6 +349,7 @@ class Header extends React.Component {
 // It is common to keep each React component in its own file, export it, and import it wherever else it is needed. 
 // This file organization helps make components reusable. You don’t need to do this, but it’s a useful convention.
 // In the example, we might have two files: App.js, which is the top-level component for our app, and Clock.js, a sub-component.
+
 // Clock.js
 import React from 'react';
  
@@ -393,20 +422,24 @@ class Profile extends React.Component {
     }
   }
 
+
 // props
 //Components can pass information to other components. When one component passes information to another, it is passed as props through one or more attributes.
 // The example code demonstrates the use of attributes in props. SpaceShip is the component and ride is the attribute. The SpaceShip component will receive ride in its props.
 <SpaceShip ride="Millennium Falcon" />
 
+
 // this.props.children
 // Every component’s props object has a property named children. Using this.props.children will return everything in between a component’s opening and closing JSX tags.
+
 <List>  // opening tag
   <li></li> // child 1
   <li></li> // child 2
   <li></li> // child 3
 </List> // closing tag
 
-// Binding this keyword
+
+// Binding this keyword ***
 // In React class components, it is common to pass event handler functions to elements in the render() method. 
 // If those methods update the component state, this must be bound so that those methods correctly update the overall component state.
 // In the example code, we bind this.changeName() so that our event handler works.
@@ -878,6 +911,7 @@ class StatefulParent extends React.Component {
 
 // React CSS Styles
 // React supports inline CSS styles for elements. Styles are supplied as a style prop with a JavaScript object.
+
 // Passing the styles as an object
 const color = {
     color: 'blue',
@@ -904,10 +938,21 @@ const style = {
 
 // Presentational and Container Components
 // A common programming pattern in React is to have presentational and container components. 
-// Container components contain business logic (methods) and handle state. Presentational components render that behavior and state to the user.
+// Container components contain business logic (methods) and handle state. 
+// Presentational components render that behavior and state to the user.
 // In the example code, CounterContainer is a container component and Counter is a presentational component.
 
-
+ class Counter extends React.Component {
+    render() {
+      return (
+        <div>
+          <p>The count is {this.props.count}.</p>
+          <button onClick={this.props.increment}>Add 1</button>
+        </div>
+      );
+    }
+  }
+  
 class CounterContainer extends React.Component {
     constructor(props) {
       super(props);
@@ -926,16 +971,7 @@ class CounterContainer extends React.Component {
     }
   }
    
-  class Counter extends React.Component {
-    render() {
-      return (
-        <div>
-          <p>The count is {this.props.count}.</p>
-          <button onClick={this.props.increment}>Add 1</button>
-        </div>
-      );
-    }
-  }
+ 
 
   // Static Property
 // In React, prop types are set as a static property (.propTypes) on a component class or a function component. 
