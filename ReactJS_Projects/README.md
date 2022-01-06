@@ -13,4 +13,4 @@ npx create-react-app tesla-clone --template redux
 yarn start
 rfce (reactFucntionalExportComponent)
 yarn add styled-components
-yarn add react-is
+yarn add react-is (installs react-is explicitly and removes compilation errors)
