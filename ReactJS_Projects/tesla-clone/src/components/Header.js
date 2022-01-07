@@ -12,9 +12,11 @@ function Header() {
 
     return (
         <Container>
-           <a>
-             <img src="/images/logo.svg" alt="" />
-           </a>
+            <Logo>
+                <a>
+                <img src="/images/logo.svg" alt="" />
+            </a>
+            </Logo>
            <Menu>
            {cars && cars.map((car, index)=>(
                <a key={index} href="#">{car}</a>
@@ -24,7 +26,7 @@ function Header() {
            </Menu>
            <RightMenu>
            <a href="#">Shop</a>
-           <a href="#">Tesla Account</a>
+           <a href="#">Account</a>
            <CustomMenu onClick={()=>setBurgerStatus(true)}/>
            </RightMenu>
            <BurgerNav show={burgerStatus}>
@@ -34,6 +36,7 @@ function Header() {
            {cars && cars.map((car, index)=>(
                <li key={index}><a href="#">{car}</a></li>
            ))}
+
             <li><a href="#">Solar Roof</a></li>
             <li><a href="#">Solar Panels</a></li>
             <li><a href="#">Existing Inventory</a></li>
@@ -67,11 +70,17 @@ const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 20px;
+    padding: 0 30px;
     top: 0;
     left: 0;
     right: 0;
     z-index: 1;
+`
+const Logo = styled.div`
+    img{
+    width: 120px;
+    height: 16px;
+    }
 `
 
 const Menu = styled.div`
@@ -82,7 +91,6 @@ const Menu = styled.div`
 
     a{
         font-weight: 600;
-        text-transform: uppercase;
         padding: 0 10px;
         flex-wrap: nowrap;
     }
@@ -98,7 +106,6 @@ const RightMenu = styled.div`
 
      a{
         font-weight: 600;
-        text-transform: uppercase;
         margin-right: 10px;
     }
 `
@@ -123,11 +130,6 @@ const BurgerNav = styled.div`
 
     li{
         padding: 15px 0;
-        border-bottom: 1px solid rgba(0, 0, 0, .2);
-
-        a{
-            font-weight: 600;
-        }
     }
    
 `
