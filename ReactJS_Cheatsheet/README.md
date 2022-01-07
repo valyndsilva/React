@@ -7,7 +7,7 @@
 * JSX attributes
 * ReactDOM JavaScript library
 * Embedding JavaScript in JSX
-* The Virtual Dom
+* The Virtual DOM
 * JSX and conditional
 * JSX className
 * JSX conditionals
