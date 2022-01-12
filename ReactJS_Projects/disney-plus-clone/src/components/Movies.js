@@ -1,9 +1,25 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-function Movies() {
+import instance from '../axios';
+
+function Movies({title, fetchUrl}) {
+    const [movies, setMovies] = useState([]);
+    
+    // This snippet runs based on a specific condition / variable
+    useEffect(() => {
+        async function fetchData(){
+            const request = await instance.get(fetchUrl);
+            // "https://api.themoviedb.org/3//trending/movie/week?api_key=${API_KEY}&language=enUS",
+            console.log(request);
+            return request;
+        }
+        fetchData();
+        // if [] is empty, run once when <Movies/> loads and don't run again.
+    }, []);
+
     return (
         <Container>
-            <h4> Recommended for You</h4>
+            <h4> {title} </h4>
             <Content>
                 <Wrap>
                     <img src="/images/movies-luca.jpeg" alt=""/>

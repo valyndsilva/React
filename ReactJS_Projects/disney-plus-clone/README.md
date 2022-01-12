@@ -45,3 +45,5 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 
 * npm install react-router-dom
+*  npm install firebase
+* npm install firebase-tools

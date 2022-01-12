@@ -1,14 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import ImgSlider from './ImgSlider';
-import Viewers from './Viewers'
-import Movies from './Movies'
+import Viewers from './Viewers';
+import Movies from './Movies';
+import requests from '../requests';
+// import db from '../firebase'
+
 function Home() {
+
+    // useEffect(() => {
+    //     db.collection("movies").onSnapShot((snapshot) => {
+    //         // console.log(snapshot);
+    //         let tempMovies = snapshot.docs.map((doc) => {
+    //             console.log(doc.data());
+    //             return {id:doc.id, ...doc.data()}
+    //         })
+    //     })
+    // }, [])
+
     return (
         <Container>
            <ImgSlider/>
            <Viewers/>
-           <Movies/>
+           {/* <Movies/> */}
+           <Movies title= "Trending Now" fetchUrl={requests.fetchTrending} />
         </Container>
     )
 }
