@@ -23,7 +23,11 @@ function Home() {
            <ImgSlider/>
            <Viewers/>
            {/* <Movies/> */}
-           <Movies title= "Trending Now" fetchUrl={requests.fetchTrending} />
+           <Movies title= "Reccomended For You" fetchUrl={requests.fetchRecommended} />
+           <Movies title= "Disney Trending" fetchUrl={requests.fetchDisneyTrending} />
+           <Movies title= "Disney Movie Originals" fetchUrl={requests.fetchDisneyMovieOriginals} />
+           <Movies title= "Disney TV Originals" fetchUrl={requests.fetchDisneyTvOriginals} />
+           
         </Container>
     )
 }
