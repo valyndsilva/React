@@ -1,47 +1,68 @@
-import React, { useState, useEffect } from 'react'
-import styled from 'styled-components'
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+// import {selectMovies} from "../features/movies/movieSlice"
+// import {useSelector} from "react-redux"
 import instance from '../axios';
+import YouTube from 'react-youtube';
+import movieTrailer from 'movie-trailer';
 
 const base_url = "https://image.tmdb.org/t/p/original/";
 
 function Movies({title, fetchUrl}) {
+    // const moviesArr = useSelector(selectMovies); // grab movies from the store in Home.js
     const [movies, setMovies] = useState([]);
-    
+    const[trailerUrl, setTrailerUrl] = useState("");
     // This snippet runs based on a specific condition / variable
     useEffect(() => {
         async function fetchData(){
             const request = await instance.get(fetchUrl);
             // "https://api.themoviedb.org/3//trending/movie/week?api_key=${API_KEY}&language=enUS",
             // console.log(request);
-            // console.log(request.data.results);
+            console.log(request.data.results);
             setMovies(request.data.results);
             return request;
         }
         fetchData();
         // if [] is empty, run once when <Movies/> loads and don't run again.
     }, [fetchUrl]);
-    console.log(movies);
+    // console.log(movies);
+
+    const opts = {
+        height:"390",
+        width:"100%",
+        playerVars:{
+            // https://developers.google.com/youtube/player_parameters
+            autoplay:1,
+        },
+    };
+
+    const handleClick = (movie) => {
+        if(trailerUrl){
+            setTrailerUrl('');
+        } else{
+            movieTrailer(movie?.title || "")
+            .then(url =>{
+                // https://www.youtube.com/watch?v=rt-2cxAiPJk
+                const urlParams = new URLSearchParams(new URL(url).search);
+                setTrailerUrl(urlParams.get('v'));
+
+            }).catch((error) => console.log(error))
+        }
+    }
+
     return (
         <Container>
             <h4> {title} </h4>
             
             <Content>
-            {movies.map(movie =>(
-                <img key={movie.id} src={`${base_url}${movie.poster_path}`} alt={movie.original_title}/>
-            ))}
-                {/* <Wrap>
-                    <img src="/images/movies-luca.jpeg" alt=""/>
-                </Wrap>
-                <Wrap>
-                    <img src="/images/movies-encanto.jpeg" alt=""/>
-                </Wrap>
-                <Wrap>
-                    <img src="/images/movies-toy-story-3.jpeg" alt=""/>
-                </Wrap>
-                <Wrap>
-                    <img src="/images/movies-sing-2.jpeg" alt=""/>
-                </Wrap> */}
+            {movies && movies.map(movie =>(
+                <img key={movie.id} onClick={()=> handleClick(movie)} src={`${base_url}${movie.poster_path}`} alt={movie.original_title}/>
+            ))
+            }
             </Content>
+
+            {trailerUrl && <YouTube videoId={trailerUrl} opts={opts}/>}
+
         </Container>
     )
 }
@@ -50,6 +71,9 @@ export default Movies
 
 const Container = styled.div`
     
+    iframe{
+        margin-bottom:15px;
+    }
 `
 
 const Content = styled.div`
@@ -84,7 +108,6 @@ const Content = styled.div`
             ${'' /* box-shadow: rgb(0 0 0 / 80%) 0px 40px 58px -16px, rgb(0 0 0 / 72%) 0px 30px 22px -10px; */}
         }
     }
-
 
 `
 const Wrap = styled.div`

@@ -5,8 +5,12 @@ import Viewers from './Viewers';
 import Movies from './Movies';
 import requests from '../requests';
 // import db from '../firebase'
+// import {useDispatch} from "react-redux"
+// import {setMovies} from "../features/movie/movieSlice"
 
 function Home() {
+
+    // const dispatch = useDispatch();
 
     // useEffect(() => {
     //     db.collection("movies").onSnapShot((snapshot) => {
@@ -15,6 +19,8 @@ function Home() {
     //             console.log(doc.data());
     //             return {id:doc.id, ...doc.data()}
     //         })
+        // console.log(tempMovies);
+        // dispatch(setMovies(tempMovies));
     //     })
     // }, [])
 
@@ -24,10 +30,11 @@ function Home() {
            <Viewers/>
            {/* <Movies/> */}
            <Movies title= "Reccomended For You" fetchUrl={requests.fetchRecommended} />
-           <Movies title= "Disney Trending" fetchUrl={requests.fetchDisneyTrending} />
-           <Movies title= "Disney Movie Originals" fetchUrl={requests.fetchDisneyMovieOriginals} />
-           <Movies title= "Disney TV Originals" fetchUrl={requests.fetchDisneyTvOriginals} />
-           
+           <Movies title= "Trending Now" fetchUrl={requests.fetchDisneyTrending} />
+           <Movies title= "Action Movies" fetchUrl={requests.fetchDisneyAction} />
+           <Movies title= "Romance Movies" fetchUrl={requests.fetchDisneyRomance} />
+           <Movies title= "Comedy Movies" fetchUrl={requests.fetchDisneyComedy} />
+           <Movies title= "Documentaries" fetchUrl={requests.fetchDisneyDocumentaries} />
         </Container>
     )
 }
