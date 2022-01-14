@@ -19,7 +19,7 @@ function Jumbotron() {
         fetchData();
         // if [] is empty, run once when <Movies/> loads and don't run again.
     }, []);
-    console.log(movie);
+
 
     function truncate(str,n){
         return str?.length > n?str.substr(0, n-1)+"...":str;
@@ -27,7 +27,7 @@ function Jumbotron() {
     return (
         <Container>
                 <Background>
-                    <img key={movie.id} src={`${base_url}${movie?.backdrop_path}`} alt={movie.original_title} />
+                    <img key={movie.id} src={`${base_url}${movie?.backdrop_path}`} alt={movie.original_title } />
                 </Background>
            
                 <ContentWrap>
@@ -39,10 +39,9 @@ function Jumbotron() {
                             <img src="/images/play-icon-black.png" alt=""/>
                             <span>Play</span>
                     </PlayButton>
-                    <TrailerButton>
-                        <img src="/images/play-icon-white.png" alt=""/>
-                            <span>Trailer</span>
-                    </TrailerButton>
+                    <ListButton>
+                            <span>My List</span>
+                    </ListButton>
                 </Controls>
                 <Description>
                     {truncate(movie?.overview, 200)}
@@ -115,7 +114,7 @@ const PlayButton = styled.button`
         background: rgb(198, 198, 198);
     }
 `
-const TrailerButton = styled(PlayButton)`
+const ListButton = styled(PlayButton)`
     background: rgb(0, 0, 0, 0.3);
     border: 1px solid rgb(249, 249, 249);
     color: rgb(249, 249, 249);
@@ -131,9 +130,9 @@ const Description = styled.div`
     height: 80px;
 `
 const Fade = styled.div`
-    height: 18.1rem;
+    height: 18.6rem;
     background-image: linear-gradient( 180deg, transparent, rgba(37,37,37, 0.61), #111);
-    
+ 
     @media(max-width:768px){
         height: 16.1rem;
     }

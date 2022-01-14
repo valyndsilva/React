@@ -13,7 +13,6 @@ function Movies({title, fetchUrl}) {
     useEffect(() => {
         async function fetchData(){
             const request = await instance.get(fetchUrl);
-            // "https://api.themoviedb.org/3//trending/movie/week?api_key=${API_KEY}&language=enUS",
             // console.log(request);
             console.log(request.data.results);
             setMovies(request.data.results);
@@ -22,7 +21,7 @@ function Movies({title, fetchUrl}) {
         fetchData();
         // if [] is empty, run once when <Movies/> loads and don't run again.
     }, [fetchUrl]);
-    // console.log(movies);
+    console.log(movies);
 
     const opts = {
         height:"390",
@@ -34,16 +33,16 @@ function Movies({title, fetchUrl}) {
     };
 
     const handleClick = (movie) => {
+        console.log(trailerUrl);
         if(trailerUrl){
             setTrailerUrl('');
         } else{
-            movieTrailer(movie?.title || "")
-            .then(url =>{
-                // https://www.youtube.com/watch?v=rt-2cxAiPJk
+            movieTrailer(movie?.title || "").then((url) => {
                 const urlParams = new URLSearchParams(new URL(url).search);
+                console.log(urlParams);
+                // https://www.youtube.com/watch?v=rt-2cxAiPJk
                 setTrailerUrl(urlParams.get('v'));
-
-            }).catch((error) => console.log(error))
+            }).catch((error => console.log(error)))
         }
     }
 
@@ -90,14 +89,11 @@ const Content = styled.div`
         object-fit: contain;
         margin-right: 15px;
         transition: transform 450ms;
-        ${'' /* border-radius:10px;
-        border: 3px solid rgba(249, 249, 249, 0.1); */}
         transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
     
         &:hover{
             transform: scale(1.05);
             opacity: 1;
-            ${'' /* border-color: rgba(249, 249, 249, 0.8); */}
         }
     }
 
