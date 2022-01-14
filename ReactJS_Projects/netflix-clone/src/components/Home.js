@@ -10,11 +10,11 @@ function Home() {
         <Container>
            <Jumbotron/>
            <Movies title= "Reccomended For You" fetchUrl={requests.fetchRecommended} />
-           <Movies title= "Trending Now" fetchUrl={requests.fetchDisneyTrending} />
-           <Movies title= "Action Movies" fetchUrl={requests.fetchDisneyAction} />
-           <Movies title= "Romance Movies" fetchUrl={requests.fetchDisneyRomance} />
-           <Movies title= "Comedy Movies" fetchUrl={requests.fetchDisneyComedy} />
-           <Movies title= "Documentaries" fetchUrl={requests.fetchDisneyDocumentaries} />
+           <Movies title= "Trending Now" fetchUrl={requests.fetchTrending} />
+           <Movies title= "Netflix Movies Originals" fetchUrl={requests.fetchNetflixMovieOriginals} />
+           <Movies title= "Netflix TV Originals" fetchUrl={requests.fetchNetflixTvOriginals} />
+           <Movies title= "Action Movies" fetchUrl={requests.fetchAction} />
+           <Movies title= "Comedy Movies" fetchUrl={requests.fetchComedy} />
         </Container>
     )
 }
