@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {selectMovies} from "../features/movies/movieSlice"
+import {selectMovies} from "../features/movie/movieSlice"
 import {useSelector} from "react-redux"
 // import { Link } from 'react-router-dom';
 function Movies() {
@@ -10,7 +10,6 @@ function Movies() {
     return (
         <Container>
             <h4>Recommended For You</h4>
-            
             <Content>
                   <Wrap>
                     <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/501783804F435A386DBC4736F529A8EF664B1817CCB0B552E52D825B85B0A97B/scale?width=400&aspectRatio=1.78&format=jpeg" alt=""/>

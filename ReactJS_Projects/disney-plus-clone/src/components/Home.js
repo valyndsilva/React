@@ -20,7 +20,7 @@ function Home() {
                 }
             })
         console.log(tempMovies);
-        dispatch(setMovies(tempMovies)); // grab and save movies in the store
+        dispatch(setMovies(tempMovies)); // grab, save and dispatch movies into the store
         });
     }, [])
 
