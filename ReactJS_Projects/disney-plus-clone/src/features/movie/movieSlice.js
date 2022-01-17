@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 const initialState = {
     movies:[]
 }
-
+// Redux: Action, State, Reducers
 const movieSlice = createSlice({
     name:"movie",
     initialState,

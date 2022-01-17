@@ -1,67 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-// import {selectMovies} from "../features/movies/movieSlice"
-// import {useSelector} from "react-redux"
-import instance from '../axios';
-import YouTube from 'react-youtube';
-import movieTrailer from 'movie-trailer';
-
-const base_url = "https://image.tmdb.org/t/p/original/";
-
-function Movies({title, fetchUrl}) {
-    // const moviesArr = useSelector(selectMovies); // grab movies from the store in Home.js
-    const [movies, setMovies] = useState([]);
-    const[trailerUrl, setTrailerUrl] = useState("");
-    // This snippet runs based on a specific condition / variable
-    useEffect(() => {
-        async function fetchData(){
-            const request = await instance.get(fetchUrl);
-            // "https://api.themoviedb.org/3//trending/movie/week?api_key=${API_KEY}&language=enUS",
-            // console.log(request);
-            console.log(request.data.results);
-            setMovies(request.data.results);
-            return request;
-        }
-        fetchData();
-        // if [] is empty, run once when <Movies/> loads and don't run again.
-    }, [fetchUrl]);
-    // console.log(movies);
-
-    const opts = {
-        height:"390",
-        width:"100%",
-        playerVars:{
-            // https://developers.google.com/youtube/player_parameters
-            autoplay:1,
-        },
-    };
-
-    const handleClick = (movie) => {
-        if(trailerUrl){
-            setTrailerUrl('');
-        } else{
-            movieTrailer(movie?.title || "")
-            .then(url =>{
-                // https://www.youtube.com/watch?v=rt-2cxAiPJk
-                const urlParams = new URLSearchParams(new URL(url).search);
-                setTrailerUrl(urlParams.get('v'));
-
-            }).catch((error) => console.log(error))
-        }
-    }
+import {selectMovies} from "../features/movies/movieSlice"
+import {useSelector} from "react-redux"
+// import { Link } from 'react-router-dom';
+function Movies() {
+    const movies = useSelector(selectMovies); // grab movies from the store in Home.js
+    console.log("This is movies", movies);
 
     return (
         <Container>
-            <h4> {title} </h4>
+            <h4>Recommended For You</h4>
             
             <Content>
-            {movies && movies.map(movie =>(
-                <img key={movie.id} onClick={()=> handleClick(movie)} src={`${base_url}${movie.poster_path}`} alt={movie.original_title}/>
-            ))
-            }
+                  <Wrap>
+                    <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/501783804F435A386DBC4736F529A8EF664B1817CCB0B552E52D825B85B0A97B/scale?width=400&aspectRatio=1.78&format=jpeg" alt=""/>
+                  </Wrap>
+                  <Wrap>
+                    <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/501783804F435A386DBC4736F529A8EF664B1817CCB0B552E52D825B85B0A97B/scale?width=400&aspectRatio=1.78&format=jpeg" alt=""/>
+                  </Wrap>
+                  <Wrap>
+                    <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/501783804F435A386DBC4736F529A8EF664B1817CCB0B552E52D825B85B0A97B/scale?width=400&aspectRatio=1.78&format=jpeg" alt=""/>
+                  </Wrap>
+                  <Wrap>
+                    <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/501783804F435A386DBC4736F529A8EF664B1817CCB0B552E52D825B85B0A97B/scale?width=400&aspectRatio=1.78&format=jpeg" alt=""/>
+                  </Wrap>
             </Content>
 
-            {trailerUrl && <YouTube videoId={trailerUrl} opts={opts}/>}
 
         </Container>
     )
@@ -78,12 +42,9 @@ const Container = styled.div`
 
 const Content = styled.div`
     padding: 20px;
-    display: flex;
-    overflow-y:hidden;
-    overflow-x:scroll;
-    ${'' /* display: grid;
+    display: grid;
     grid-gap: 25px;
-    grid-template-columns: repeat(4, minmax(0,1fr)); */}
+    grid-template-columns: repeat(4, minmax(0,1fr));
 
     &::-webkit-scrollbar{
         display:none;
@@ -105,7 +66,6 @@ const Content = styled.div`
             transform: scale(1.05);
             opacity: 1;
             border-color: rgba(249, 249, 249, 0.8);
-            ${'' /* box-shadow: rgb(0 0 0 / 80%) 0px 40px 58px -16px, rgb(0 0 0 / 72%) 0px 30px 22px -10px; */}
         }
     }
 
@@ -126,7 +86,7 @@ const Wrap = styled.div`
     &:hover{
         transform: scale(1.05);
         border-color: rgba(249, 249, 249, 0.8);
-        box-shadow: rgb(0 0 0 / 80%) 0px 40px 58px -16px, rgb(0 0 0 / 72%) 0px 30px 22px -10px;
+        ${'' /* box-shadow: rgb(0 0 0 / 80%) 0px 40px 58px -16px, rgb(0 0 0 / 72%) 0px 30px 22px -10px; */}
 
     }
 `

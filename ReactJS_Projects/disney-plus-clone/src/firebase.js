@@ -1,6 +1,9 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+// v9 compat packages are API compatible with v8 code
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+import 'firebase/compat/storage'; 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -17,5 +20,15 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+const firebaseApp = firebase.initializeApp(firebaseConfig);
+// Get db
+const db = firebaseApp.firestore();
+// Firebase Auth
+const auth = firebase.auth();
+// Google Auth
+const provider = new firebase.auth.GoogleAuthProvider();
+// Firebase Storage
+const storage = firebase.storage();
+
+export { auth, provider, storage };
+export default db;

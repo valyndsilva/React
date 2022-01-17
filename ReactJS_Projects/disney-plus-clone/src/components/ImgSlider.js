@@ -1,12 +1,8 @@
-import React , {useState, useEffect} from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import instance from '../axios'
-import requests from '../requests'
-
-const base_url = "https://image.tmdb.org/t/p/original/";
 
 function ImgSlider() {
 
@@ -19,35 +15,30 @@ function ImgSlider() {
         autoplay: true
     }
 
-    const [movies, setMovies] = useState([]);
-    const size = 5;
-    // This snippet runs based on a specific condition / variable
-    useEffect(() => {
-        
-        async function fetchData(){
-            const request = await instance.get(requests.fetchRecommended);
-            console.log(request.data.results);
-            console.log(request.data.results.slice(0,size));
-            setMovies(request.data.results.slice(0,size));
-            return request;
-        }
-        fetchData();
-        // if [] is empty, run once when <Movies/> loads and don't run again.
-    }, []);
-    console.log(movies);
 
     return (
         
         <Carousel {...settings}>
-            {movies.map(movie =>(
-                <Wrap>
-                <img key={movie.id} src={`${base_url}${movie.backdrop_path}`} alt={movie.original_title}/>
-                </Wrap>
-            ))}
-            {/* <img src="/images/slider-badging.jpg" alt=""/> */}
-            {/* <img src="/images/slider-badag.jpg" alt=""/> */}
-            {/* <img src="/images/slider-scale.jpg" alt=""/> */}
-            {/* <img src="/images/slider-scales.jpg" alt=""/> */}
+            <Wrap>
+            <img src="/images/slider-badging.jpg" alt=""/> 
+            </Wrap>
+            
+            <Wrap>
+            <img src="/images/slider-badag.jpg" alt=""/>
+            </Wrap>
+            
+            <Wrap>
+            <img src="/images/slider-scale.jpg" alt=""/>
+            </Wrap>
+            
+            <Wrap>
+            <img src="/images/slider-scales.jpg" alt=""/>
+            </Wrap>
+            
+            
+          
+           
+            
           
         </Carousel>
     )

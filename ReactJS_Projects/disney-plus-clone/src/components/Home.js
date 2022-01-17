@@ -3,38 +3,32 @@ import styled from 'styled-components';
 import ImgSlider from './ImgSlider';
 import Viewers from './Viewers';
 import Movies from './Movies';
-import requests from '../requests';
-// import db from '../firebase'
-// import {useDispatch} from "react-redux"
-// import {setMovies} from "../features/movie/movieSlice"
+import db from '../firebase';
+import {useDispatch} from "react-redux"
+import {setMovies} from "../features/movie/movieSlice"
 
 function Home() {
 
-    // const dispatch = useDispatch();
-
-    // useEffect(() => {
-    //     db.collection("movies").onSnapShot((snapshot) => {
-    //         // console.log(snapshot);
-    //         let tempMovies = snapshot.docs.map((doc) => {
-    //             console.log(doc.data());
-    //             return {id:doc.id, ...doc.data()}
-    //         })
-        // console.log(tempMovies);
-        // dispatch(setMovies(tempMovies));
-    //     })
-    // }, [])
+    const dispatch = useDispatch();
+    // Get movies from firebase
+    useEffect(() => {
+        db.collection("movies").onSnapshot((snapshot) => {
+            console.log(snapshot);
+            let tempMovies = snapshot.docs.map((doc) => {
+                console.log(doc.data());
+                return {id:doc.id, ...doc.data()
+                }
+            })
+        console.log(tempMovies);
+        dispatch(setMovies(tempMovies)); // grab and save movies in the store
+        });
+    }, [])
 
     return (
         <Container>
            <ImgSlider/>
            <Viewers/>
-           {/* <Movies/> */}
-           <Movies title= "Reccomended For You" fetchUrl={requests.fetchRecommended} />
-           <Movies title= "Trending Now" fetchUrl={requests.fetchDisneyTrending} />
-           <Movies title= "Action Movies" fetchUrl={requests.fetchDisneyAction} />
-           <Movies title= "Romance Movies" fetchUrl={requests.fetchDisneyRomance} />
-           <Movies title= "Comedy Movies" fetchUrl={requests.fetchDisneyComedy} />
-           <Movies title= "Documentaries" fetchUrl={requests.fetchDisneyDocumentaries} />
+           <Movies />
         </Container>
     )
 }

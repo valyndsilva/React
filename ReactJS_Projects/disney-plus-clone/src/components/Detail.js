@@ -1,42 +1,20 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import instance from '../axios'
-import requests from '../requests'
+// import {useParams} from "react-router-dom"
 
-const base_url = "https://image.tmdb.org/t/p/original/";
 
-function Detail() {
-    
-    const [movie, setMovie] = useState([]);
-    
-    // This snippet runs based on a specific condition / variable
-    useEffect(() => {
-        async function fetchData(){
-            const request = await instance.get(requests.fetchRecommended);
-            setMovie(request.data.results[
-                Math.floor(Math.random() * request.data.results.length -1)
-            ]);
-            return request;
-        }
-        fetchData();
-        // if [] is empty, run once when <Movies/> loads and don't run again.
-    }, []);
-    console.log(movie);
+function Detail({fetchUrl}) {
+    // const {id} = useParams();
+    // console.log(id);
 
-    function truncate(str,n){
-        return str?.length > n?str.substr(0, n-1)+"...":str;
-    }
 
     return (
         <Container>
             <Background>
-            <img key={movie.id} src={`${base_url}${movie?.poster_path}`} alt={movie.original_title} />
-                {/* <img src="/images/detail-luca-background.jpg" alt="" /> */}
-
+            <img src="/images/detail-luca-background.jpg" alt=""/> 
             </Background>
             <MovieTitle>
-            <h1> {movie?.title || movie?.original_title} </h1>
-                {/* <img src="/images/detail-luca-logo.png" alt=""/> */}
+            <img src="/images/detail-luca-logo.jpg" alt=""/> 
             </MovieTitle>
             <Controls>
                 <PlayButton>
@@ -55,12 +33,10 @@ function Detail() {
                 </GroupWatch>
             </Controls>
             <SubTitle>
-            {(movie?.release_date)} &#x25CF; 1h 35m &#x25CF; Family, Kids, Animation
-            {/* {(movie?.release_date).split('', 4)} &#x25CF; 1h 35m &#x25CF; Family, Kids, Animation */}
+           lorem ipsum
             </SubTitle>
             <Description>
-            {truncate(movie?.overview, 200)}
-                {/* Set in a beautiful seaside town on the Italian Riviera, the original animated feature is a coming-of-age story about one young boy experiencing an unforgettable summer filled with gelato, pasta and endless scooter rides. Luca shares these adventures with his newfound best friend, but all the fun is threatened by a deeply held secret: he is a sea monster from another world just below the water's surface. */}
+            loremdsfjuiosjkldsfdsoifuyisk
             </Description>
                
             
