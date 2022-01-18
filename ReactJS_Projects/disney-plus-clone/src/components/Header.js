@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import {auth, provider} from '../firebase';
 import { selectUserName, selectUserPhoto, setUserLogin, setSignOut } from '../features/user/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import {useNavigate} from 'react-router-dom'; 
+import {Link, useNavigate} from 'react-router-dom'; 
 
 function Header() {
     const dispatch = useDispatch();
@@ -53,7 +53,9 @@ function Header() {
 
     return (
         <Nav>
-           <Logo src="/images/logo.svg" />
+            <Link to={`/`}>
+            <Logo src="/images/logo.svg" />
+            </Link>
            { !userName ? 
                 (<LoginContainer>
                     <Login onClick={signIn}>Login</Login>
