@@ -101,14 +101,11 @@ const MovieTitle = styled.div`
     min-height: 150px;
     min-width: 200px;
     margin-top: 60px;
-    font-size:26px;
-
-    h1{
-        letter-spacing: 1.4;
-    }
-
+    
     img{
-        ${'' /* width:100%; */}
+        max-width:600px;
+        min-width:200px;
+        width:35vw;
         height:100%;
         object-fit: contain;
     }
