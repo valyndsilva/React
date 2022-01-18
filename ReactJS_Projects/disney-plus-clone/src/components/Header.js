@@ -22,7 +22,7 @@ function Header() {
                 navigate('/');
             }
         })
-    }, [userName])
+    }, [userName, dispatch, navigate])
 
     const signIn = () => {
         auth.signInWithPopup(provider)
