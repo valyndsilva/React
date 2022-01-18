@@ -40,18 +40,18 @@ function Detail() {
             </MovieTitle>
             <Controls>
                 <PlayButton>
-                    <img src="/images/play-icon-black.png" alt=""/>
+                    <img src="/images/play-icon-black.png" alt="Play Button"/>
                     <span>Play</span>
                 </PlayButton>
                 <TrailerButton>
-                <img src="/images/play-icon-white.png" alt=""/>
+                <img src="/images/play-icon-white.png" alt="Trailer Button"/>
                     <span>Trailer</span>
                 </TrailerButton>
                 <AddButton>
                   <span>+</span>
                 </AddButton>
                 <GroupWatch>
-                  <img src="./images/group-icon.png" alt="" />
+                  <img src="/images/group-icon.png" alt="Group Watch Button" />
                 </GroupWatch>
             </Controls>
             <SubTitle>

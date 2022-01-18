@@ -1,15 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
-import {selectMovies} from "../features/movie/movieSlice"
+// import {selectMovies} from "../features/movie/movieSlice"
+import {selectRecommend, selectNewDisney, selectOriginal, selectTrending} from "../features/movie/movieSlice"
 import {useSelector} from "react-redux"
 import { Link } from 'react-router-dom';
+
 function Movies() {
-    const movies = useSelector(selectMovies); // grab movies from the store in Home.js
+    // const movies = useSelector(selectMovies); // grab movies from the store in Home.js
     // console.log("This is movies", movies);
+
+    const moviesRecommend = useSelector(selectRecommend);
+    const moviesNewDisney = useSelector(selectNewDisney);
+    const moviesOriginal = useSelector(selectOriginal);
+    const moviesTrending = useSelector(selectTrending);
 
     return (
         <Container>
-            <h4>Recommended For You</h4>
+           
+            {/* <h4>Recommended For You</h4>
             <Content>
                 
                   { movies && movies.map((movie)=>(
@@ -22,9 +30,68 @@ function Movies() {
                             
                   ))
                   }
-            </Content>
+            </Content> */}
 
-
+            <Recommend>
+            <h4>Recommended For You</h4>
+                <Content>
+                    { moviesRecommend && moviesRecommend.map((movie)=>(
+                        
+                            <Wrap  key={movie.id}>
+                                <Link to={`/detail/${movie.id}`}>
+                                    <img src={movie.cardImg} alt={movie.title}/>
+                                </Link>
+                            </Wrap>
+                            
+                    ))
+                    }
+                 </Content>
+            </Recommend>
+            <NewDisney>
+            <h4>New</h4>
+                <Content>
+                    { moviesNewDisney && moviesNewDisney.map((movie)=>(
+                        
+                            <Wrap  key={movie.id}>
+                                <Link to={`/detail/${movie.id}`}>
+                                    <img src={movie.cardImg} alt={movie.title}/>
+                                </Link>
+                            </Wrap>
+                            
+                    ))
+                    }
+                 </Content>
+            </NewDisney>
+            <Original>
+            <h4>Disney Originals</h4>
+                <Content>
+                    { moviesOriginal && moviesOriginal.map((movie)=>(
+                        
+                            <Wrap  key={movie.id}>
+                                <Link to={`/detail/${movie.id}`}>
+                                    <img src={movie.cardImg} alt={movie.title}/>
+                                </Link>
+                            </Wrap>
+                            
+                    ))
+                    }
+                 </Content>
+            </Original>
+            <Trending>
+            <h4>Trending Now</h4>
+                <Content>
+                    { moviesTrending && moviesTrending.map((movie)=>(
+                        
+                            <Wrap  key={movie.id}>
+                                <Link to={`/detail/${movie.id}`}>
+                                    <img src={movie.cardImg} alt={movie.title}/>
+                                </Link>
+                            </Wrap>
+                            
+                    ))
+                    }
+                 </Content>
+            </Trending>
         </Container>
     )
 }
@@ -65,4 +132,17 @@ const Wrap = styled.div`
         box-shadow: rgb(0 0 0 / 80%) 0px 40px 58px -16px, rgb(0 0 0 / 72%) 0px 30px 22px -10px;
 
     }
+`
+
+const Recommend = styled.div`
+
+`
+const NewDisney = styled.div`
+
+`
+const Original = styled.div`
+
+`
+const Trending = styled.div`
+
 `

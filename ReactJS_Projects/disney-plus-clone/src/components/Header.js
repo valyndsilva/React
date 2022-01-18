@@ -22,7 +22,7 @@ function Header() {
                 navigate('/');
             }
         })
-    }, [])
+    }, [userName])
 
     const signIn = () => {
         auth.signInWithPopup(provider)
@@ -36,7 +36,9 @@ function Header() {
                 photo: user.photoURL
             }))
             navigate('/');
-        })
+        }).catch((error) =>{
+            alert(error.message);
+        });
     }
 
     const signOut = () => {
@@ -44,7 +46,9 @@ function Header() {
         .then(() => {
             dispatch(setSignOut());
            navigate('/login');
-        })
+        }).catch((error) =>{
+            alert(error.message);
+        });
     }
 
     return (
@@ -81,7 +85,11 @@ function Header() {
                         <span>SERIES</span>
                     </a>
                     </NavMenu>
-                    <UserImg onClick={signOut} src={userPhoto} />
+                    <SignOutContainer>
+                        <UserImg src={userPhoto} alt={userName} />
+                        <DropDown><span onClick={signOut}>Sign Out</span></DropDown>
+                    </SignOutContainer>
+                    
            </>
            }
          
@@ -177,4 +185,34 @@ const Login = styled.div`
         color: #000;
         border-color: transparent;
     }
+`
+
+const DropDown = styled.div`
+    position:absolute;
+    top:40px;
+    right:0px;
+    background-color: rgb(19, 19, 19);
+    border: 1px solid rgba(151, 151, 151, 0.34);
+    border-radius: 4px;
+    box-shadow: rgb(0 0 0 / 50%) 0px 0px 18px 0px;
+    padding: 10px;
+    font-size: 14px;
+    letter-spacing: 3px;
+    width: 100px;
+    opacity:0;
+
+    
+`
+const SignOutContainer = styled.div`
+height:48px;
+width:48px;
+display: flex;
+align-items: center;
+justify-content: center;
+&:hover{
+    ${DropDown}{
+        opacity:1;
+        transition-duration:1s;
+    }
+}
 `
