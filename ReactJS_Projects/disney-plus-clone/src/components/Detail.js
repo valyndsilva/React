@@ -1,20 +1,42 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import styled from 'styled-components'
-// import {useParams} from "react-router-dom"
+import {useParams} from "react-router-dom"
+import db from '../firebase'
 
 
-function Detail({fetchUrl}) {
-    // const {id} = useParams();
+function Detail() {
+    // Grab id from page
+    const {id} = useParams();
     // console.log(id);
+    const [movie, setMovie] = useState();
 
+    useEffect(()=>{
+        // Grab the movie info from db
+        db.collection("movies")
+        .doc(id)
+        .get()
+        .then((doc)=>{
+            if(doc.exists){
+                // Save movie data into state
+                setMovie(doc.data());
+            } else{
+                // redirect to homepage
+
+            }
+        })
+    }, [id])
+    console.log("Movie is", movie);
 
     return (
         <Container>
+        {movie && (
+            /* Use anonymous tag <></> */
+            <> 
             <Background>
-            <img src="/images/detail-luca-background.jpg" alt=""/> 
+            <img src={movie.backgroundImg} alt=""/> 
             </Background>
             <MovieTitle>
-            <img src="/images/detail-luca-logo.jpg" alt=""/> 
+            <img src={movie.titleImg} alt=""/> 
             </MovieTitle>
             <Controls>
                 <PlayButton>
@@ -33,11 +55,15 @@ function Detail({fetchUrl}) {
                 </GroupWatch>
             </Controls>
             <SubTitle>
-           lorem ipsum
+                {movie.subTitle}
             </SubTitle>
             <Description>
-            loremdsfjuiosjkldsfdsoifuyisk
+            {movie.description}
             </Description>
+            </>
+        )
+        }
+    
                
             
         </Container>
@@ -82,7 +108,7 @@ const MovieTitle = styled.div`
     }
 
     img{
-        width:100%;
+        ${'' /* width:100%; */}
         height:100%;
         object-fit: contain;
     }
