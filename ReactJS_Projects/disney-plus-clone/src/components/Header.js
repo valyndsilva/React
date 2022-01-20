@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import {Link, useNavigate} from 'react-router-dom'; 
 import { useDispatch, useSelector } from 'react-redux';
 import {auth, provider} from '../firebase';
-import { selectUserName, selectUserPhoto, setUserLoginDetails, setSignOutState } from '../features/user/userSlice';
+import { selectUserName, selectUserPhoto, setUserLoginDetails, setGuestLoginDetails, setSignOutState } from '../features/user/userSlice';
 
 
 function Header() {
@@ -14,12 +14,16 @@ function Header() {
     const userPhoto = useSelector(selectUserPhoto);
 
     useEffect(() => {
+      if (userName === "Guest") {
+        navigate("/");
+      } else {
         auth.onAuthStateChanged(async (user) => {
           if (user) {
             setUser(user);
             navigate("/");
           }
         });
+      }
       }, [userName]);
 
       const setUser = (user) => {
@@ -32,6 +36,12 @@ function Header() {
         );
       };
 
+
+      const handleAuthGuest = () => {
+        dispatch(setGuestLoginDetails());
+        navigate("/");
+      };
+      
       const handleAuth = () => {
         if (!userName) {
           auth
@@ -42,12 +52,17 @@ function Header() {
             .catch((error) => {
               alert(error.message);
             });
+            navigate("/");
+          } else if (userName === "guest") {
+            dispatch(setSignOutState());
+            navigate("/");
+          
         } else if (userName) {
           auth
             .signOut()
             .then(() => {
               dispatch(setSignOutState());
-              navigate("/");
+              navigate("/login");
             })
             .catch((err) => alert(err.message));
         }
@@ -60,11 +75,14 @@ function Header() {
             </Link>
 
             {!userName ? 
-            ( <LoginContainer><Login onClick={handleAuth}>Login</Login></LoginContainer>  ) : 
+            ( <LoginContainer>
+                <Login onClick={handleAuth}>Login</Login>
+                <Login onClick={handleAuthGuest}>Guest</Login>
+              </LoginContainer>  ) : 
             (
             <>
             <NavMenu>
-                <a href="/#">
+                <a href="/">
                     <img src="/images/home-icon.svg" alt="" />
                     <span>HOME</span>
                 </a>
@@ -92,7 +110,28 @@ function Header() {
             <SignOutContainer>
             <UserImg src={userPhoto} alt={userName} />
             <DropDown>
-              <span onClick={handleAuth}>Sign out</span>
+                <DropDownItem>
+                  <img src="./images/home-icon.svg" alt="home" />
+                  <a href="/home">Home</a>
+                </DropDownItem>
+                <DropDownItem>
+                  <img src="./images/search-icon.svg" alt="home" />
+                  <a href="/home">Search</a>
+                </DropDownItem>
+                <DropDownItem>
+                  <img src="./images/watchlist-icon.svg" alt="home" />
+                  <a href="/home">Watchlist</a>
+                </DropDownItem>
+                <DropDownItem>
+                  <img src="./images/original-icon.svg" alt="home" />
+                  <a href="/home">Original</a>
+                </DropDownItem>
+                <DropDownItem>
+                  <img src="./images/series-icon.svg" alt="home" />
+                  <a href="/home">Series</a>
+                </DropDownItem>
+
+                <span onClick={handleAuth}><img src="./images/logout-icon.svg" alt="home" />SIGN OUT</span>
             </DropDown>
           </SignOutContainer>
         </>
@@ -104,12 +143,18 @@ function Header() {
 export default Header
 
 const Nav = styled.nav`
-    height: 70px;
-    background: #090b13;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background-color: #090b13;
     display: flex;
+    justify-content: space-between;
     align-items: center;
     padding: 0 36px;
-    overflow-x: hidden;
+    letter-spacing: 16px;
+    z-index: 3;
 `
 
 const Logo = styled.img`
@@ -117,7 +162,7 @@ const Logo = styled.img`
 `
 
 const NavMenu = styled.div`
-    display: flex;
+  display: flex;
     flex: 1;
     margin-left: 25px;
     align-items: center;
@@ -128,7 +173,6 @@ const NavMenu = styled.div`
         cursor: pointer;
         text-decoration:none;
         color: white;
-
         img {
             height: 20px;
         }
@@ -157,7 +201,13 @@ const NavMenu = styled.div`
             }
         }
     }
+
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `
+
 
 const UserImg = styled.img`
     width: 48px;
@@ -167,14 +217,25 @@ const UserImg = styled.img`
 `
 
 const LoginContainer = styled.div`
-    flex: 1;
+    
     display:flex;
+    align-items: center;
+    flex-flow: row nowrap;
     justify-content: flex-end;
+    ${'' /* flex: 1; */}
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    position: relative;
+    margin-right: auto;
+    margin-left: auto;
 `
 
-const Login = styled.div`
+const Login = styled.a`
     border: 1px solid #f9f9f9;
     padding: 8px 16px;
+    margin-left: 10px;
     border-radius: 4px;
     letter-spacing: 1.5px;
     text-transform: uppercase;
@@ -200,17 +261,60 @@ const DropDown = styled.div`
     padding: 10px;
     font-size: 14px;
     letter-spacing: 3px;
-    width: 100px;
+    width: 115px;
     opacity:0;
 
+    img {
+      width: 12px;
+      height: 12px;
+      margin-right: 7px;
+     
+    }
+    span {
+      font-size: 12px;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+    }
+
+  @media (max-width: 768px) {
+    width: 120px;
+  }
     
 `
+
+const DropDownItem = styled.div`
+  display: none;
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    a {
+      display: block;
+      margin-bottom: 14px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color:white;
+      text-decoration:none;
+    }
+    img {
+      width: 16px;
+      height: 16px;
+      margin-right: 7px;
+    }
+    
+  }
+`;
+
 const SignOutContainer = styled.div`
 height:48px;
 width:48px;
 display: flex;
 align-items: center;
 justify-content: center;
+cursor:pointer;
+
 &:hover{
     ${DropDown}{
         opacity:1;
