@@ -34,12 +34,6 @@ function ImgSlider() {
             <Wrap>
             <img src="/images/slider-scales.jpg" alt=""/>
             </Wrap>
-            
-            
-          
-           
-            
-          
         </Carousel>
     )
 }

@@ -1,31 +1,39 @@
 import { createSlice } from "@reduxjs/toolkit"
 const initialState = {
-    // movies:[]
-    recommend: null,
-    newDisney: null,
-    original: null,
-    trending: null,
+    movies:[],
+    recommend: [],
+    newIn: [],
+    original: [],
+    trending: [],
+
+    // recommend: null,
+    // newDisney: null,
+    // original: null,
+    // trending: null,
 }
-// Redux: Actions (calls the reducer ->) Reducers (changes the state ->)  State (state changes in UI)
+// Redux consists of:  Actions (calls the reducer ->) , Reducers (changes the state in UI ->) and State (acts virtual db for your app in chrome)
+// An event handler dispatches an action which is sent to the store and triggers the reducer inside the store to update the state in the UI
+
+
 const movieSlice = createSlice({
     name:"movie",
     initialState,
     reducers:{
         setMovies:(state, action)=>{
-            // state.movies = action.payload;
+            state.movies = action.payload;
             state.recommend = action.payload.recommend;
-            state.newDisney = action.payload.newDisney;
+            state.newIn = action.payload.newIn;
             state.original = action.payload.original;
             state.trending = action.payload.trending;
         }
     }
 })
 
-export const { setMovies} = movieSlice.actions;
-// export const selectMovies = (state) => state.movie.movies;
-
+// Create and export an action
+export const { setMovies } = movieSlice.actions;
+export const selectMovies = (state) => state.movie.movies;
 export const selectRecommend = (state) => state.movie.recommend;
-export const selectNewDisney = (state) => state.movie.newDisney;
+export const selectNewIn = (state) => state.movie.newIn;
 export const selectOriginal = (state) => state.movie.original;
 export const selectTrending = (state) => state.movie.trending;
 

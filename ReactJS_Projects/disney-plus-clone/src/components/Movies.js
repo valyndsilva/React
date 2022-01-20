@@ -1,28 +1,33 @@
 import React from 'react';
 import styled from 'styled-components';
-// import {selectMovies} from "../features/movie/movieSlice"
-import {selectRecommend, selectNewDisney, selectOriginal, selectTrending} from "../features/movie/movieSlice"
-import {useSelector} from "react-redux"
 import { Link } from 'react-router-dom';
 
+import {selectMovies, selectRecommend, selectNewIn, selectOriginal, selectTrending} from "../features/movie/movieSlice" // get movies state saved in the db
+// import {selectRecommend, selectNewDisney, selectOriginal, selectTrending} from "../features/movie/movieSlice"
+import {useSelector} from "react-redux"
+
 function Movies() {
-    // const movies = useSelector(selectMovies); // grab movies from the store in Home.js
-    // console.log("This is movies", movies);
-
-    const moviesRecommend = useSelector(selectRecommend);
-    const moviesNewDisney = useSelector(selectNewDisney);
-    const moviesOriginal = useSelector(selectOriginal);
-    const moviesTrending = useSelector(selectTrending);
-
+    const movies = useSelector(selectMovies); // grab movies from the store in Home.js
+    console.log("Movies data sent from Home.js to Movies.js", movies); // empty initially and grabs data from the store in Home.js
+    const moviesRecommend = useSelector(selectRecommend); // grab movies from the store in Home.js
+    console.log("Recommended Movies data sent from Home.js to Movies.js", moviesRecommend); 
+    const moviesNewIn = useSelector(selectNewIn); // grab movies from the store in Home.js
+    console.log("New Movies data sent from Home.js to Movies.js", moviesNewIn); 
+    const moviesOriginal = useSelector(selectOriginal); // grab movies from the store in Home.js
+    console.log("Original Movies data sent from Home.js to Movies.js", moviesOriginal); 
+    const moviesTrending = useSelector(selectTrending); // grab movies from the store in Home.js
+    console.log("Trending Movies data sent from Home.js to Movies.js", moviesTrending); 
     return (
         <Container>
-           
-            {/* <h4>Recommended For You</h4>
+            {movies && (
+            /* Use anonymous tag <></> */
+            <> 
+            {/* <h4>Movies For You</h4>
             <Content>
                 
                   { movies && movies.map((movie)=>(
                       
-                            <Wrap  key={movie.id}>
+                            <Wrap key={movie.id}>
                                 <Link to={`/detail/${movie.id}`}>
                                     <img src={movie.cardImg} alt={movie.title}/>
                                 </Link>
@@ -47,10 +52,11 @@ function Movies() {
                     }
                  </Content>
             </Recommend>
-            <NewDisney>
-            <h4>New</h4>
+
+            <NewIn>
+            <h4>New In</h4>
                 <Content>
-                    { moviesNewDisney && moviesNewDisney.map((movie)=>(
+                    { moviesNewIn && moviesNewIn.map((movie)=>(
                         
                             <Wrap  key={movie.id}>
                                 <Link to={`/detail/${movie.id}`}>
@@ -61,7 +67,7 @@ function Movies() {
                     ))
                     }
                  </Content>
-            </NewDisney>
+            </NewIn>
             <Original>
             <h4>Disney Originals</h4>
                 <Content>
@@ -91,7 +97,12 @@ function Movies() {
                     ))
                     }
                  </Content>
-            </Trending>
+            </Trending> 
+         
+            </>
+        )
+        }
+    
         </Container>
     )
 }
@@ -137,7 +148,7 @@ const Wrap = styled.div`
 const Recommend = styled.div`
 
 `
-const NewDisney = styled.div`
+const NewIn = styled.div`
 
 `
 const Original = styled.div`

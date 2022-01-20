@@ -1,59 +1,69 @@
-import React, { useEffect } from 'react';
+import React, { useEffect} from 'react';
 import styled from 'styled-components';
 import ImgSlider from './ImgSlider';
 import Viewers from './Viewers';
 import Movies from './Movies';
 import db from '../firebase';
-import {useDispatch, useSelector} from "react-redux"
-import {setMovies} from "../features/movie/movieSlice"
-import {selectUserName} from "../features/user/userSlice"
+import {setMovies} from "../features/movie/movieSlice" // import the action setMovies
+import {useDispatch} from "react-redux" // import useDispatch to dispatch the action
+
 
 function Home() {
 
-    let recommends = [];
-    let newDisneys = [];
-    let originals = [];
-    let trending = [];
     const dispatch = useDispatch();
-    const userName = useSelector(selectUserName);
     // Get movies from firebase
     useEffect(() => {
         db.collection("movies").onSnapshot((snapshot) => {
             // console.log(snapshot);
         //  let tempMovies = snapshot.docs.map((doc) => {
-                // console.log(doc.data());
-                // return {id:doc.id, ...doc.data()
-                // }
+        //         // console.log(doc.data());
+        //         return {id:doc.id, ...doc.data()}
+        //     })
+        // console.log("Movies in Home.js", tempMovies);
+        // dispatch(setMovies(tempMovies)); // grabs, dispatches and saves movies into the store
+       
+        let movies = []
+        let recommends = [];
+        let newIn = [];
+        let originals = [];
+        let trending = [];
 
-              snapshot.docs.map((doc) => {
-                // console.log(doc.data().type);
-                switch(doc.data().type){
-                    case "recommend":
-                        recommends = [...recommends, {id:doc.id, ...doc.data()}]
-                        break;
-                    case "new":
-                        newDisneys = [...newDisneys, {id:doc.id, ...doc.data()}]
-                        break;
-                    case "original":
-                        originals = [...originals, {id:doc.id, ...doc.data()}]
-                        break;
-                    case "trending":
-                        trending = [...trending, {id:doc.id, ...doc.data()}]
-                        break;
-                    default: 
-                    break;
-                }
-            })
-        // console.log(tempMovies);
-        // dispatch(setMovies(tempMovies)); // grab, save and dispatch movies into the store
+        let typeMovies = snapshot.docs.map((doc) => {
+            // console.log(doc.data().type);
+                switch (doc.data().type) {
+                  
+                    case 'recommend':
+                      return recommends = [...recommends, { id: doc.id, ...doc.data() }];
+          
+                    case 'new':
+                      return newIn = [...newIn, { id: doc.id, ...doc.data() }];
+          
+                    case 'original':
+                      return originals = [...originals, { id: doc.id, ...doc.data() }];
+          
+                    case 'trending':
+                      return trending = [...trending, { id: doc.id, ...doc.data() }];
+
+                      case 'movies':
+                      return movies = [...movies, {id:doc.id, ...doc.data()}]
+
+                      default:
+                          return ([{id:doc.id, ...doc.data()}])
+                
+              
+            }
+        })
+        console.log("Recommended Movies in Home.js", typeMovies);
         dispatch(setMovies({
             recommend: recommends,
-            newDisney: newDisneys,
+            newIn: newIn,
             original: originals,
             trending: trending,
-        })); 
+            movies: movies
+        })); // grabs, dispatches and saves movies into the store
+        
         });
-    }, [userName])
+    }, [dispatch])
 
     return (
         <Container>
@@ -67,7 +77,8 @@ function Home() {
 export default Home
 
 const Container = styled.main`
-    min-height: calc(100vh - 70px);
+    ${'' /* min-height: calc(100vh - 70px); */}
+    min-height: 100vh;
     padding: 0 calc(3.5vw + 5px);
     position:relative;
     overflow-x:hidden;

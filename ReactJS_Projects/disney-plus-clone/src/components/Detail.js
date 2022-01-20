@@ -11,20 +11,25 @@ function Detail() {
     const [movie, setMovie] = useState();
 
     useEffect(()=>{
+        
         // Grab the movie info from db
         db.collection("movies")
         .doc(id)
         .get()
         .then((doc)=>{
             if(doc.exists){
+                console.log("Movie data fetched", doc.data());
                 // Save movie data into state
                 setMovie(doc.data());
+                console.log(id);
             } else{
                 // redirect to homepage
-
+                console.log("no such document in firebase")
             }
-        })
-    }, [id])
+        }).catch((error) => {
+            console.log("Error getting document:", error)
+        });
+    }, [id]);
     console.log("Movie is", movie);
 
     return (
@@ -33,10 +38,10 @@ function Detail() {
             /* Use anonymous tag <></> */
             <> 
             <Background>
-            <img src={movie.backgroundImg} alt=""/> 
+            <img src={movie.backgroundImg} alt={movie.title}/> 
             </Background>
             <MovieTitle>
-            <img src={movie.titleImg} alt=""/> 
+            <img src={movie.titleImg} alt={movie.title}/> 
             </MovieTitle>
             <Controls>
                 <PlayButton>
@@ -73,7 +78,8 @@ function Detail() {
 export default Detail
 
 const Container = styled.div`
-    min-height: calc(100vh -70px);
+    ${'' /* min-height: calc(100vh -70px); */}
+    min-height: 100vh;
     padding: 0 calc(3.5vw + 5px);
     position: relative;
 `
@@ -102,7 +108,7 @@ const MovieTitle = styled.div`
     min-width: 200px;
     margin-top: 60px;
     padding-bottom: 24px;
-    
+
     img{
         height:100%;
         object-fit: contain;
