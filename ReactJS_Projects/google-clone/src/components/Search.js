@@ -1,28 +1,54 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import SearchIcon from "@mui/icons-material/Search";
 import MicIcon from "@mui/icons-material/Mic";
 import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
-function Search() {
+function Search(hideButtons = false) {
+  const [input, setInput] = useState("");
+  const navigate = useNavigate();
+  const search = (e) => {
+    e.preventDefault();
+    console.log("You hit the search button and typed:", input);
+    navigate("/search");
+  };
   return (
     <Container>
       <SearchInput>
         <SearchIcon />
-        <Input />
+        <Input value={input} onChange={(e) => setInput(e.target.value)} />
         <MicIcon />
       </SearchInput>
-      <SearchButtons>
-        <Button variant="outlined">Google Search</Button>
-        <Button variant="outlined">I'm Feeling Lucky</Button>
-      </SearchButtons>
+      {!hideButtons ? (
+        <SearchButtons>
+          <Button type="submit" onClick={search} variant="outlined">
+            Google Search
+          </Button>
+          <Button variant="outlined">I'm Feeling Lucky</Button>
+        </SearchButtons>
+      ) : (
+        <SearchButtons>
+          <Button
+            className="searchButtons_Hidden"
+            type="submit"
+            onClick={search}
+            variant="outlined"
+          >
+            Google Search
+          </Button>
+          <Button className="searchButtons_Hidden" variant="outlined">
+            I'm Feeling Lucky
+          </Button>
+        </SearchButtons>
+      )}
     </Container>
   );
 }
 
 export default Search;
 
-const Container = styled.div``;
+const Container = styled.form``;
 
 const SearchInput = styled.div`
 display: flex;
@@ -71,6 +97,10 @@ const SearchButtons = styled.div`
       background-color: #f8f8f8;
       border: 1px solid #c6c6c6;
       color: #222;
+    }
+
+    &.searchButtons_Hidden {
+      display: none !important;
     }
   }
 `;
