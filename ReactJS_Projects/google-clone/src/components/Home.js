@@ -8,7 +8,7 @@ function Home() {
     <Container>
       <Header />
       <Content>
-        <img src="./images/google-logo.gif" alt="" />
+        <img src="./images/google-search-logo.png" alt="" />
         <InputContainer>
           <Search />
         </InputContainer>

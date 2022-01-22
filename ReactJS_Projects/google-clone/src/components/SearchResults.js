@@ -73,6 +73,7 @@ function SearchResults() {
           </SearchOptions>
         </HeaderContent>
       </Header>
+
       {/* {true && ( */}
       {term && (
         <SERPContent>
@@ -80,8 +81,8 @@ function SearchResults() {
             About {data?.searchInformation.formattedTotalResults} results (
             {data?.searchInformation.formattedSearchTime}) for {term}
           </SERPCount>
-          {data?.items.map((item) => (
-            <SERPResult>
+          {data?.items.map((item, key) => (
+            <SERPResult key={key}>
               <SERPLink>
                 <a href={item.link}>
                   {item.pagemap?.cse_image?.length > 0 &&
