@@ -51,3 +51,19 @@ npm install @mui/material @emotion/react @emotion/styled
 npm install @mui/icons-material
 // Install React Router
 npm instal react-router-dom
+// Using OAuth 2.0 to Access Google APIs
+https://developers.google.com/identity/sign-in/web/sign-in
+// Using REST to Invoke the API -> Identify Key
+https://developers.google.com/custom-search/v1/using_rest
+// Custom Search JSON API: Introduction -> Get A Key -> Enable Custom API Key -> Choose your project
+https://developers.google.com/custom-search/v1/introduction#identify_your_application_to_google_with_api_key
+// Create keys.js in src
+// Create a new search engine
+https://cse.google.com/cse/create/new
+// Site to search: www.google.com
+// Name of the search engine: Google -> Create
+// Edit search engine (left nav) -> Setup
+// Search the entire web (TURN ON)
+// Copy Search engine ID
+// Create hook in src useGoogleSearch.js
+// Once you enter a term and hit enter -> it pushes the term into the data layer -> On Search Results page we pull the term using the useStateValue() -> Next we pass the term into the custom hook useGoogleSearch() which makes a call to the Google API and returns the data as an object.

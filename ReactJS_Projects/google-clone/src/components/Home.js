@@ -1,10 +1,12 @@
 import React from "react";
 import styled from "styled-components";
+import Header from "../components/Header";
 import Search from "../components/Search";
 
 function Home() {
   return (
     <Container>
+      <Header />
       <Content>
         <img src="./images/google-logo.gif" alt="" />
         <InputContainer>
