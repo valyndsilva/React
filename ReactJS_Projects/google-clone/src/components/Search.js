@@ -7,7 +7,10 @@ import { useNavigate } from "react-router-dom";
 import { useStateValue } from "../StateProvider";
 import { actionTypes } from "../reducer";
 
-function Search(hideButtons = false) {
+function Search({ hideButtons = false }) {
+  //when you grab a data from the data layer it gives a state and dispatch
+  // const [state, dispatch] = useStateValue("");
+  // const [{term}, dispatch] = useStateValue("");
   const [{}, dispatch] = useStateValue("");
   const [input, setInput] = useState("");
   const navigate = useNavigate();
@@ -22,7 +25,7 @@ function Search(hideButtons = false) {
   };
   return (
     <Container>
-      <SearchInput>
+      <SearchInput className="search_input">
         <SearchIcon />
         <Input value={input} onChange={(e) => setInput(e.target.value)} />
         <MicIcon />
