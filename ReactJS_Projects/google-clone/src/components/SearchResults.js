@@ -79,7 +79,7 @@ function SearchResults() {
         <SERPContent>
           <SERPCount>
             About {data?.searchInformation.formattedTotalResults} results (
-            {data?.searchInformation.formattedSearchTime}) for {term}
+            {data?.searchInformation.formattedSearchTime} seconds) for {term}
           </SERPCount>
           {data?.items.map((item, key) => (
             <SERPResult key={key}>
