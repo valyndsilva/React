@@ -1,7 +1,6 @@
 {
   "projects": {
-    "default": "clone-384c3",
-    "google-clone": "clone-384c3"
-  },
-  "targets": {}
+    "default": "clone-384c3"
+  }
 }
+

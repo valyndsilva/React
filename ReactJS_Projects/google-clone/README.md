@@ -51,6 +51,7 @@ npm install @mui/material @emotion/react @emotion/styled
 npm install @mui/icons-material
 // Install React Router
 npm instal react-router-dom
+// Create StateProvider.js and reducer.js
 // Using OAuth 2.0 to Access Google APIs
 https://developers.google.com/identity/sign-in/web/sign-in
 // Using REST to Invoke the API -> Identify Key
@@ -66,4 +67,4 @@ https://cse.google.com/cse/create/new
 // Search the entire web (TURN ON)
 // Copy Search engine ID
 // Create hook in src useGoogleSearch.js
-// Once you enter a term and hit enter -> it pushes the term into the data layer -> On Search Results page we pull the term using the useStateValue() -> Next we pass the term into the custom hook useGoogleSearch() which makes a call to the Google API and returns the data as an object.
+// Once you enter a term and hit enter -> it pushes the term into the data layer (StateProvide)-> On Search Results page we pull the term using the useStateValue() -> Next we pass the term into the custom hook useGoogleSearch() which makes a call to the Google API and returns the data as an object.
