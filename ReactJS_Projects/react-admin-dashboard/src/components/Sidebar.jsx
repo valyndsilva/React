@@ -14,6 +14,7 @@ import {
   WorkOutline,
   Info,
 } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 
 function Sidebar() {
   return (
@@ -36,12 +37,16 @@ function Sidebar() {
         <Menu>
           <Title>QuickMenu</Title>
           <List>
-            <Item className="active">
-              <PersonOutline className="sidebarIcon" /> Users
-            </Item>
-            <Item>
-              <Storefront className="sidebarIcon" /> Products
-            </Item>
+            <Link to="/users">
+              <Item className="active">
+                <PersonOutline className="sidebarIcon" /> Users
+              </Item>
+            </Link>
+            <Link to="/products">
+              <Item>
+                <Storefront className="sidebarIcon" /> Products
+              </Item>
+            </Link>
             <Item>
               <AttachMoney className="sidebarIcon" /> Transactions
             </Item>
@@ -100,6 +105,10 @@ const Wrapper = styled.div`
 
 const Menu = styled.div`
   margin-bottom: 10px;
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
 `;
 
 const Title = styled.h3`

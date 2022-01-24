@@ -1,3 +1,6 @@
+import React from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 import {
   CalendarToday,
   LocationSearching,
@@ -6,15 +9,14 @@ import {
   PhoneAndroid,
   Publish,
 } from "@mui/icons-material";
-import React from "react";
-import styled from "styled-components";
-
 function User() {
   return (
     <Container>
       <TitleContent>
         <Title>Edit User</Title>
-        <Button>Create</Button>
+        <Link to="/newUser">
+          <Button>Create</Button>
+        </Link>
       </TitleContent>
       <UserContent>
         <UserShow>
@@ -107,6 +109,7 @@ const Container = styled.div`
 
 const TitleContent = styled.div`
   display: flex;
+  align-items: center;
   justify-content: space-between;
 `;
 
@@ -118,6 +121,7 @@ const Button = styled.button`
   border-radius: 5px;
   color: white;
   background-color: teal;
+  font-size: 16px;
   cursor: pointer;
 `;
 
