@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { NotificationsNone, Language, Settings } from "@mui/icons-material";
 
-function Topbar() {
+function TopNav() {
   return (
     <Container>
       <Wrapper>
@@ -29,7 +29,7 @@ function Topbar() {
   );
 }
 
-export default Topbar;
+export default TopNav;
 
 const Container = styled.div`
   width: 100%;
