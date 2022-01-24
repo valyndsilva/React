@@ -2,15 +2,15 @@
 
 # Project 1: Tesla Website Clone
 
-# Tech Used:
+# Tech And Modules Used:
 
-- ReactJS
+- React
 - Styled Components
 - React Reveal Module
 - React Redux (For Data Storage)
 - Material UI Icons
 
-Terminal commands used for this project:
+# Terminal commands used:
 
 - npx create-react-app tesla-clone --template redux
 - yarn start or npm start
@@ -23,14 +23,16 @@ Terminal commands used for this project:
 
 # Project 2: Disney Plus Website Clone
 
-# Tech Used:
+# Tech And Modules Used:
 
 - Firebase
 - React
-- React Router DOM
-- React Redux
-- React Slick
 - Styled Components
+- React Router DOM
+- React Hooks
+- React Redux (For Data Storage)
+- React Slick
+- Material UI Icons
 
 # Terminal commands used:
 
@@ -54,14 +56,15 @@ Terminal commands used for this project:
 
 # Contents:
 
-- Get TMDB API Key
-- Create REACT App + Create App on Firebase
-- Get all movies & build the Netflix movie rows
-- Build the banner of the app
-- Build NAVBAR!
-- Add firebase hosting to your app
-- Add Netflix Movie Trailer POP-UPS!
-- Deploy Your App to Firebase & Host it online
+- TMDB API Key
+- Firebase
+- Axios
+- React
+- Styled Components
+- React Router DOM
+- React Hooks
+- React Redux (For Data Storage)
+- Material UI Icons
 
 # Terminal commands used:
 
@@ -74,12 +77,15 @@ Terminal commands used for this project:
 
 # Project 4: Google Clone
 
-# Tech Used:
+# Tech And Modules Used:
 
 - Firebase
 - React
 - React Router DOM
-- React Redux
+- React Hooks
+- React Redux (For Data Storage)
+- Context API
+- Material UI Icons
 
 # Terminal commands used:
 
@@ -87,6 +93,35 @@ Terminal commands used for this project:
 - npm install styled-components
 - npm install @mui/material @emotion/react @emotion/styled
 - npm install @mui/icons-material
+- npm instal react-router-dom
+- npm install firebase
+- npm install firebase-tools
+- firebase login
+- firebase init
+- firebase deploy
+- firebase deploy --only hosting (To re-deploy)
+
+# Project 5: React Admin Dashboard
+
+# Tech And Modules Used:
+
+- Firebase
+- React
+- React Router DOM
+- React Hooks
+- React Redux (For Data Storage)
+- Context API
+- Material UI
+- RechartJS
+- Google Fonts : Source Sans Pro (Extra-light 200, Light 300, Regular 400, Semi-bold 600, Bold 700, Bold 900)
+
+# Terminal commands used:
+
+- npx create-react-app my-app
+- npm install styled-components
+- npm install @mui/material @emotion/react @emotion/styled
+- npm install @mui/icons-material
+- npm install recharts
 - npm instal react-router-dom
 - npm install firebase
 - npm install firebase-tools
