@@ -85,10 +85,11 @@ function User() {
                   alt=""
                 />
                 <UpdateUserImgLabel htmlFor="file">
-                  <Publish />
+                  <Publish className="userUpdateIcon" />
                 </UpdateUserImgLabel>
                 <UpdateImgInput type="file" id="file" />
               </UpdateImg>
+              <UpdateUserButton>Update</UpdateUserButton>
             </UpdateFormRight>
           </UpdateForm>
         </UserUpdate>
@@ -181,7 +182,10 @@ const AccountTitle = styled.span`
 const UserName = styled.span`
   margin-left: 10px;
 `;
-const UpdateTitle = styled.span``;
+const UpdateTitle = styled.span`
+  font-size: 24px;
+  font-weight: 600;
+`;
 
 const UpdateForm = styled.form`
   display: flex;
@@ -189,10 +193,39 @@ const UpdateForm = styled.form`
   margin-top: 20px;
 `;
 const UpdateFormLeft = styled.div``;
-const UpdateFormRight = styled.div``;
-const UpdateItem = styled.div``;
-const UpdateLabel = styled.label``;
-const UpdateInput = styled.input``;
+const UpdateFormRight = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+const UpdateUserButton = styled.button`
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
+  background-color: darkblue;
+  color: white;
+  font-weight: 600;
+`;
+const UpdateItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+`;
+const UpdateLabel = styled.label`
+  margin-bottom: 5px;
+  font-size: 14px;
+
+  .userUpdateIcon {
+    cursor: pointer;
+  }
+`;
+const UpdateInput = styled.input`
+  border: none;
+  width: 250px;
+  border-bottom: 1px solid gray;
+  height: 30px;
+`;
 const UpdateImg = styled.div``;
 const UpdateUserImg = styled.img`
   width: 100px;
