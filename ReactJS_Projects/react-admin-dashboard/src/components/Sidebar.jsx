@@ -23,9 +23,11 @@ function Sidebar() {
         <Menu>
           <Title>Dashboard</Title>
           <List>
-            <Item className="active">
-              <LineStyle className="sidebarIcon" /> Home
-            </Item>
+            <Link to="/">
+              <Item className="active">
+                <LineStyle className="sidebarIcon" /> Home
+              </Item>
+            </Link>
             <Item>
               <Timeline className="sidebarIcon" /> Analytics
             </Item>
@@ -38,7 +40,7 @@ function Sidebar() {
           <Title>QuickMenu</Title>
           <List>
             <Link to="/users">
-              <Item className="active">
+              <Item>
                 <PersonOutline className="sidebarIcon" /> Users
               </Item>
             </Link>
@@ -58,7 +60,7 @@ function Sidebar() {
         <Menu>
           <Title>Notifications</Title>
           <List>
-            <Item className="active">
+            <Item>
               <MailOutline className="sidebarIcon" /> Mail
             </Item>
             <Item>
@@ -72,7 +74,7 @@ function Sidebar() {
         <Menu>
           <Title>Staff</Title>
           <List>
-            <Item className="active">
+            <Item>
               <WorkOutline className="sidebarIcon" /> Manage
             </Item>
             <Item>
