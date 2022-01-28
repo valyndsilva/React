@@ -45,7 +45,15 @@ const testing = () => {
     useEffect(() => {
         console.log("render");
         })
+
+// BAD USE CASE 4: Cannot call hook inside a function
+function badFunction(){
+     useEffect(() => {
+        console.log("render");
+        })
+    }
 }
+
 ```
 
 ## Fixing the BAD USE CASE:
@@ -54,11 +62,11 @@ const testing = () => {
 function App(){
     const [randomNo, setRandomNo] = useState(Math.floor(Math.random() * 101)); // Random number b/w 0 and 100
 
-//FIXED BAD USE CASE 1: Breaks the call order:
+// FIXED BAD USE CASE 1: Breaks the call order:
   const [test, setTest] = useState("Whoops");
 
 
-//FIXING BAD USE CASE 2: Conditional must go inside the useEffect:
+// FIXED BAD USE CASE 2: Conditional must go inside the useEffect:
 
    useEffect(() => {
        if (randomNo < 50){
@@ -66,7 +74,7 @@ function App(){
    })
    }
 
-//FIXED BAD USE CASE 3: No nested functions:
+// FIXED BAD USE CASE 3: No nested functions:
 
    useEffect(() => {
          const testing = () => {
@@ -78,6 +86,13 @@ function App(){
     useEffect(() => {
         console.log("render");
         })
+
+// FIXED BAD USE CASE 4: Cannot call hook inside a function
+
+     useEffect(() => {
+        console.log("render");
+        })
+    }
 }
 ```
 
