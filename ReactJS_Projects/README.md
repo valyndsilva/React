@@ -72,6 +72,8 @@
 - npm install styled-components
 - sudo npm install -g firebase-tools
 - npm install axios
+- npm install dotenv --save
+  npm install dotenv-expand --save
 - npm install react-youtube
 - npm install movie-trailer
 
@@ -123,6 +125,7 @@
 - npm install @mui/icons-material
 - npm install recharts
 - npm instal react-router-dom
+- npm install @mui/x-data-grid
 - npm install firebase
 - npm install firebase-tools
 - firebase login
