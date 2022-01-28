@@ -1,6 +1,87 @@
 # ReactJS Hooks Sandbox
 
-React Hooks can only be called at the top level of a functional component. They don't work inside of regular javaScript functions, nested function, loops except when used with [Custom Hooks](https://usehooks.com/). React has 10 different hooks:
+React Hooks can only be called at the top level of a functional component. They don't work inside of regular javaScript functions, nested function, loops except when used with [Custom Hooks](https://usehooks.com/).
+
+## Rules of Hooks:
+
+1. Only call hooks (useState and useEffect) at the TOP Level
+
+- This means don't call hooks inside loops, conditions or nested functions.
+- Always use Hooks at the top level of your react function.
+- By following this rule, you ensure hooks are called in the same order each time a component renders.
+- This allows react to correctly preserve the state of hooks between useState / useEffect calls.
+
+2. Don't call hooks from regualr JS functions
+
+- Call hooks from React's Functional component
+- Call hooks from Custom Hooks
+
+## BAD USE CASE:
+
+Call order is essential for hooks to work correctly. The Call order must remain consistent and predictable. Hence it's omportant to follow the rules.
+
+```
+function App(){
+    const [randomNo, setRandomNo] = useState(Math.floor(Math.random() * 101)); // Random number b/w 0 and 100
+
+//BAD USE CASE 1: Breaks the call order:
+if (randomNo > 50){ // should not use conditional
+    const [test, setTest] = useState("Whoops");
+}
+
+
+// BAD USE CASE 2: Conditional must go inside the useEffect:
+if (randomNo < 50){
+   useEffect(() => {
+       console.log("render");
+   })
+
+// BAD USE CASE 3: No nested functions:
+const testing = () => {
+        useEffect(() => {
+        console.log("render");
+        })
+    }
+    useEffect(() => {
+        console.log("render");
+        })
+}
+```
+
+## Fixing the BAD USE CASE:
+
+```
+function App(){
+    const [randomNo, setRandomNo] = useState(Math.floor(Math.random() * 101)); // Random number b/w 0 and 100
+
+//FIXED BAD USE CASE 1: Breaks the call order:
+  const [test, setTest] = useState("Whoops");
+
+
+//FIXING BAD USE CASE 2: Conditional must go inside the useEffect:
+
+   useEffect(() => {
+       if (randomNo < 50){
+       console.log("render");
+   })
+   }
+
+//FIXED BAD USE CASE 3: No nested functions:
+
+   useEffect(() => {
+         const testing = () => {
+         console.log("render");
+            }
+            testing(); // scope is now only inside the useEffect Hook
+        })
+
+    useEffect(() => {
+        console.log("render");
+        })
+}
+```
+
+React has 10 different hooks:
 
 ## Basic Hooks:
 
