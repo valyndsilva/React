@@ -18,6 +18,8 @@ The useState Hook value is non-persistent so when the browser refreshes the valu
 React's useEffect Hook lets you add side effects in function components. We can have multiple useEffect hooks in a component and it helps seperate actions. They let you use state and other React features without writing a class.
 
 It combines the below 3 lifecycle events / side effects:
+
+```
 componentDidMount(){
 //initialized
 }
@@ -29,10 +31,12 @@ componentDidUpdate(){
 componentWillUnmount(){
 //destroyed
 }
+```
 
 UseEffect hook allows us to implement a logic for all the 3 lifecycles from within a single function API. It is a function that takes in the function the user defines as the 1st argument. It runs when mounted and when state changes. An array of dependencies addresses the issue of infinite loops.
 
-// Rubs on Every Render (Infinite Loop)
+```
+// Runs on Every Render (Infinite Loop)
 useEffect(() => {
 console.log("component re-rendered");
 });
@@ -61,6 +65,7 @@ window.addEventListener("resize", updateWindowWidth);
 const updateWindowWidth = () => {
 setWindowWidth(window.innerWidth);
 };
+```
 
 ### `useContext`
 
@@ -320,14 +325,16 @@ function App(){
 
 When building your own custom hooks when you open your app in the browser and open react dev tools you notice every component in the tree tells you a little bit about the hooks that are defined there. useDebugValue lets you create you own custom labels in react dev tools when you start building custom hooks.
 
-```
+Incase you have multiple components that want to implement the same logic you can create your own custom function / custom hook and return the value in it so you can use it elsewhere in the application in multiple components. Add useDebugValue() to the custom hook. The argument passed to the hook is the value shown in react dev tools.
 
+```
 function useDisplayName() {
      const [displayName, setDisplayName] = useState();
     useEffect(() => {
         const data = fecthFromDatabase(props.userId);
         setDisplayName(data.displayName);
     }, []);
+    useDebugValue(displayName ?? 'loading...')
     return displayName;
 }
 function App(){
