@@ -1,28 +1,28 @@
 import React from "react";
 import styled from "styled-components";
 import requests from "../requests";
-import Movies from "./Movies";
+import MoviesNew from "./Movies";
 import Jumbotron from "./Jumbotron";
 
 function Home() {
   return (
     <Container>
       <Jumbotron />
-      <Movies
-        title="Reccomended For You"
+      <MoviesNew
+        title="Recommended For You"
         fetchUrl={requests.fetchRecommended}
       />
-      <Movies title="Trending Now" fetchUrl={requests.fetchTrending} />
-      <Movies
+      <MoviesNew title="Trending Now" fetchUrl={requests.fetchTrending} />
+      <MoviesNew
         title="Netflix Movies Originals"
         fetchUrl={requests.fetchNetflixMovieOriginals}
       />
-      <Movies
+      <MoviesNew
         title="Netflix TV Originals"
         fetchUrl={requests.fetchNetflixTvOriginals}
       />
-      <Movies title="Action Movies" fetchUrl={requests.fetchAction} />
-      <Movies title="Comedy Movies" fetchUrl={requests.fetchComedy} />
+      <MoviesNew title="Action Movies" fetchUrl={requests.fetchAction} />
+      <MoviesNew title="Comedy Movies" fetchUrl={requests.fetchComedy} />
     </Container>
   );
 }

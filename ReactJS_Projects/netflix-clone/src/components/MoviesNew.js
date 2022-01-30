@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import instance from "../axios";
-import YouTube from "react-youtube";
 // import movieTrailer from "movie-trailer";
 
-const base_url = "https://image.tmdb.org/t/p/original/";
+// const base_url = "https://image.tmdb.org/t/p/original/";
 
 function Movies({ title, fetchUrl }) {
   const [movies, setMovies] = useState([]);
@@ -12,12 +11,12 @@ function Movies({ title, fetchUrl }) {
 
   useEffect(() => {
     async function fetchData() {
-      const request = await instance.get(fetchUrl);
-      console.log(request);
-      // console.log(request.data.results);
-      setMovies(request.data.results);
+      const data = await instance.get(fetchUrl);
+      console.log(data);
+      // console.log(data.data.results);
+      setMovies(data.data.results);
 
-      return request;
+      return data;
     }
     fetchData();
     // if [] is empty, run once when <Movies/> loads and don't run again.
@@ -53,7 +52,6 @@ function Movies({ title, fetchUrl }) {
   return (
     <Container>
       <h4> {title} </h4>
-
       <Content>
         {movies &&
           movies.map((movie) => (
