@@ -1,0 +1,11 @@
+.navbar {
+  background-color: transparent;
+}
+
+.navbar.scrolled {
+  background-color: #000;
+}
+
+body {
+  background-color: #111;
+}
