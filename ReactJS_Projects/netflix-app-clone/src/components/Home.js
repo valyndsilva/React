@@ -4,7 +4,6 @@ import instance from "../axios";
 import requests from "../requests";
 import Movies from "./Movies";
 import Jumbotron from "./Jumbotron";
-// import Search from "./Search";
 
 function Home() {
   const [jumbotronMovie, setjumbotronMovie] = useState([]);
@@ -32,7 +31,7 @@ function Home() {
     <Container>
       {renderJumbotronMovie()}
       {/* <Jumbotron /> */}
-      {/* <Search /> */}
+
       <Movies
         title="Recommended For You"
         fetchUrl={requests.fetchRecommended}

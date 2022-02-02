@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import "../App.css";
+// import Search from "./Search";
+// import instance from "../axios";
+
 import {
   ArrowDropDown,
   NotificationsActive,
@@ -9,7 +12,9 @@ import {
 
 function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
-
+  // const [movies, setMovies] = useState([]);
+  // const [searchKey, setSearchKey] = useState("");
+  // const baseURL = "https://api.themoviedb.org/3";
   useEffect(() => {
     window.onscroll = () => {
       setIsScrolled(window.pageYOffset === 0 ? false : true);
@@ -18,6 +23,42 @@ function Navbar() {
   }, []);
 
   // console.log(isScrolled);
+
+  // const fetchSearchMoviesData = async (searchKey) => {
+  //   const type = searchKey ? "search" : "discover";
+  //   const data = await instance.get(`${baseURL}/${type}/movie`, {
+  //     params: {
+  //       api_key: process.env.REACT_APP_MOVIE_API_KEY,
+  //       query: searchKey,
+  //     },
+  //   });
+  //   // console.log(data.data.results);
+  //   setMovies(data.data.results);
+  //   return data;
+  // };
+
+  // useEffect(() => {
+  //   fetchSearchMoviesData();
+  // }, []);
+  // console.log(movies);
+
+  // const searchMovies = (e) => {
+  //   e.preventDefault();
+  //   fetchSearchMoviesData(searchKey);
+  // };
+
+  // const renderSearchMovies = () => (
+  //   <Form onSubmit={searchMovies}>
+  //     <Input
+  //       type="text"
+  //       onChange={(e) => {
+  //         setSearchKey(e.target.value);
+  //       }}
+  //     />
+  //     <Button type={"submit"}>Search</Button>
+  //   </Form>
+  // );
+
   return (
     <Nav className={isScrolled ? "navbar scrolled" : "navbar"}>
       <NavLeft>
@@ -38,6 +79,7 @@ function Navbar() {
         </NavList>
       </NavLeft>
       <NavRight>
+        {/* {renderSearchMovies()} */}
         <SearchTwoTone />
         <a href="/#">
           <span>Valyn</span>
@@ -168,3 +210,7 @@ const Options = styled.div`
     cursor: pointer;
   }
 `;
+
+const Form = styled.form``;
+const Input = styled.input``;
+const Button = styled.button``;

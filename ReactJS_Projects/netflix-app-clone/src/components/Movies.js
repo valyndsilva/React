@@ -6,6 +6,7 @@ import {
   ArrowBackIosOutlined,
   ArrowForwardIosOutlined,
 } from "@mui/icons-material";
+// import Navbar from "../components/Navbar";
 
 function Movies({ title, fetchUrl }) {
   const [movies, setMovies] = useState([]);

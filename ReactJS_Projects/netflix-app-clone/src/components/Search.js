@@ -1,28 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
-function Search() {
-  const [searchKey, setSearchKey] = useState("");
-  const searchMovies = (e) => {
-    e.preventDefault();
-  };
+function Search(searchmovies, setsearchkey) {
   return (
     <Container>
-      <Content onSubmit={searchMovies}>
-        <Input
-          type="text"
-          onChange={(e) => {
-            setSearchKey(e.target.value);
-          }}
-        />
-        <Button type="submit">Search</Button>
-      </Content>
+      <Form onSubmit={searchmovies}>
+        <Input type="text" onChange={setsearchkey} />
+        <Button type={"submit"}>Search</Button>
+      </Form>
+      {/* {searchTerm} */}
     </Container>
   );
 }
 
 export default Search;
 const Container = styled.div``;
-const Content = styled.form``;
+const Form = styled.form``;
 const Input = styled.input``;
 const Button = styled.button``;
