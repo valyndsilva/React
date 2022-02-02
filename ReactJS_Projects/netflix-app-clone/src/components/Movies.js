@@ -2,16 +2,17 @@ import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import instance from "../axios";
 import MovieCard from "../components/MovieCard";
+
 import {
   ArrowBackIosOutlined,
   ArrowForwardIosOutlined,
 } from "@mui/icons-material";
-// import Navbar from "../components/Navbar";
 
-function Movies({ title, fetchUrl }) {
+function Movies({ title, fetchUrl, selectMovie }) {
   const [movies, setMovies] = useState([]);
   const [slideNumber, setSlideNumber] = useState(0);
   const [sliderMoved, setSliderMoved] = useState(false); // slider arrow state
+  // const [movie, setMovie] = useState([]);
 
   const fetchMoviesData = async () => {
     const data = await instance.get(fetchUrl);
@@ -23,12 +24,33 @@ function Movies({ title, fetchUrl }) {
   useEffect(() => {
     fetchMoviesData();
   }, [fetchUrl]);
-  console.log(movies);
+  // console.log(movies);
 
   const renderMovies = () =>
     movies.map((movie, index) => (
-      <MovieCard key={movie.id} movie={movie} index={index} />
+      <MovieCard
+        key={movie.id}
+        movie={movie}
+        index={index}
+        selectMovie={selectMovie}
+      />
     ));
+
+  // const fetchMovieData = async (id) => {
+  //   const data = await instance.get(`{fetchUrl}/${id}`, {
+  //     params: {
+  //       api_key: process.env.REACT_APP_MOVIE_API_KEY,
+  //     },
+  //   });
+  //   console.log(data.data.results);
+  //   setMovie(data.data.results);
+  //   return data;
+  // };
+
+  // const selectMovie = (id) => {
+  //   const movie = fetchMovieData(id);
+
+  // };
 
   const sliderRef = useRef();
 

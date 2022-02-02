@@ -6,11 +6,11 @@ import Movies from "./Movies";
 import Jumbotron from "./Jumbotron";
 
 function Home() {
-  const [jumbotronMovie, setjumbotronMovie] = useState([]);
+  const [jumbotronMovie, setJumbotronMovie] = useState([]);
   const fetchJumbotronData = async () => {
     const data = await instance.get(requests.fetchRecommended);
     // console.log(data.data.results);
-    setjumbotronMovie(
+    setJumbotronMovie(
       data.data.results[
         Math.floor(Math.random() * data.data.results.length - 1)
       ]
@@ -21,7 +21,7 @@ function Home() {
   useEffect(() => {
     fetchJumbotronData();
   }, []);
-  console.log(jumbotronMovie);
+  // console.log("jumbotron movie in Home.js", jumbotronMovie);
 
   const renderJumbotronMovie = () => (
     <Jumbotron jumbotronmovie={jumbotronMovie} type="movie" />
@@ -35,18 +35,29 @@ function Home() {
       <Movies
         title="Recommended For You"
         fetchUrl={requests.fetchRecommended}
+        selectMovie={setJumbotronMovie}
       />
       <Movies title="Trending Now" fetchUrl={requests.fetchTrending} />
       <Movies
         title="Netflix Movies Originals"
         fetchUrl={requests.fetchNetflixMovieOriginals}
+        selectMovie={setJumbotronMovie}
       />
       <Movies
         title="Netflix TV Originals"
         fetchUrl={requests.fetchNetflixTvOriginals}
+        selectMovie={setJumbotronMovie}
       />
-      <Movies title="Action Movies" fetchUrl={requests.fetchAction} />
-      <Movies title="Comedy Movies" fetchUrl={requests.fetchComedy} />
+      <Movies
+        title="Action Movies"
+        fetchUrl={requests.fetchAction}
+        selectMovie={setJumbotronMovie}
+      />
+      <Movies
+        title="Comedy Movies"
+        fetchUrl={requests.fetchComedy}
+        selectMovie={setJumbotronMovie}
+      />
     </Container>
   );
 }

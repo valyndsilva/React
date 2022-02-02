@@ -8,10 +8,10 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 const baseImg_url = "https://image.tmdb.org/t/p/original/";
-function MovieCard({ movie, index }) {
+function MovieCard({ movie, index, selectMovie }) {
   const [isHovered, setIsHovered] = useState(false);
-  const trailer =
-    "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761";
+  // const trailer =
+  //   "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761";
 
   function truncate(str, n) {
     return str?.length > n ? str.substr(0, n - 1) + "..." : str;
@@ -22,6 +22,7 @@ function MovieCard({ movie, index }) {
       style={{ left: isHovered && index * 225 - 50 + index * 2.5 }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={() => selectMovie(movie)}
     >
       {movie.poster_path ? (
         <img
@@ -33,7 +34,7 @@ function MovieCard({ movie, index }) {
       ) : null}
       {isHovered && (
         <>
-          <video src={trailer} autoPlay={true} loop></video>
+          {/* <video src={trailer} autoPlay={true} loop></video> */}
           <InfoContainer>
             <Controls>
               <PlayArrow />

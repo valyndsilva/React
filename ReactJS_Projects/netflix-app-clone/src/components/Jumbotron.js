@@ -13,6 +13,7 @@ function Jumbotron({ jumbotronmovie, type }) {
 
   return (
     <Container>
+      {console.log("jumbotron movie in Home.js", jumbotronmovie)}
       <GenreSelector>
         {type && (
           <div className="category">
@@ -42,7 +43,6 @@ function Jumbotron({ jumbotronmovie, type }) {
           alt={jumbotronmovie?.title || jumbotronmovie?.original_title || null}
         />
       </Background>
-
       <ContentWrap>
         {/* <MovieLogoImg>
           <img
