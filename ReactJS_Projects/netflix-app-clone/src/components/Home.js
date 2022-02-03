@@ -58,13 +58,14 @@ function Home() {
   };
 
   const renderTrailer = () => {
-    // const trailer = trailermovie.videos.results.find(
-    //   (vid) => vid.name === "Official Trailer"
-    // );
-    const trailer = trailerMovie.videos.results[0];
+    // const trailer = trailerMovie.videos.results[0];
+    const trailer = trailerMovie.videos.results.find(
+      (vid) => vid.name === "Official Trailer"
+    );
+    const key = trailer ? trailer.key : trailerMovie.videos.results[0].key;
     return (
       <YouTube
-        videoId={trailer.key}
+        videoId={key}
         className={"youtube amru"}
         containerClassName={"youtube-container amru"}
         opts={{
@@ -111,19 +112,19 @@ function Home() {
         title="Netflix TV Originals"
         fetchUrl={requests.fetchNetflixTvOriginals}
         // selectMovie={ setJumbotronMovieData}
-        // selectMovie={selectMovie}
+        selectMovie={selectMovie}
       />
       <Movies
         title="Action Movies"
         fetchUrl={requests.fetchAction}
         // selectMovie={ setJumbotronMovieData}
-        // selectMovie={selectMovie}
+        selectMovie={selectMovie}
       />
       <Movies
         title="Comedy Movies"
         fetchUrl={requests.fetchComedy}
         // selectMovie={ setJumbotronMovieData}
-        // selectMovie={selectMovie}
+        selectMovie={selectMovie}
       />
     </Container>
   );

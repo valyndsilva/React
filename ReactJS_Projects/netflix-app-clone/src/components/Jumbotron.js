@@ -49,10 +49,13 @@ function Jumbotron({
       </GenreSelector>
       <YTVideo>
         {playTrailer ? (
-          <Close
-            className="button--close"
-            onClick={() => setPlayTrailer(false)}
-          />
+          <button>
+            <Close
+              className="button--close"
+              onClick={() => setPlayTrailer(false)}
+            />
+            <span>Close</span>
+          </button>
         ) : null}
         {trailermovie.videos && playTrailer ? renderTrailer() : null}
       </YTVideo>
@@ -217,13 +220,24 @@ const YTVideo = styled.div`
     bottom: 0;
     z-index: 1;
   }
-  .button--close {
-    cursor: pointer;
-    position: absolute;
-    z-index: 10;
-    top: 30px;
-    right: 100px;
-    border: 1px solid white;
-    border-radius: 50%;
+  button {
+    color: white;
+
+    .button--close {
+      cursor: pointer;
+      position: absolute;
+      z-index: 10;
+      top: 12px;
+      right: 180px;
+      border: 1px solid white;
+      border-radius: 50%;
+    }
+    span {
+      cursor: pointer;
+      position: absolute;
+      top: 43px;
+      right: 175px;
+      z-index: 10;
+    }
   }
 `;
