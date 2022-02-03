@@ -5,6 +5,7 @@ import requests from "../requests";
 import Movies from "./Movies";
 import Jumbotron from "./Jumbotron";
 import YouTube from "react-youtube";
+
 function Home() {
   const api_URL = "https://api.themoviedb.org/3";
 
@@ -45,8 +46,9 @@ function Home() {
         append_to_response: "videos",
       },
     });
-    console.log("fetchMovieData", data);
+    console.log("fetchMovieData:", data);
     setTrailerMovie(data.data);
+
     return data;
   };
 
@@ -54,7 +56,6 @@ function Home() {
     const data = await fetchMovieData(mov.id);
     console.log("selectMovie data", data.data.videos);
     setJumbotronMovieData(mov);
-    // return data.data.videos;
   };
 
   const renderTrailer = () => {
@@ -85,6 +86,8 @@ function Home() {
       />
     );
   };
+
+  // console.log(movies);
   return (
     <Container>
       {renderJumbotronMovie()}
@@ -95,36 +98,42 @@ function Home() {
         fetchUrl={requests.fetchRecommended}
         // selectMovie={setJumbotronMovieData}
         selectMovie={selectMovie}
+        setPlayTrailer={setPlayTrailer}
       />
       <Movies
         title="Trending Now"
         fetchUrl={requests.fetchTrending}
         // selectMovie={ setJumbotronMovieData}
         selectMovie={selectMovie}
+        setPlayTrailer={setPlayTrailer}
       />
       <Movies
         title="Netflix Movies Originals"
         fetchUrl={requests.fetchNetflixMovieOriginals}
         // selectMovie={ setJumbotronMovieData}
         selectMovie={selectMovie}
+        setPlayTrailer={setPlayTrailer}
       />
       <Movies
         title="Netflix TV Originals"
         fetchUrl={requests.fetchNetflixTvOriginals}
         // selectMovie={ setJumbotronMovieData}
         selectMovie={selectMovie}
+        setPlayTrailer={setPlayTrailer}
       />
       <Movies
         title="Action Movies"
         fetchUrl={requests.fetchAction}
         // selectMovie={ setJumbotronMovieData}
         selectMovie={selectMovie}
+        setPlayTrailer={setPlayTrailer}
       />
       <Movies
         title="Comedy Movies"
         fetchUrl={requests.fetchComedy}
         // selectMovie={ setJumbotronMovieData}
         selectMovie={selectMovie}
+        setPlayTrailer={setPlayTrailer}
       />
     </Container>
   );

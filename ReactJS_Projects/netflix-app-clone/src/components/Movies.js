@@ -2,21 +2,24 @@ import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import instance from "../axios";
 import MovieCard from "../components/MovieCard";
-
+import { genresList } from "../genres";
 import {
   ArrowBackIosOutlined,
   ArrowForwardIosOutlined,
 } from "@mui/icons-material";
-
-function Movies({ title, fetchUrl, selectMovie }) {
+console.log({ genresList });
+function Movies({ title, fetchUrl, selectMovie, setPlayTrailer }) {
   const [movies, setMovies] = useState([]);
   const [slideNumber, setSlideNumber] = useState(0);
   const [sliderMoved, setSliderMoved] = useState(false); // slider arrow state
+  // const [genres, setGenres] = useState([]);
 
   const fetchMoviesData = async () => {
     const data = await instance.get(fetchUrl);
     // console.log(data.data.results);
     setMovies(data.data.results);
+    // console.log("fetchMovieGenre:", data.data.results);
+    // setGenres(data.data.genres[0].name);
     return data;
   };
 
@@ -32,8 +35,13 @@ function Movies({ title, fetchUrl, selectMovie }) {
         movie={movie}
         index={index}
         selectMovie={selectMovie}
+        setPlayTrailer={setPlayTrailer}
+        // genres={genres}
       />
     ));
+
+  // const renderGenresList = () =>
+  //   genresList.map((id) => <span key={genresList[id]}>{genresList[id]}</span>);
 
   const sliderRef = useRef();
 

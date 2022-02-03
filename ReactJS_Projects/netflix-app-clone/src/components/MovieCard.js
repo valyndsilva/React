@@ -4,13 +4,15 @@ import {
   ThumbDownAltOutlined,
   ThumbUpAltOutlined,
 } from "@mui/icons-material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { genresList } from "../genres";
 
 const baseImg_url = "https://image.tmdb.org/t/p/original/";
 
-function MovieCard({ movie, index, selectMovie }) {
+function MovieCard({ movie, index, selectMovie, setPlayTrailer }) {
   const [isHovered, setIsHovered] = useState(false);
+  const [genreIds, setGenreIds] = useState([]);
   // const trailer =
   //   "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761";
 
@@ -18,6 +20,20 @@ function MovieCard({ movie, index, selectMovie }) {
     return str?.length > n ? str.substr(0, n - 1) + "..." : str;
   }
 
+  const fetchMovieGenreIds = () => {
+    const genre_id = [];
+    genresList.map((el) => (genre_id[el.id] = el.name));
+    console.log(genre_id); // get movie genre ids from genresList
+
+    console.log(movie.genre_ids); // get movie genre ids from movie object
+
+    const movieGenre = movie.genre_ids.map((id) => genre_id[id]); // set movie genre ids to name referring to generesList
+    return setGenreIds(movieGenre.join(", "));
+  };
+
+  useEffect(() => {
+    fetchMovieGenreIds();
+  }, []);
   return (
     <Container
       style={{ left: isHovered && index * 225 - 50 + index * 2.5 }}
@@ -38,7 +54,7 @@ function MovieCard({ movie, index, selectMovie }) {
           {/* <video src={trailer} autoPlay={true} loop></video> */}
           <InfoContainer>
             <Controls>
-              <PlayArrow />
+              <PlayArrow onClick={() => setPlayTrailer(true)} />
               <Add />
               <ThumbUpAltOutlined />
               <ThumbDownAltOutlined />
@@ -48,7 +64,7 @@ function MovieCard({ movie, index, selectMovie }) {
               <span className="limit">Score: {movie.vote_average}</span>
             </InfoTop>
             <span className="description">{truncate(movie.overview, 200)}</span>
-            <span className="genre">Action</span>
+            <span className="genre">{genreIds}</span>
           </InfoContainer>
         </>
       )}

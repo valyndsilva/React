@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Close, InfoOutlined, PlayArrow } from "@mui/icons-material";
 
@@ -13,7 +13,7 @@ function Jumbotron({
   trailermovie,
   renderTrailer,
 }) {
-  console.log("jumbotronmovie in Jumbotron.js", { jumbotronmovie });
+  // console.log("jumbotronmovie in Jumbotron.js", { jumbotronmovie });
   // console.log({ trailermovie });
   // console.log({ playTrailer });
 
@@ -235,7 +235,7 @@ const YTVideo = styled.div`
     span {
       cursor: pointer;
       position: absolute;
-      top: 43px;
+      top: 42.5px;
       right: 175px;
       z-index: 10;
     }
