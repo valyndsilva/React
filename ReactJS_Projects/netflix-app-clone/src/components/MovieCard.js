@@ -84,12 +84,13 @@ const Container = styled.div`
 
   &:hover {
     width: 325px; // split half width 162.5px
-    height: 330px;
+    height: 340px;
     position: absolute;
     top: -180px;
     -webkit-box-shadow: 0 2px 15px 0px rgb(255, 255, 255, 0.07);
     box-shadow: 0 2px 15px 0px rgb(255, 255, 255, 0.07);
     border-radius: 5px;
+
     img {
       height: 140px;
     }
@@ -117,7 +118,7 @@ const Container = styled.div`
 const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 5px;
+  padding: 15px;
   .description {
     font-size: 13px;
     margin-bottom: 10px;
