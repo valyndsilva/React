@@ -8,6 +8,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 const baseImg_url = "https://image.tmdb.org/t/p/original/";
+
 function MovieCard({ movie, index, selectMovie }) {
   const [isHovered, setIsHovered] = useState(false);
   // const trailer =

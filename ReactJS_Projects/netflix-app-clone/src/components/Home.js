@@ -4,18 +4,21 @@ import instance from "../axios";
 import requests from "../requests";
 import Movies from "./Movies";
 import Jumbotron from "./Jumbotron";
-
+import YouTube from "react-youtube";
 function Home() {
-  const [jumbotronMovie, setJumbotronMovie] = useState([]);
+  const api_URL = "https://api.themoviedb.org/3";
+
+  // useState
+  const [jumbotronMovie, setJumbotronMovieData] = useState([]);
+  const [trailerMovie, setTrailerMovie] = useState({});
+  const [playTrailer, setPlayTrailer] = useState(false);
+
   const fetchJumbotronData = async () => {
     const data = await instance.get(requests.fetchRecommended);
-    // console.log(data.data.results);
-    setJumbotronMovie(
-      data.data.results[
-        Math.floor(Math.random() * data.data.results.length - 1)
-      ]
-    );
-    return data;
+    console.log("fetchJumbotronData", data.data.results[0]);
+    // setJumbotronMovieData(data.data.results[0]); // Set 1st movie in results
+    await selectMovie(data.data.results[0]);
+    // return data;
   };
 
   useEffect(() => {
@@ -24,9 +27,63 @@ function Home() {
   // console.log("jumbotron movie in Home.js", jumbotronMovie);
 
   const renderJumbotronMovie = () => (
-    <Jumbotron jumbotronmovie={jumbotronMovie} type="movie" />
+    <Jumbotron
+      jumbotronmovie={jumbotronMovie}
+      type="movie"
+      playTrailer={playTrailer}
+      setPlayTrailer={setPlayTrailer}
+      trailermovie={trailerMovie}
+      renderTrailer={renderTrailer}
+    />
   );
 
+  // Set Jumbotron to clicked movie
+  const fetchMovieData = async (id) => {
+    const data = await instance.get(`${api_URL}/movie/${id}`, {
+      params: {
+        api_key: process.env.REACT_APP_MOVIE_API_KEY,
+        append_to_response: "videos",
+      },
+    });
+    console.log("fetchMovieData", data);
+    setTrailerMovie(data.data);
+    return data;
+  };
+
+  const selectMovie = async (mov) => {
+    const data = await fetchMovieData(mov.id);
+    console.log("selectMovie data", data.data.videos);
+    setJumbotronMovieData(mov);
+    // return data.data.videos;
+  };
+
+  const renderTrailer = () => {
+    // const trailer = trailermovie.videos.results.find(
+    //   (vid) => vid.name === "Official Trailer"
+    // );
+    const trailer = trailerMovie.videos.results[0];
+    return (
+      <YouTube
+        videoId={trailer.key}
+        className={"youtube amru"}
+        containerClassName={"youtube-container amru"}
+        opts={{
+          width: "100%",
+          height: "100%",
+          playerVars: {
+            autoplay: 1,
+            controls: 0,
+            cc_load_policy: 0,
+            fs: 0,
+            iv_load_policy: 0,
+            modestbranding: 0,
+            rel: 0,
+            showinfo: 0,
+          },
+        }}
+      />
+    );
+  };
   return (
     <Container>
       {renderJumbotronMovie()}
@@ -35,28 +92,38 @@ function Home() {
       <Movies
         title="Recommended For You"
         fetchUrl={requests.fetchRecommended}
-        selectMovie={setJumbotronMovie}
+        // selectMovie={setJumbotronMovieData}
+        selectMovie={selectMovie}
       />
-      <Movies title="Trending Now" fetchUrl={requests.fetchTrending} />
+      <Movies
+        title="Trending Now"
+        fetchUrl={requests.fetchTrending}
+        // selectMovie={ setJumbotronMovieData}
+        selectMovie={selectMovie}
+      />
       <Movies
         title="Netflix Movies Originals"
         fetchUrl={requests.fetchNetflixMovieOriginals}
-        selectMovie={setJumbotronMovie}
+        // selectMovie={ setJumbotronMovieData}
+        selectMovie={selectMovie}
       />
       <Movies
         title="Netflix TV Originals"
         fetchUrl={requests.fetchNetflixTvOriginals}
-        selectMovie={setJumbotronMovie}
+        // selectMovie={ setJumbotronMovieData}
+        // selectMovie={selectMovie}
       />
       <Movies
         title="Action Movies"
         fetchUrl={requests.fetchAction}
-        selectMovie={setJumbotronMovie}
+        // selectMovie={ setJumbotronMovieData}
+        // selectMovie={selectMovie}
       />
       <Movies
         title="Comedy Movies"
         fetchUrl={requests.fetchComedy}
-        selectMovie={setJumbotronMovie}
+        // selectMovie={ setJumbotronMovieData}
+        // selectMovie={selectMovie}
       />
     </Container>
   );

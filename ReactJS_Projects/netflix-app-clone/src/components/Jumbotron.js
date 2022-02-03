@@ -1,11 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { InfoOutlined, PlayArrow } from "@mui/icons-material";
+import { Close, InfoOutlined, PlayArrow } from "@mui/icons-material";
 
 const baseImg_url = "https://image.tmdb.org/t/p/original/";
 
-function Jumbotron({ jumbotronmovie, type }) {
-  // console.log({ jumbotronmovie });
+function Jumbotron({
+  jumbotronmovie,
+  type,
+  selectMovie,
+  playTrailer,
+  setPlayTrailer,
+  trailermovie,
+  renderTrailer,
+}) {
+  console.log("jumbotronmovie in Jumbotron.js", { jumbotronmovie });
+  // console.log({ trailermovie });
+  // console.log({ playTrailer });
 
   function truncate(str, n) {
     return str?.length > n ? str.substr(0, n - 1) + "..." : str;
@@ -13,7 +23,7 @@ function Jumbotron({ jumbotronmovie, type }) {
 
   return (
     <Container>
-      {console.log("jumbotron movie in Home.js", jumbotronmovie)}
+      {/* {console.log("jumbotron movie in Home.js", jumbotronmovie)} */}
       <GenreSelector>
         {type && (
           <div className="category">
@@ -37,7 +47,17 @@ function Jumbotron({ jumbotronmovie, type }) {
           </div>
         )}
       </GenreSelector>
+      <YTVideo>
+        {playTrailer ? (
+          <Close
+            className="button--close"
+            onClick={() => setPlayTrailer(false)}
+          />
+        ) : null}
+        {trailermovie.videos && playTrailer ? renderTrailer() : null}
+      </YTVideo>
       <Background>
+        {/* {console.log({ Movie })} */}
         <img
           src={`${baseImg_url}${jumbotronmovie?.backdrop_path}`}
           alt={jumbotronmovie?.title || jumbotronmovie?.original_title || null}
@@ -58,7 +78,7 @@ function Jumbotron({ jumbotronmovie, type }) {
           </h1>
         </MovieTitle>
         <Controls>
-          <PlayButton>
+          <PlayButton onClick={() => setPlayTrailer(true)}>
             <PlayArrow />
             <span>Play</span>
           </PlayButton>
@@ -186,4 +206,24 @@ const Fade = styled.div`
     rgba(37, 37, 37, 0.61),
     #111
   );
+`;
+
+const YTVideo = styled.div`
+  .youtube-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+  }
+  .button--close {
+    cursor: pointer;
+    position: absolute;
+    z-index: 10;
+    top: 30px;
+    right: 100px;
+    border: 1px solid white;
+    border-radius: 50%;
+  }
 `;
