@@ -52,7 +52,7 @@
 - npm install react-youtube
 - npm install movie-trailer
 
-# Project 3: Netflix Website Clone
+# Project 3: Netflix Website Clone using TMDB db
 
 # Contents:
 
@@ -132,3 +132,27 @@
 - firebase init
 - firebase deploy
 - firebase deploy --only hosting (To re-deploy)
+
+# Project 6: Netflix Website Clone using React Admin Dashboard (Project 5)
+
+# Contents:
+
+- Firebase
+- Axios
+- React
+- Styled Components
+- React Router DOM
+- React Hooks
+- React Redux (For Data Storage)
+- Material UI Icons
+
+# Terminal commands used:
+
+- npx create-react-app netflix-clone
+- npm install styled-components
+- sudo npm install -g firebase-tools
+- npm install axios
+- npm install dotenv --save
+  npm install dotenv-expand --save
+- npm install react-youtube
+- npm install movie-trailer
