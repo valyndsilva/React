@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import "../App.css";
 // import Search from "./Search";
@@ -9,11 +9,10 @@ import {
   NotificationsActive,
   SearchTwoTone,
 } from "@mui/icons-material";
+import { Link } from "@mui/material";
 
 function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
-  // const [movies, setMovies] = useState([]);
-  // const [searchKey, setSearchKey] = useState("");
   // const baseURL = "https://api.themoviedb.org/3";
   useEffect(() => {
     window.onscroll = () => {
@@ -21,61 +20,23 @@ function Navbar() {
       return () => (window.onscroll = null);
     };
   }, []);
-
-  // console.log(isScrolled);
-
-  // const fetchSearchMoviesData = async (searchKey) => {
-  //   const type = searchKey ? "search" : "discover";
-  //   const data = await instance.get(`${baseURL}/${type}/movie`, {
-  //     params: {
-  //       api_key: process.env.REACT_APP_MOVIE_API_KEY,
-  //       query: searchKey,
-  //     },
-  //   });
-  //   // console.log(data.data.results);
-  //   setMovies(data.data.results);
-  //   return data;
-  // };
-
-  // useEffect(() => {
-  //   fetchSearchMoviesData();
-  // }, []);
-  // console.log(movies);
-
-  // const searchMovies = (e) => {
-  //   e.preventDefault();
-  //   fetchSearchMoviesData(searchKey);
-  // };
-
-  // const renderSearchMovies = () => (
-  //   <Form onSubmit={searchMovies}>
-  //     <Input
-  //       type="text"
-  //       onChange={(e) => {
-  //         setSearchKey(e.target.value);
-  //       }}
-  //     />
-  //     <Button type={"submit"}>Search</Button>
-  //   </Form>
-  // );
-
   return (
     <Nav className={isScrolled ? "navbar scrolled" : "navbar"}>
       <NavLeft>
         <Logo src="/images/logo.svg" alt="" />
         <NavList>
-          <a href="/#">
+          <Link href="/">
             <span>Home</span>
-          </a>
-          <a href="/#">
+          </Link>
+          <Link href="/series">
             <span>Series</span>
-          </a>
-          <a href="/#">
+          </Link>
+          <Link href="/movies">
             <span>Movies</span>
-          </a>
-          <a href="/#">
-            <span>My List</span>
-          </a>
+          </Link>
+          <Link href="/trending">
+            <span>Trending</span>
+          </Link>
         </NavList>
       </NavLeft>
       <NavRight>
@@ -101,19 +62,19 @@ function Navbar() {
 export default Navbar;
 
 const Nav = styled.nav`
- display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 1;
-    width: 100%;
-    height: 70px;
-    padding: 0 36px;
-    position:fixed;  
-    top:0;
-    background: linear-gradient(to top, transparent 0%, rgb(0, 0, 0, 0.3) 50%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1;
+  width: 100%;
+  height: 70px;
+  padding: 0 36px;
+  position: fixed;
+  top: 0;
+  background: linear-gradient(to top, transparent 0%, rgb(0, 0, 0, 0.3) 50%);
 
-    transition-timing-function: ease-in;
-    transition all 0.5s;    
+  transition-timing-function: ease-in;
+  transition: all 0.5s;
 `;
 const NavLeft = styled.div`
   display: flex;

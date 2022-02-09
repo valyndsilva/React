@@ -1,20 +1,31 @@
 import React from "react";
 import "./App.css";
-import Navbar from "./components/Navbar";
+import Register from "./pages/register/Register";
+import Login from "./pages/login/Login";
 import Home from "./components/Home";
-// import Register from "./pages/register/Register";
-// import Login from "./pages/login/Login";
+import Watch from "./pages/watch/Watch";
+import Movies from "./pages/movies/Movies";
+import Series from "./pages/series/Series";
+import Trending from "./pages/trending/Trending";
+import Search from "./pages/search/Search";
 
-// import Watch from "./pages/watch/Watch";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
-      {/* <Register /> */}
-      {/* <Login /> */}
-      {/* <Watch /> */}
-      <Navbar />
-      <Home />
+      <Router>
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/watch" element={<Watch />} />
+          <Route path="/movies" element={<Movies />} />
+          <Route path="/series" element={<Series />} />
+          <Route path="/trending" element={<Trending />} />
+          <Route path="/search" element={<Search />} />
+        </Routes>
+      </Router>
     </div>
   );
 }

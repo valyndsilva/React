@@ -1,3 +1,4 @@
+import React, { useContext } from "react";
 import styled from "styled-components";
 import {
   Add,
@@ -5,31 +6,21 @@ import {
   ThumbDownAltOutlined,
   ThumbUpAltOutlined,
 } from "@mui/icons-material";
-import { useContext, useState, useEffect } from "react";
 import MovieContext from "../context/MovieContext";
-import { genresList } from "../genres";
-const baseImg_url = "https://image.tmdb.org/t/p/original/";
+import { img_300, unavailablePortrait } from "../config/config";
+import { Badge } from "@mui/material";
 
-function MovieCard({ movie, index }) {
-  const { selectMovie, setPlayTrailer, truncate } = useContext(MovieContext);
-
-  //useState moviecard
-  const [isHovered, setIsHovered] = useState(false);
-  const [genreIds, setGenreIds] = useState([]);
-
-  const fetchMovieGenreIds = () => {
-    const genre_id = [];
-    genresList.map((el) => (genre_id[el.id] = el.name));
-    // console.log(genre_id); // get movie genre ids from genresList
-    // console.log(movie.genre_ids); // get movie genre ids from movie object
-    const movieGenre = movie.genre_ids.map((id) => genre_id[id]); // set movie genre ids to name referring to generesList
-    return setGenreIds(movieGenre.join(", "));
-  };
-
-  useEffect(() => {
-    fetchMovieGenreIds();
-  }, []);
-
+function SingleContent({
+  index,
+  movie,
+  poster,
+  title,
+  date,
+  media_type,
+  vote_average,
+}) {
+  const { setPlayTrailer, isHovered, setIsHovered, selectMovie, truncate } =
+    useContext(MovieContext);
   return (
     <Container
       style={{ left: isHovered && index * 225 - 50 + index * 2.5 }}
@@ -37,14 +28,19 @@ function MovieCard({ movie, index }) {
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => selectMovie(movie)}
     >
-      {movie.poster_path ? (
+      <InnerContent>
         <img
           key={movie.id}
           // onClick={() => handleClick(movie)}
-          src={`${baseImg_url}${movie.backdrop_path}`}
-          alt={movie.original_title}
+          src={poster ? `${img_300}${movie.poster_path}` : unavailablePortrait}
+          alt={
+            movie.original_title ||
+            movie.title ||
+            movie.original_name ||
+            movie.name
+          }
         />
-      ) : null}
+      </InnerContent>
       {isHovered && (
         <>
           {/* <video src={trailer} autoPlay={true} loop></video> */}
@@ -56,11 +52,25 @@ function MovieCard({ movie, index }) {
               <ThumbDownAltOutlined />
             </Controls>
             <InfoTop>
-              <span>{movie.original_title}</span>
-              <span className="limit">Score: {movie.vote_average}</span>
+              <span>
+                {movie.original_title ||
+                  movie.title ||
+                  movie.original_name ||
+                  movie.name}
+              </span>
+              {/* <span className="limit">Score: {movie.vote_average}</span> */}
+              <Badge
+                className="badge"
+                badgeContent={vote_average}
+                color={vote_average > 6 ? "primary" : "secondary"}
+              />
+
+              <p className="media-type">
+                {media_type === "tv" ? "(TV Series)" : "(Movies)"}
+              </p>
             </InfoTop>
-            <span className="description">{truncate(movie.overview, 200)}</span>
-            <span className="genre">{genreIds}</span>
+            <span className="description">{truncate(movie.overview, 150)}</span>
+            {/* <span className="genre">{genreIds}</span> */}
           </InfoContainer>
         </>
       )}
@@ -68,21 +78,21 @@ function MovieCard({ movie, index }) {
   );
 }
 
-export default MovieCard;
+export default SingleContent;
 
 const Container = styled.div`
   cursor: pointer;
   width: 225px; // split half width 112.5px
-  height: 120px;
+  height: 338px;
   margin-right: 5px;
   overflow: hidden;
   background-color: #090b13;
+  margin: 10px;
 
   &:hover {
-    width: 325px; // split half width 162.5px
-    height: 340px;
-    position: absolute;
-    top: -180px;
+    width: 225px; // split half width 162.5px
+    height: 338px;
+    top: 90px;
     -webkit-box-shadow: 0 2px 15px 0px rgb(255, 255, 255, 0.07);
     box-shadow: 0 2px 15px 0px rgb(255, 255, 255, 0.07);
     border-radius: 5px;
@@ -111,10 +121,15 @@ const Container = styled.div`
   }
 `;
 
+const InnerContent = styled.div``;
+
 const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 15px;
+  .media-type {
+    padding-left: 5px;
+  }
   .description {
     font-size: 13px;
     margin-bottom: 10px;
@@ -138,6 +153,7 @@ const Controls = styled.div`
 `;
 const InfoTop = styled.div`
   display: flex;
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
   font-size: 14px;

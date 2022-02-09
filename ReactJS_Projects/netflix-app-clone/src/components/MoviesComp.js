@@ -1,18 +1,21 @@
-import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
-import instance from "../axios";
-import MovieCard from "../components/MovieCard";
-import { genresList } from "../genres";
 import {
   ArrowBackIosOutlined,
   ArrowForwardIosOutlined,
 } from "@mui/icons-material";
-console.log({ genresList });
-function Movies({ title, fetchUrl, selectMovie, setPlayTrailer }) {
+import instance from "../axios";
+import MovieCard from "./MovieCard";
+import { useContext, useState, useEffect, useRef } from "react";
+import MovieContext from "../context/MovieContext";
+
+// console.log({ genresList });
+function MoviesComp({ title, fetchUrl }) {
+  const { selectMovie, setPlayTrailer } = useContext(MovieContext);
+
   const [movies, setMovies] = useState([]);
   const [slideNumber, setSlideNumber] = useState(0);
   const [sliderMoved, setSliderMoved] = useState(false); // slider arrow state
-
+  // logic movies
   const fetchMoviesData = async () => {
     const data = await instance.get(fetchUrl);
     // console.log(data.data.results);
@@ -23,18 +26,7 @@ function Movies({ title, fetchUrl, selectMovie, setPlayTrailer }) {
   useEffect(() => {
     fetchMoviesData();
   }, [fetchUrl]);
-  // console.log(movies);
-
-  const renderMovies = () =>
-    movies.map((movie, index) => (
-      <MovieCard
-        key={movie.id}
-        movie={movie}
-        index={index}
-        selectMovie={selectMovie}
-        setPlayTrailer={setPlayTrailer}
-      />
-    ));
+  // console.log("Movies.js Data", movies);
 
   const sliderRef = useRef();
 
@@ -62,7 +54,17 @@ function Movies({ title, fetchUrl, selectMovie, setPlayTrailer }) {
             onClick={() => handleClick("left")}
             style={{ display: !sliderMoved && "none" }}
           />
-          <InnerContent ref={sliderRef}>{renderMovies()}</InnerContent>
+          <InnerContent ref={sliderRef}>
+            {movies.map((movie, index) => (
+              <MovieCard
+                key={movie.id}
+                movie={movie}
+                index={index}
+                selectMovie={selectMovie}
+                setPlayTrailer={setPlayTrailer}
+              />
+            ))}
+          </InnerContent>
           <ArrowForwardIosOutlined
             className="sliderArrow right"
             onClick={() => handleClick("right")}
@@ -73,7 +75,7 @@ function Movies({ title, fetchUrl, selectMovie, setPlayTrailer }) {
   );
 }
 
-export default Movies;
+export default MoviesComp;
 
 const Container = styled.div`
   width: 100%;
