@@ -1,17 +1,17 @@
-import { createTheme, Pagination, ThemeProvider } from "@mui/material";
+import { Pagination, createTheme, ThemeProvider } from "@mui/material";
 import React, { useContext } from "react";
 import styled from "styled-components";
 import MovieContext from "../context/MovieContext";
 
 const darkTheme = createTheme({
   palette: {
-    type: "dark",
+    mode: "dark",
   },
 });
-function CustomPagination({ numOfPages = 10 }) {
-  const { setPage } = useContext(MovieContext);
-  const handlePageChange = (page) => {
-    setPage(page);
+function CustomPagination() {
+  const { setPage, numOfPages = 10 } = useContext(MovieContext);
+  const handlePageChange = (newPage) => {
+    setPage(newPage);
     window.scroll(0, 0);
   };
   return (
@@ -35,7 +35,5 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 10px;
-  nav {
-    color: white;
-  }
+  margin-bottom: 15px;
 `;

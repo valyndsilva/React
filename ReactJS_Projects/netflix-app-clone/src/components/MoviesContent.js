@@ -9,16 +9,8 @@ import {
 import MovieContext from "../context/MovieContext";
 import { img_300, unavailablePortrait } from "../config/config";
 import { Badge } from "@mui/material";
-function SingleContent({
-  index,
-  movie,
-  poster,
-  title,
-  date,
-  media_type,
-  vote_average,
-}) {
-  const { setPlayTrailer, isHovered, setIsHovered, selectMovie, truncate } =
+function MoviesContent({ index, movie, poster, media_type, vote_average }) {
+  const { setPlayTrailer, isHovered, setIsHovered, selectMovieData, truncate } =
     useContext(MovieContext);
   return (
     <Container>
@@ -26,7 +18,7 @@ function SingleContent({
         style={{ left: isHovered && index * 225 - 50 + index * 2.5 }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        onClick={() => selectMovie(movie)}
+        onClick={() => selectMovieData(movie)}
       >
         <InnerContent>
           <img
@@ -83,7 +75,7 @@ function SingleContent({
   );
 }
 
-export default SingleContent;
+export default MoviesContent;
 const Container = styled.div``;
 
 const InnerContainer = styled.div`

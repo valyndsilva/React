@@ -9,7 +9,7 @@ import {
 import MovieContext from "../context/MovieContext";
 import { img_300, unavailablePortrait } from "../config/config";
 import { Badge } from "@mui/material";
-function SingleContent({
+function SeriesContent({
   index,
   movie,
   poster,
@@ -18,15 +18,21 @@ function SingleContent({
   media_type,
   vote_average,
 }) {
-  const { setPlayTrailer, isHovered, setIsHovered, selectMovie, truncate } =
-    useContext(MovieContext);
+  const {
+    setPlayTrailer,
+    isHovered,
+    setIsHovered,
+    selectSeriesData,
+    truncate,
+  } = useContext(MovieContext);
   return (
     <Container>
       <InnerContainer
         style={{ left: isHovered && index * 225 - 50 + index * 2.5 }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        onClick={() => selectMovie(movie)}
+        onClick={() => selectSeriesData(movie)}
+        // onClick={() => selectSeriesData(movie)}
       >
         <InnerContent>
           <img
@@ -83,7 +89,7 @@ function SingleContent({
   );
 }
 
-export default SingleContent;
+export default SeriesContent;
 const Container = styled.div``;
 
 const InnerContainer = styled.div`

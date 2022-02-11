@@ -28,6 +28,7 @@ function MovieCard({ movie, index }) {
 
   useEffect(() => {
     fetchMovieGenreIds();
+    // eslint-disable-next-line
   }, []);
 
   return (

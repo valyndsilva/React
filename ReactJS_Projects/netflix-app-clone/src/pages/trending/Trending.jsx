@@ -1,21 +1,20 @@
 import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
-import axios from "axios";
-
+import instance from "axios";
 import Navbar from "../../components/Navbar";
 import MovieContext from "../../context/MovieContext";
 import Jumbotron from "../../components/Jumbotron";
-import SingleContent from "../../components/SingleContent";
+import TrendingContent from "../../components/TrendingContent";
 import CustomPagination from "../../components/CustomPagination";
 
 function Trending() {
-  const { selectMovie, setPlayTrailer, page } = useContext(MovieContext);
+  const { selectMovie, setPlayTrailer, page, setPage, trendingURL } =
+    useContext(MovieContext);
+
   const [trendingData, setTrendingData] = useState([]);
 
   const fecthTrending = async () => {
-    const { data } = await axios.get(
-      `https://api.themoviedb.org/3/trending/all/day?api_key=${process.env.REACT_APP_MOVIE_API_KEY}&page=${page}`
-    );
+    const { data } = await instance.get(trendingURL);
     console.log(data);
     console.log(data.results);
     setTrendingData(data.results);
@@ -23,16 +22,16 @@ function Trending() {
 
   useEffect(() => {
     fecthTrending();
+    // eslint-disable-next-line
   }, [page]);
-
   return (
     <Container>
       <Navbar />
-      <Jumbotron type="movie" />
+      <Jumbotron />
       <Title>Trending</Title>
       <InnerContent>
         {trendingData.map((movie, index) => (
-          <SingleContent
+          <TrendingContent
             key={movie.id}
             movie={movie}
             index={index}
@@ -51,7 +50,7 @@ function Trending() {
           />
         ))}
       </InnerContent>
-      <CustomPagination />
+      <CustomPagination setPage={setPage} />
     </Container>
   );
 }
@@ -85,8 +84,10 @@ const Title = styled.h1`
 
 const InnerContent = styled.div`
   position: relative;
-  margin-left: 50px;
   display: flex;
+  align-items: center;
+  justify-content: center;
   flex-wrap: wrap;
   transition: all 1s ease;
+  margin-bottom: 10px;
 `;

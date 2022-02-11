@@ -8,7 +8,7 @@ function Home() {
   return (
     <Container>
       <Navbar />
-      <Jumbotron type="movie" />
+      <Jumbotron />
 
       <MoviesComp
         title="Recommended For You"

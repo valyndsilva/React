@@ -1,10 +1,8 @@
 const API_KEY = process.env.REACT_APP_MOVIE_API_KEY;
 
 const requests = {
-  fetchSearchMulti: `search/multi?api_key=${API_KEY}&language=en-US&page=1&include_adult=false`,
-  fetchAllMovies: `/search/multi?api_key=${API_KEY}&language=en-US&page=1&include_adult=false`,
   fetchRecommended: `discover/movie?api_key=${API_KEY}&with_watch_providers=213&sort_by=popularity.desc`,
-  fetchTrending: `discover/movie?api_key=${API_KEY}&with_watch_providers=213&with_genres=18&primary_release_year=2021&certification.lte=G`,
+  fetchTrending: `trending/all/day?api_key=${API_KEY}`,
   fetchNetflixMovieOriginals: `discover/movie?api_key=${API_KEY}&with_watch_providers=213`,
   fetchNetflixTvOriginals: `discover/tv?api_key=${API_KEY}&with_watch_providers=213`,
   fetchTvOriginals: `discover/tv?api_key=${API_KEY}&with_watch_providers=213&sort_by=vote_average.desc&vote_count.gte=10`,

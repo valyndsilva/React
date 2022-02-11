@@ -5,7 +5,7 @@ import MovieContext from "../context/MovieContext";
 
 const baseImg_url = "https://image.tmdb.org/t/p/original/";
 
-function Jumbotron(categoryType) {
+function Jumbotron() {
   const {
     jumbotronMovie,
     playTrailer,
@@ -15,26 +15,49 @@ function Jumbotron(categoryType) {
     truncate,
   } = useContext(MovieContext);
 
-  // const [type, setType] = useState("");
-
-  // useEffect(() => {
-  //   console.log(categoryType);
-  //   setType(categoryType);
-  // }, [categoryType]);
-
-  // // console.log(type.categoryType);
-  // type.categoryType === "home"
-  //   ? console.log("home")
-  //   : type.categoryType === "tv"
-  //   ? console.log("tv")
-  //   : type.categoryType === "movies"
-  //   ? console.log("movies")
-  //   : type.categoryType === "trending"
-  //   ? console.log("trending")
-  //   : console.log("undefined");
+  const renderJumbotronHome = () => {
+    return (
+      <>
+        <Background>
+          {console.log("jumbotronMovie:", { jumbotronMovie })}
+          <img
+            src={`${baseImg_url}${jumbotronMovie?.backdrop_path}`}
+            alt={
+              jumbotronMovie.name ||
+              jumbotronMovie.original_name ||
+              jumbotronMovie.title ||
+              jumbotronMovie.original_title
+            }
+          />
+        </Background>
+        <ContentWrap>
+          <MovieTitle>
+            <h1>
+              {jumbotronMovie.name ||
+                jumbotronMovie.original_name ||
+                jumbotronMovie.title ||
+                jumbotronMovie.original_title}
+            </h1>
+          </MovieTitle>
+          <Controls>
+            <PlayButton onClick={() => setPlayTrailer(true)}>
+              <PlayArrow />
+              <span>Play</span>
+            </PlayButton>
+            <MoreButton>
+              <InfoOutlined />
+              <span>More Info</span>
+            </MoreButton>
+          </Controls>
+          <Description>{truncate(jumbotronMovie?.overview, 200)}</Description>
+        </ContentWrap>
+      </>
+    );
+  };
 
   return (
     <Container>
+      {/* {console.log("jumbotronMovie:", jumbotronMovie)} */}
       {/* <GenreSelector>
         {type && (
           <div className="category">
@@ -72,41 +95,7 @@ function Jumbotron(categoryType) {
         {trailerMovie.videos && playTrailer ? renderTrailer() : null}
       </YTVideo>
 
-      <>
-        <Background>
-          {console.log("jumbotronMovie:", { jumbotronMovie })}
-          <img
-            src={`${baseImg_url}${jumbotronMovie?.backdrop_path}`}
-            alt={
-              jumbotronMovie.name ||
-              jumbotronMovie.original_name ||
-              jumbotronMovie.title ||
-              jumbotronMovie.original_title
-            }
-          />
-        </Background>
-        <ContentWrap>
-          <MovieTitle>
-            <h1>
-              {jumbotronMovie.name ||
-                jumbotronMovie.original_name ||
-                jumbotronMovie.title ||
-                jumbotronMovie.original_title}
-            </h1>
-          </MovieTitle>
-          <Controls>
-            <PlayButton onClick={() => setPlayTrailer(true)}>
-              <PlayArrow />
-              <span>Play</span>
-            </PlayButton>
-            <MoreButton>
-              <InfoOutlined />
-              <span>More Info</span>
-            </MoreButton>
-          </Controls>
-          <Description>{truncate(jumbotronMovie?.overview, 200)}</Description>
-        </ContentWrap>
-      </>
+      {renderJumbotronHome()}
       <Fade></Fade>
     </Container>
   );

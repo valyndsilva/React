@@ -41,7 +41,9 @@ function Navbar() {
       </NavLeft>
       <NavRight>
         {/* {renderSearchMovies()} */}
-        <SearchTwoTone />
+        <Link href="/search">
+          <SearchTwoTone />
+        </Link>
         <a href="/#">
           <span>Valyn</span>
         </a>
@@ -50,8 +52,24 @@ function Navbar() {
         <Profile>
           <ArrowDropDown />
           <Options className="options">
-            <span>Settings</span>
-            <span>Logout</span>
+            <Link className="options__link" href="/">
+              <span>Home</span>
+            </Link>
+            <Link className="options__link" href="/series">
+              <span>Series</span>
+            </Link>
+            <Link className="options__link" href="/movies">
+              <span>Movies</span>
+            </Link>
+            <Link className="options__link" href="/trending">
+              <span>Trending</span>
+            </Link>
+            <Link className="options__link" href="/">
+              <span>Settings</span>
+            </Link>
+            <Link className="options__link" href="/">
+              <span>Logout</span>
+            </Link>
           </Options>
         </Profile>
       </NavRight>
@@ -166,8 +184,9 @@ const Options = styled.div`
   background-color: #090b13;
   border-radius: 5px;
   border-color: 1px solid white;
-  span {
-    padding: 10px;
+  span,
+  .options__link {
+    padding: 10px 5px;
     cursor: pointer;
   }
 `;
