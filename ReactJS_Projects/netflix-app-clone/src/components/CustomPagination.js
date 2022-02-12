@@ -8,7 +8,7 @@ const darkTheme = createTheme({
     mode: "dark",
   },
 });
-function CustomPagination() {
+export default function CustomPagination() {
   const { setPage, numOfPages = 10 } = useContext(MovieContext);
   const handlePageChange = (newPage) => {
     setPage(newPage);
@@ -29,7 +29,6 @@ function CustomPagination() {
   );
 }
 
-export default CustomPagination;
 const Container = styled.div`
   width: "100%";
   display: flex;

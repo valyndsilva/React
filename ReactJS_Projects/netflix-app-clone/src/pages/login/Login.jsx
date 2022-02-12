@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-function Login() {
+export default function Login() {
   return (
     <Container>
       <NavContent>
@@ -28,7 +28,6 @@ function Login() {
   );
 }
 
-export default Login;
 const Container = styled.div`
   width: 100vw;
   height: 100vh;

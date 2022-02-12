@@ -5,9 +5,9 @@ import MovieContext from "../context/MovieContext";
 
 const baseImg_url = "https://image.tmdb.org/t/p/original/";
 
-function Jumbotron(categoryType) {
+export default function HeroSeries() {
   const {
-    jumbotronMovie,
+    heroSeriesData,
     playTrailer,
     setPlayTrailer,
     renderTrailer,
@@ -15,83 +15,28 @@ function Jumbotron(categoryType) {
     truncate,
   } = useContext(MovieContext);
 
-  // const [type, setType] = useState("");
-
-  // useEffect(() => {
-  //   console.log(categoryType);
-  //   setType(categoryType);
-  // }, [categoryType]);
-
-  // // console.log(type.categoryType);
-  // type.categoryType === "home"
-  //   ? console.log("home")
-  //   : type.categoryType === "tv"
-  //   ? console.log("tv")
-  //   : type.categoryType === "movies"
-  //   ? console.log("movies")
-  //   : type.categoryType === "trending"
-  //   ? console.log("trending")
-  //   : console.log("undefined");
-
-  return (
-    <Container>
-      {/* <GenreSelector>
-        {type && (
-          <div className="category">
-            <span>{type === "movie" ? "Movies" : "TV Series"}</span>
-            <select name="genre" id="genre">
-              <option>Genre</option>
-              <option value="adventure">Adventure</option>
-              <option value="comedy">Comedy</option>
-              <option value="crime">Crime</option>
-              <option value="fantasyhistory">Fantasy</option>
-              <option value="history">History</option>
-              <option value="horror">Horror</option>
-              <option value="romance">Romance</option>
-              <option value="sci-fi">Sci-fi</option>
-              <option value="thriller">Thriller</option>
-              <option value="western">Western</option>
-              <option value="animation">Animation</option>
-              <option value="drama">Drama</option>
-              <option value="documentary">Documentary</option>
-            </select>
-          </div>
-        )}
-      </GenreSelector> */}
-
-      <YTVideo>
-        {playTrailer ? (
-          <button>
-            <Close
-              className="button--close"
-              onClick={() => setPlayTrailer(false)}
-            />
-            <span>Close</span>
-          </button>
-        ) : null}
-        {trailerMovie.videos && playTrailer ? renderTrailer() : null}
-      </YTVideo>
-
+  const renderHeroSeries = () => {
+    return (
       <>
         <Background>
-          {console.log("jumbotronMovie:", { jumbotronMovie })}
+          {console.log("heroSeriesData:", { heroSeriesData })}
           <img
-            src={`${baseImg_url}${jumbotronMovie?.backdrop_path}`}
+            src={`${baseImg_url}${heroSeriesData?.backdrop_path}`}
             alt={
-              jumbotronMovie.name ||
-              jumbotronMovie.original_name ||
-              jumbotronMovie.title ||
-              jumbotronMovie.original_title
+              heroSeriesData.name ||
+              heroSeriesData.original_name ||
+              heroSeriesData.title ||
+              heroSeriesData.original_title
             }
           />
         </Background>
         <ContentWrap>
           <MovieTitle>
             <h1>
-              {jumbotronMovie.name ||
-                jumbotronMovie.original_name ||
-                jumbotronMovie.title ||
-                jumbotronMovie.original_title}
+              {heroSeriesData.name ||
+                heroSeriesData.original_name ||
+                heroSeriesData.title ||
+                heroSeriesData.original_title}
             </h1>
           </MovieTitle>
           <Controls>
@@ -104,14 +49,31 @@ function Jumbotron(categoryType) {
               <span>More Info</span>
             </MoreButton>
           </Controls>
-          <Description>{truncate(jumbotronMovie?.overview, 200)}</Description>
+          <Description>{truncate(heroSeriesData?.overview, 200)}</Description>
         </ContentWrap>
       </>
+    );
+  };
+
+  return (
+    <Container>
+      <YTVideo>
+        {playTrailer ? (
+          <button>
+            <Close
+              className="button--close"
+              onClick={() => setPlayTrailer(false)}
+            />
+            <span>Close</span>
+          </button>
+        ) : null}
+        {trailerMovie.videos && playTrailer ? renderTrailer() : null}
+      </YTVideo>
+      {renderHeroSeries()}
       <Fade></Fade>
     </Container>
   );
 }
-export default Jumbotron;
 
 const Container = styled.main`
   height: 90vh;

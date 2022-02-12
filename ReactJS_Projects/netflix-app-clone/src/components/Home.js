@@ -1,50 +1,48 @@
 import styled from "styled-components";
 import requests from "../requests";
 import MoviesComp from "./MoviesComp";
-import Jumbotron from "./Jumbotron";
+import Hero from "./Hero";
 import Navbar from "./Navbar";
 
-function Home() {
+export default function Home() {
   return (
     <Container>
       <Navbar />
-      <Jumbotron />
+      <Hero />
 
       <MoviesComp
         title="Recommended For You"
         fetchUrl={requests.fetchRecommended}
-        // selectMovie={setJumbotronMovieData}
+        // selectMovie={setHeroMovieData}
       />
       <MoviesComp
         title="Trending Now"
         fetchUrl={requests.fetchTrending}
-        // selectMovie={ setJumbotronMovieData}
+        // selectMovie={ setHeroMovieData}
       />
       <MoviesComp
         title="Netflix Movies Originals"
         fetchUrl={requests.fetchNetflixMovieOriginals}
-        // selectMovie={ setJumbotronMovieData}
+        // selectMovie={ setHeroMovieData}
       />
       <MoviesComp
         title="Netflix TV Originals"
         fetchUrl={requests.fetchNetflixTvOriginals}
-        // selectMovie={ setJumbotronMovieData}
+        // selectMovie={ setHeroMovieData}
       />
       <MoviesComp
         title="Action Movies"
         fetchUrl={requests.fetchAction}
-        // selectMovie={ setJumbotronMovieData}
+        // selectMovie={ setHeroMovieData}
       />
       <MoviesComp
         title="Comedy Movies"
         fetchUrl={requests.fetchComedy}
-        // selectMovie={ setJumbotronMovieData}
+        // selectMovie={ setHeroMovieData}
       />
     </Container>
   );
 }
-
-export default Home;
 
 const Container = styled.main`
   overflow: hidden;

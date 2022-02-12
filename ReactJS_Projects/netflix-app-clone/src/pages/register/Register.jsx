@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
 
-function Register() {
+export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -46,7 +46,6 @@ function Register() {
   );
 }
 
-export default Register;
 const Container = styled.div`
   width: 100vw;
   height: 100vh;

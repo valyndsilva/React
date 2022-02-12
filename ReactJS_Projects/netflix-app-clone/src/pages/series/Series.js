@@ -6,9 +6,9 @@ import MovieContext from "../../context/MovieContext";
 import SeriesContent from "../../components/SeriesContent";
 import CustomPagination from "../../components/CustomPagination";
 import Genres from "../../components/Genres";
-import JumbotronSeries from "../../components/JumbotronSeries";
+import HeroSeries from "../../components/HeroSeries";
 
-function Series() {
+export default function Series() {
   const {
     selectSeriesData,
     setPlayTrailer,
@@ -42,7 +42,7 @@ function Series() {
   return (
     <Container>
       <Navbar />
-      <JumbotronSeries />
+      <HeroSeries />
       <Title>Series</Title>
       <Genres
         className="genres"
@@ -81,8 +81,6 @@ function Series() {
     </Container>
   );
 }
-
-export default Series;
 
 const Container = styled.div`
   width: 100%;

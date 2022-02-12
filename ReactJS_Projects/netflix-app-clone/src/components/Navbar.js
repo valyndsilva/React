@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import "../App.css";
-// import Search from "./Search";
-// import instance from "../axios";
 
 import {
   ArrowDropDown,
@@ -11,7 +9,7 @@ import {
 } from "@mui/icons-material";
 import { Link } from "@mui/material";
 
-function Navbar() {
+export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   // const baseURL = "https://api.themoviedb.org/3";
   useEffect(() => {
@@ -29,13 +27,16 @@ function Navbar() {
             <span>Home</span>
           </Link>
           <Link href="/series">
-            <span>Series</span>
+            <span>TV Shows</span>
           </Link>
           <Link href="/movies">
             <span>Movies</span>
           </Link>
           <Link href="/trending">
-            <span>Trending</span>
+            <span>New & Popular</span>
+          </Link>
+          <Link href="/watchlist">
+            <span>My List</span>
           </Link>
         </NavList>
       </NavLeft>
@@ -44,31 +45,32 @@ function Navbar() {
         <Link href="/search">
           <SearchTwoTone />
         </Link>
-        <a href="/#">
-          <span>Valyn</span>
-        </a>
+
         <NotificationsActive />
+        <a href="/#">
+          <span className="username">Valyn</span>
+        </a>
         <Avatar src="/images/netflix-avatar.png" />
         <Profile>
           <ArrowDropDown />
           <Options className="options">
             <Link className="options__link" href="/">
-              <span>Home</span>
+              <span>Profile Img</span>
+            </Link>
+            <Link className="options__link" href="/">
+              <span>Profile Img</span>
+            </Link>
+            <Link className="options__link" href="/">
+              <span>Manage Profiles</span>
             </Link>
             <Link className="options__link" href="/series">
-              <span>Series</span>
+              <span>Account</span>
             </Link>
             <Link className="options__link" href="/movies">
-              <span>Movies</span>
+              <span>Help Center</span>
             </Link>
             <Link className="options__link" href="/trending">
-              <span>Trending</span>
-            </Link>
-            <Link className="options__link" href="/">
-              <span>Settings</span>
-            </Link>
-            <Link className="options__link" href="/">
-              <span>Logout</span>
+              <span>Sign out of Netflix</span>
             </Link>
           </Options>
         </Profile>
@@ -76,8 +78,6 @@ function Navbar() {
     </Nav>
   );
 }
-
-export default Navbar;
 
 const Nav = styled.nav`
   display: flex;
@@ -110,6 +110,9 @@ const NavRight = styled(NavLeft)`
     text-decoration: none;
     color: white;
     align-items: center;
+  }
+  .username {
+    margin-right: 15px;
   }
 `;
 const Logo = styled.img`
@@ -175,6 +178,9 @@ const Profile = styled.div`
       display: flex;
       flex-direction: column;
       position: absolute;
+      width: 160px;
+      right: 0;
+      /* top: 40px; */
     }
   }
 `;

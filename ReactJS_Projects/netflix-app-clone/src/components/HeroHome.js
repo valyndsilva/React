@@ -5,9 +5,9 @@ import MovieContext from "../context/MovieContext";
 
 const baseImg_url = "https://image.tmdb.org/t/p/original/";
 
-function JumbotronMovies() {
+export default function Jumbotron() {
   const {
-    jumbotronMovieData,
+    heroMovie,
     playTrailer,
     setPlayTrailer,
     renderTrailer,
@@ -15,28 +15,28 @@ function JumbotronMovies() {
     truncate,
   } = useContext(MovieContext);
 
-  const renderJumbotronHome = () => {
+  const renderHeroHome = () => {
     return (
       <>
         <Background>
-          {console.log("jumbotronMovieData:", { jumbotronMovieData })}
+          {console.log("heroMovie:", { heroMovie })}
           <img
-            src={`${baseImg_url}${jumbotronMovieData?.backdrop_path}`}
+            src={`${baseImg_url}${heroMovie?.backdrop_path}`}
             alt={
-              jumbotronMovieData.name ||
-              jumbotronMovieData.original_name ||
-              jumbotronMovieData.title ||
-              jumbotronMovieData.original_title
+              heroMovie.name ||
+              heroMovie.original_name ||
+              heroMovie.title ||
+              heroMovie.original_title
             }
           />
         </Background>
         <ContentWrap>
           <MovieTitle>
             <h1>
-              {jumbotronMovieData.name ||
-                jumbotronMovieData.original_name ||
-                jumbotronMovieData.title ||
-                jumbotronMovieData.original_title}
+              {heroMovie.name ||
+                heroMovie.original_name ||
+                heroMovie.title ||
+                heroMovie.original_title}
             </h1>
           </MovieTitle>
           <Controls>
@@ -49,9 +49,7 @@ function JumbotronMovies() {
               <span>More Info</span>
             </MoreButton>
           </Controls>
-          <Description>
-            {truncate(jumbotronMovieData?.overview, 200)}
-          </Description>
+          <Description>{truncate(heroMovie?.overview, 200)}</Description>
         </ContentWrap>
       </>
     );
@@ -59,7 +57,7 @@ function JumbotronMovies() {
 
   return (
     <Container>
-      {/* {console.log("jumbotronMovieData:", jumbotronMovieData)} */}
+      {/* {console.log("heroMovie:", heroMovie)} */}
       {/* <GenreSelector>
         {type && (
           <div className="category">
@@ -97,12 +95,11 @@ function JumbotronMovies() {
         {trailerMovie.videos && playTrailer ? renderTrailer() : null}
       </YTVideo>
 
-      {renderJumbotronHome()}
+      {renderHeroHome()}
       <Fade></Fade>
     </Container>
   );
 }
-export default JumbotronMovies;
 
 const Container = styled.main`
   height: 90vh;

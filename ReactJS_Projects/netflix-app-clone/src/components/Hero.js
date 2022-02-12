@@ -2,60 +2,19 @@ import styled from "styled-components";
 import { Close, InfoOutlined, PlayArrow } from "@mui/icons-material";
 import { useContext } from "react";
 import MovieContext from "../context/MovieContext";
+import ContentModal from "./ContentModal";
 
 const baseImg_url = "https://image.tmdb.org/t/p/original/";
 
-function JumbotronSeries() {
+export default function Hero() {
   const {
-    jumbotronSeriesData,
+    heroMovie,
     playTrailer,
     setPlayTrailer,
     renderTrailer,
     trailerMovie,
     truncate,
   } = useContext(MovieContext);
-
-  const renderJumbotronSeries = () => {
-    return (
-      <>
-        <Background>
-          {console.log("jumbotronSeriesData:", { jumbotronSeriesData })}
-          <img
-            src={`${baseImg_url}${jumbotronSeriesData?.backdrop_path}`}
-            alt={
-              jumbotronSeriesData.name ||
-              jumbotronSeriesData.original_name ||
-              jumbotronSeriesData.title ||
-              jumbotronSeriesData.original_title
-            }
-          />
-        </Background>
-        <ContentWrap>
-          <MovieTitle>
-            <h1>
-              {jumbotronSeriesData.name ||
-                jumbotronSeriesData.original_name ||
-                jumbotronSeriesData.title ||
-                jumbotronSeriesData.original_title}
-            </h1>
-          </MovieTitle>
-          <Controls>
-            <PlayButton onClick={() => setPlayTrailer(true)}>
-              <PlayArrow />
-              <span>Play</span>
-            </PlayButton>
-            <MoreButton>
-              <InfoOutlined />
-              <span>More Info</span>
-            </MoreButton>
-          </Controls>
-          <Description>
-            {truncate(jumbotronSeriesData?.overview, 200)}
-          </Description>
-        </ContentWrap>
-      </>
-    );
-  };
 
   return (
     <Container>
@@ -71,12 +30,48 @@ function JumbotronSeries() {
         ) : null}
         {trailerMovie.videos && playTrailer ? renderTrailer() : null}
       </YTVideo>
-      {renderJumbotronSeries()}
+
+      <>
+        <Background>
+          {console.log("heroMovie:", { heroMovie })}
+          <img
+            src={`${baseImg_url}${heroMovie?.backdrop_path}`}
+            alt={
+              heroMovie.name ||
+              heroMovie.original_name ||
+              heroMovie.title ||
+              heroMovie.original_title
+            }
+          />
+        </Background>
+        <ContentWrap>
+          <MovieTitle>
+            <h1>
+              {heroMovie.name ||
+                heroMovie.original_name ||
+                heroMovie.title ||
+                heroMovie.original_title}
+            </h1>
+          </MovieTitle>
+          <Controls>
+            <PlayButton onClick={() => setPlayTrailer(true)}>
+              <PlayArrow />
+              <span>Play</span>
+            </PlayButton>
+            <ContentModal className="media" movie={heroMovie}>
+              <MoreButton>
+                <InfoOutlined />
+                <span>More Info</span>
+              </MoreButton>
+            </ContentModal>
+          </Controls>
+          <Description>{truncate(heroMovie?.overview, 200)}</Description>
+        </ContentWrap>
+      </>
       <Fade></Fade>
     </Container>
   );
 }
-export default JumbotronSeries;
 
 const Container = styled.main`
   height: 90vh;

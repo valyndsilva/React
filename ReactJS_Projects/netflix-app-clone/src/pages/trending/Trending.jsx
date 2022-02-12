@@ -3,11 +3,11 @@ import styled from "styled-components";
 import instance from "axios";
 import Navbar from "../../components/Navbar";
 import MovieContext from "../../context/MovieContext";
-import Jumbotron from "../../components/Jumbotron";
+import Hero from "../../components/Hero";
 import TrendingContent from "../../components/TrendingContent";
 import CustomPagination from "../../components/CustomPagination";
 
-function Trending() {
+export default function Trending() {
   const { selectMovie, setPlayTrailer, page, setPage, trendingURL } =
     useContext(MovieContext);
 
@@ -27,7 +27,7 @@ function Trending() {
   return (
     <Container>
       <Navbar />
-      <Jumbotron />
+      <Hero />
       <Title>Trending</Title>
       <InnerContent>
         {trendingData.map((movie, index) => (
@@ -43,7 +43,7 @@ function Trending() {
               movie.name
             }
             date={movie.first_air_date || movie.release_date}
-            media_type={movie.media_type}
+            media_type={movie.type}
             vote_average={movie.vote_average}
             selectMovie={selectMovie}
             setPlayTrailer={setPlayTrailer}
@@ -54,7 +54,6 @@ function Trending() {
     </Container>
   );
 }
-export default Trending;
 
 const Container = styled.div`
   width: 100%;

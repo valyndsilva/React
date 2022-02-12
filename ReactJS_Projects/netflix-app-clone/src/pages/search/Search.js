@@ -14,7 +14,8 @@ import MovieContext from "../../context/MovieContext";
 import SingleContent from "../../components/SeriesContent";
 import CustomPagination from "../../components/CustomPagination";
 import axios from "axios";
-function Search() {
+
+export default function Search() {
   const {
     selectMovie,
     setPlayTrailer,
@@ -117,8 +118,6 @@ function Search() {
     </Container>
   );
 }
-
-export default Search;
 
 const Container = styled.div`
   .MuiButtonBase-root {

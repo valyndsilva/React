@@ -9,7 +9,8 @@ import {
 import MovieContext from "../context/MovieContext";
 import { img_300, unavailablePortrait } from "../config/config";
 import { Badge } from "@mui/material";
-function SeriesContent({
+
+export default function SeriesContent({
   index,
   movie,
   poster,
@@ -89,7 +90,6 @@ function SeriesContent({
   );
 }
 
-export default SeriesContent;
 const Container = styled.div``;
 
 const InnerContainer = styled.div`

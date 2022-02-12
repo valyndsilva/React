@@ -11,7 +11,7 @@ import Search from "./pages/search/Search";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-function App() {
+export default function App() {
   return (
     <div className="App">
       <Router>
@@ -29,5 +29,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

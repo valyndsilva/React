@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { ArrowBackOutlined } from "@mui/icons-material";
 
-function Watch() {
+export default function Watch() {
   return (
     <Container>
       <BackButton>
@@ -15,8 +15,6 @@ function Watch() {
     </Container>
   );
 }
-
-export default Watch;
 
 const Container = styled.div`
   width: 100vw;

@@ -3,12 +3,12 @@ import styled from "styled-components";
 import axios from "axios";
 import Navbar from "../../components/Navbar";
 import MovieContext from "../../context/MovieContext";
-import JumbotronMovies from "../../components/JumbotronMovies";
+import HeroMovies from "../../components/HeroMovies";
 import MoviesContent from "../../components/MoviesContent";
 import CustomPagination from "../../components/CustomPagination";
 import Genres from "../../components/Genres";
 
-function Movies() {
+export default function Movies() {
   const {
     selectMovieData,
     setPlayTrailer,
@@ -42,7 +42,7 @@ function Movies() {
   return (
     <Container>
       <Navbar />
-      <JumbotronMovies />
+      <HeroMovies />
       <Title>Movies</Title>
       <Genres
         type="movie"
@@ -79,8 +79,6 @@ function Movies() {
     </Container>
   );
 }
-
-export default Movies;
 
 const Container = styled.div`
   width: 100%;

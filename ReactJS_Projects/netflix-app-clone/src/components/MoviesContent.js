@@ -9,7 +9,14 @@ import {
 import MovieContext from "../context/MovieContext";
 import { img_300, unavailablePortrait } from "../config/config";
 import { Badge } from "@mui/material";
-function MoviesContent({ index, movie, poster, media_type, vote_average }) {
+
+export default function MoviesContent({
+  index,
+  movie,
+  poster,
+  media_type,
+  vote_average,
+}) {
   const { setPlayTrailer, isHovered, setIsHovered, selectMovieData, truncate } =
     useContext(MovieContext);
   return (
@@ -74,8 +81,6 @@ function MoviesContent({ index, movie, poster, media_type, vote_average }) {
     </Container>
   );
 }
-
-export default MoviesContent;
 const Container = styled.div``;
 
 const InnerContainer = styled.div`

@@ -5,9 +5,9 @@ import MovieContext from "../context/MovieContext";
 
 const baseImg_url = "https://image.tmdb.org/t/p/original/";
 
-function Jumbotron() {
+export default function HeroMovies() {
   const {
-    jumbotronMovie,
+    heroMovieData,
     playTrailer,
     setPlayTrailer,
     renderTrailer,
@@ -15,28 +15,28 @@ function Jumbotron() {
     truncate,
   } = useContext(MovieContext);
 
-  const renderJumbotronHome = () => {
+  const renderHeroHome = () => {
     return (
       <>
         <Background>
-          {console.log("jumbotronMovie:", { jumbotronMovie })}
+          {console.log("heroMovieData:", { heroMovieData })}
           <img
-            src={`${baseImg_url}${jumbotronMovie?.backdrop_path}`}
+            src={`${baseImg_url}${heroMovieData?.backdrop_path}`}
             alt={
-              jumbotronMovie.name ||
-              jumbotronMovie.original_name ||
-              jumbotronMovie.title ||
-              jumbotronMovie.original_title
+              heroMovieData.name ||
+              heroMovieData.original_name ||
+              heroMovieData.title ||
+              heroMovieData.original_title
             }
           />
         </Background>
         <ContentWrap>
           <MovieTitle>
             <h1>
-              {jumbotronMovie.name ||
-                jumbotronMovie.original_name ||
-                jumbotronMovie.title ||
-                jumbotronMovie.original_title}
+              {heroMovieData.name ||
+                heroMovieData.original_name ||
+                heroMovieData.title ||
+                heroMovieData.original_title}
             </h1>
           </MovieTitle>
           <Controls>
@@ -49,7 +49,7 @@ function Jumbotron() {
               <span>More Info</span>
             </MoreButton>
           </Controls>
-          <Description>{truncate(jumbotronMovie?.overview, 200)}</Description>
+          <Description>{truncate(heroMovieData?.overview, 200)}</Description>
         </ContentWrap>
       </>
     );
@@ -57,30 +57,7 @@ function Jumbotron() {
 
   return (
     <Container>
-      {/* {console.log("jumbotronMovie:", jumbotronMovie)} */}
-      {/* <GenreSelector>
-        {type && (
-          <div className="category">
-            <span>{type === "movie" ? "Movies" : "TV Series"}</span>
-            <select name="genre" id="genre">
-              <option>Genre</option>
-              <option value="adventure">Adventure</option>
-              <option value="comedy">Comedy</option>
-              <option value="crime">Crime</option>
-              <option value="fantasyhistory">Fantasy</option>
-              <option value="history">History</option>
-              <option value="horror">Horror</option>
-              <option value="romance">Romance</option>
-              <option value="sci-fi">Sci-fi</option>
-              <option value="thriller">Thriller</option>
-              <option value="western">Western</option>
-              <option value="animation">Animation</option>
-              <option value="drama">Drama</option>
-              <option value="documentary">Documentary</option>
-            </select>
-          </div>
-        )}
-      </GenreSelector> */}
+      {/* {console.log("heroMovieData:", heroMovieData)} */}
 
       <YTVideo>
         {playTrailer ? (
@@ -95,12 +72,11 @@ function Jumbotron() {
         {trailerMovie.videos && playTrailer ? renderTrailer() : null}
       </YTVideo>
 
-      {renderJumbotronHome()}
+      {renderHeroHome()}
       <Fade></Fade>
     </Container>
   );
 }
-export default Jumbotron;
 
 const Container = styled.main`
   height: 90vh;

@@ -9,7 +9,7 @@ const darkTheme = createTheme({
   },
 });
 
-function Genres({
+export default function Genres({
   type,
   selectedGenres,
   setSelectedGenres,
@@ -33,6 +33,7 @@ function Genres({
     const { data } = await axios.get(
       `https://api.themoviedb.org/3/genre/${type}/list?api_key=${process.env.REACT_APP_MOVIE_API_KEY}&language=en-US`
     );
+    console.log("Genres List:", data.genres);
     setGenres(data.genres);
   };
   // console.log(genres);
@@ -61,7 +62,7 @@ function Genres({
               onDelete={() => handleDelete(genre)}
             />
           ))}
-        {genres
+        {genres.length > 0
           ? genres.map((genre) => (
               <Chip
                 key={genre.id}
@@ -77,8 +78,6 @@ function Genres({
     </Container>
   );
 }
-
-export default Genres;
 
 const Container = styled.div`
   padding: 6px 50px;

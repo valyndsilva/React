@@ -9,11 +9,11 @@ const MovieContext = createContext({});
 const api_URL = "https://api.themoviedb.org/3";
 
 export const MovieProvider = ({ children }) => {
-  const [jumbotronMovie, setJumbotronMovie] = useState([]);
-  const [jumbotronMovieData, setJumbotronMovieData] = useState([]);
-  const [jumbotronSeriesData, setJumbotronSeriesData] = useState([]);
+  const [heroMovie, setHeroMovie] = useState([]);
+  const [heroMovieData, setHeroMovieData] = useState([]);
+  const [heroSeriesData, setHeroSeriesData] = useState([]);
 
-  const [jumbotronTrendingData, setJumbotronTrendingData] = useState([]);
+  const [heroTrendingData, setHeroTrendingData] = useState([]);
   const [trailerMovie, setTrailerMovie] = useState({});
   const [playTrailer, setPlayTrailer] = useState(false);
 
@@ -23,6 +23,10 @@ export const MovieProvider = ({ children }) => {
   const [numOfPages, setNumOfPages] = useState();
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [genres, setGenres] = useState([]);
+
+  const [queryGenre, setQueryGenre] = useState("");
+
+  const [genreIds, setGenreIds] = useState([]);
   const genreforURL = useGenre(selectedGenres);
   const moviesURL = `${api_URL}/discover/movie?api_key=${process.env.REACT_APP_MOVIE_API_KEY}&page=${page}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&with_genres=${genreforURL}`;
   const seriesURL = `${api_URL}/discover/tv?api_key=${process.env.REACT_APP_MOVIE_API_KEY}&page=${page}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&with_genres=${genreforURL}`;
@@ -31,11 +35,11 @@ export const MovieProvider = ({ children }) => {
     return str?.length > n ? str.substr(0, n - 1) + "..." : str;
   }
 
-  // console.log("jumbotronMovie:", { jumbotronMovie });
+  // console.log("heroMovie:", { heroMovie });
   // console.log("trailerMovie:", { trailerMovie });
   // console.log("playTrailer:", { playTrailer });
 
-  // Set Jumbotron and trailer to clicked movie on Home.js
+  // Set Hero and trailer to clicked movie on Home.js
   const fetchMovieData = async (id) => {
     const data = await instance.get(`${api_URL}/movie/${id}`, {
       params: {
@@ -53,47 +57,47 @@ export const MovieProvider = ({ children }) => {
     const data = await fetchMovieData(mov.id);
     console.log(data);
     console.log("selectMovie", data.data.videos);
-    setJumbotronMovie(mov);
+    setHeroMovie(mov);
   };
 
-  // Jumbotron for Home.js
-  const fetchHomeJumbotronData = async () => {
+  // Hero for Home.js
+  const fetchHomeHeroData = async () => {
     const data = await instance.get(requests.fetchRecommended);
-    console.log("fetchHomeJumbotronData", data.data.results[0]);
-    // setJumbotronMovie(data.data.results[0]); // Set 1st movie in results
+    console.log("fetchHomeHeroData", data.data.results[0]);
+    // setHeroMovie(data.data.results[0]); // Set 1st movie in results
     await selectMovie(data.data.results[0]);
 
     // return data;
   };
 
   useEffect(() => {
-    fetchHomeJumbotronData();
+    fetchHomeHeroData();
     // eslint-disable-next-line
   }, []);
-  // console.log(jumbotronMovie);
+  // console.log(HeroMovie);
 
-  // Jumbotron for Movies.js
-  const fetchMoviesJumbotronData = async () => {
+  // Hero for Movies.js
+  const fetchMoviesHeroData = async () => {
     const data = await instance.get(moviesURL);
-    console.log("fetchMoviesJumbotronData", data.data.results[0]);
-    // setJumbotronMovieData(data.data.results[0]); // Set 1st movie in results
+    console.log("fetchMoviesHeroData", data.data.results[0]);
+    // setHeroMovieData(data.data.results[0]); // Set 1st movie in results
     await selectMovieData(data.data.results[0]);
     // return data;
   };
 
   useEffect(() => {
-    fetchMoviesJumbotronData();
+    fetchMoviesHeroData();
     // eslint-disable-next-line
   }, []);
-  // console.log(jumbotronMovieData);
+  // console.log(heroMovieData);
 
   const selectMovieData = async (mov) => {
     const data = await fetchMovieData(mov.id);
     console.log(data);
     console.log("selectMovie", data.data.videos);
-    setJumbotronMovieData(mov);
+    setHeroMovieData(mov);
   };
-  // Set Jumbotron and trailer to clicked series
+  // Set Hero and trailer to clicked series
   const fetchSeriesData = async (id) => {
     const data = await instance.get(`${api_URL}/tv/${id}`, {
       params: {
@@ -108,29 +112,29 @@ export const MovieProvider = ({ children }) => {
     return data;
   };
 
-  // Jumbotron for Series.js
-  const fetchSeriesJumbotronData = async () => {
+  // Hero for Series.js
+  const fetchSeriesHeroData = async () => {
     const data = await instance.get(seriesURL);
-    console.log("fetchSeriesJumbotronData", data.data.results[0]);
-    // setJumbotronSeriesData(data.data.results[0]); // Set 1st movie in results
+    console.log("fetchSeriesHeroData", data.data.results[0]);
+    // setHeroSeriesData(data.data.results[0]); // Set 1st movie in results
     await selectSeriesData(data.data.results[0]);
     // return data;
   };
 
   useEffect(() => {
-    fetchSeriesJumbotronData();
+    fetchSeriesHeroData();
     // eslint-disable-next-line
   }, []);
-  console.log(jumbotronSeriesData);
+  console.log(heroSeriesData);
 
   const selectSeriesData = async (mov) => {
     const data = await fetchSeriesData(mov.id);
     console.log(data);
     console.log("selectSeriesData", data.data.videos);
-    setJumbotronSeriesData(mov);
+    setHeroSeriesData(mov);
   };
 
-  // Set Jumbotron  and trailer to clicked trending movie or tv series
+  // Set Hero  and trailer to clicked trending movie or tv series
   const fetchTrendingData = async (type, id) => {
     const data = await instance.get(
       `${api_URL}/${type ? "movie" : "tv"}/${id}`,
@@ -148,26 +152,26 @@ export const MovieProvider = ({ children }) => {
     return data;
   };
 
-  // Jumbotron for Trending.js
-  const fetchTrendingJumbotronData = async () => {
+  // Hero for Trending.js
+  const fetchTrendingHeroData = async () => {
     const data = await instance.get(requests.fetchTrending);
-    console.log("fetchTrendingJumbotronData", data.data.results[0]);
-    // setJumbotronMovie(data.data.results[0]); // Set 1st movie in results
+    console.log("fetchTrendingHeroData", data.data.results[0]);
+    // setHeroMovie(data.data.results[0]); // Set 1st movie in results
     await selectTrending(data.data.results[0]);
     // return data;
   };
 
   useEffect(() => {
-    fetchTrendingJumbotronData();
+    fetchTrendingHeroData();
     // eslint-disable-next-line
   }, []);
-  // console.log(jumbotronMovie);
+  // console.log(HeroMovie);
 
   const selectTrending = async (mov) => {
     const data = await fetchTrendingData(mov.id);
     console.log(data);
     console.log("selectTrending", data.data.videos);
-    setJumbotronTrendingData(mov);
+    setHeroTrendingData(mov);
   };
 
   const renderTrailer = () => {
@@ -213,9 +217,9 @@ export const MovieProvider = ({ children }) => {
   return (
     <MovieContext.Provider
       value={{
-        jumbotronMovie,
-        jumbotronMovieData,
-        jumbotronSeriesData,
+        heroMovie,
+        heroMovieData,
+        heroSeriesData,
         playTrailer,
         setPlayTrailer,
         renderTrailer,
@@ -231,15 +235,19 @@ export const MovieProvider = ({ children }) => {
         numOfPages,
         setNumOfPages,
         genreforURL,
+        genreIds,
+        setGenreIds,
         selectedGenres,
         setSelectedGenres,
         genres,
         setGenres,
+        queryGenre,
+        setQueryGenre,
         moviesURL,
         seriesURL,
         trendingURL,
-        jumbotronTrendingData,
-        setJumbotronTrendingData,
+        heroTrendingData,
+        setHeroTrendingData,
         type,
         setType,
       }}

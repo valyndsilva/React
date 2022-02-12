@@ -9,7 +9,8 @@ import {
 import MovieContext from "../context/MovieContext";
 import { img_300, unavailablePortrait } from "../config/config";
 import { Badge } from "@mui/material";
-function TrendingContent({
+
+export default function TrendingContent({
   index,
   movie,
   poster,
@@ -89,7 +90,6 @@ function TrendingContent({
   );
 }
 
-export default TrendingContent;
 const Container = styled.div``;
 
 const InnerContainer = styled.div`

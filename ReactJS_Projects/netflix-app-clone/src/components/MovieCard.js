@@ -4,26 +4,43 @@ import {
   PlayArrow,
   ThumbDownAltOutlined,
   ThumbUpAltOutlined,
+  KeyboardArrowDown,
 } from "@mui/icons-material";
 import { useContext, useState, useEffect } from "react";
 import MovieContext from "../context/MovieContext";
-import { genresList } from "../genres";
+// import { genresList } from "../genres";
+import ContentModal from "./ContentModal";
+import axios from "axios";
+
 const baseImg_url = "https://image.tmdb.org/t/p/original/";
 
-function MovieCard({ movie, index }) {
-  const { selectMovie, setPlayTrailer, truncate } = useContext(MovieContext);
+export default function MovieCard({ movie, index }) {
+  const { selectMovie, setPlayTrailer, truncate, queryGenre, setQueryGenre } =
+    useContext(MovieContext);
 
   //useState moviecard
   const [isHovered, setIsHovered] = useState(false);
-  const [genreIds, setGenreIds] = useState([]);
 
-  const fetchMovieGenreIds = () => {
-    const genre_id = [];
-    genresList.map((el) => (genre_id[el.id] = el.name));
+  const fetchMovieGenreIds = async () => {
+    // const genre_id = [];
+    // genresList.map((el) => (genre_id[el.id] = el.name));
     // console.log(genre_id); // get movie genre ids from genresList
     // console.log(movie.genre_ids); // get movie genre ids from movie object
+    // const movieGenre = movie.genre_ids.map((id) => genre_id[id]); // set movie genre ids to name referring to generesList
+    // return setGenreIds(movieGenre.join(", "));
+
+    const genre_id = [];
+    const { data } = await axios.get(
+      `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.REACT_APP_MOVIE_API_KEY}&language=en-US`
+    );
+    console.log("Genres List:", data.genres);
+    data.genres.map((gen) => (genre_id[gen.id] = gen.name));
+    console.log(genre_id); // get movie genre ids from data.genres
+    console.log(movie.genre_ids); // get movie genre ids from movie object
     const movieGenre = movie.genre_ids.map((id) => genre_id[id]); // set movie genre ids to name referring to generesList
-    return setGenreIds(movieGenre.join(", "));
+    console.log(movieGenre);
+    console.log(movieGenre.join(", "));
+    return setQueryGenre(movieGenre.join(", "));
   };
 
   useEffect(() => {
@@ -51,25 +68,30 @@ function MovieCard({ movie, index }) {
           {/* <video src={trailer} autoPlay={true} loop></video> */}
           <InfoContainer>
             <Controls>
-              <PlayArrow onClick={() => setPlayTrailer(true)} />
-              <Add />
-              <ThumbUpAltOutlined />
-              <ThumbDownAltOutlined />
+              <LeftControls>
+                <PlayArrow onClick={() => setPlayTrailer(true)} />
+                <Add />
+                <ThumbUpAltOutlined />
+                <ThumbDownAltOutlined />
+              </LeftControls>
+              <ContentModal className="media" movie={movie}>
+                <RightControls>
+                  <KeyboardArrowDown />
+                </RightControls>
+              </ContentModal>
             </Controls>
             <InfoTop>
               <span>{movie.original_title}</span>
               <span className="limit">Score: {movie.vote_average}</span>
             </InfoTop>
-            <span className="description">{truncate(movie.overview, 200)}</span>
-            <span className="genre">{genreIds}</span>
+            <span className="description">{truncate(movie.overview, 100)}</span>
+            <span className="genre">{queryGenre}</span>
           </InfoContainer>
         </>
       )}
     </Container>
   );
 }
-
-export default MovieCard;
 
 const Container = styled.div`
   cursor: pointer;
@@ -128,6 +150,7 @@ const InfoContainer = styled.div`
 const Controls = styled.div`
   display: flex;
   margin-bottom: 10px;
+  justify-content: space-between;
 
   .MuiSvgIcon-root {
     border: 2px solid white;
@@ -136,7 +159,15 @@ const Controls = styled.div`
     margin-right: 10px;
     font-size: 32px;
   }
+
+  .media {
+    color: white;
+    padding: 0;
+  }
 `;
+
+const LeftControls = styled.div``;
+const RightControls = styled.div``;
 const InfoTop = styled.div`
   display: flex;
   align-items: center;

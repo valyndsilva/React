@@ -9,7 +9,7 @@ import { useContext, useState, useEffect, useRef } from "react";
 import MovieContext from "../context/MovieContext";
 
 // console.log({ genresList });
-function MoviesComp({ title, fetchUrl }) {
+export default function MoviesComp({ title, fetchUrl }) {
   const { selectMovie, setPlayTrailer } = useContext(MovieContext);
 
   const [movies, setMovies] = useState([]);
@@ -25,6 +25,7 @@ function MoviesComp({ title, fetchUrl }) {
 
   useEffect(() => {
     fetchMoviesData();
+    // eslint-disable-next-line
   }, [fetchUrl]);
   // console.log("Movies.js Data", movies);
 
@@ -74,8 +75,6 @@ function MoviesComp({ title, fetchUrl }) {
     </Container>
   );
 }
-
-export default MoviesComp;
 
 const Container = styled.div`
   width: 100%;
