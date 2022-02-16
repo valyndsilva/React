@@ -1,6 +1,7 @@
 import React from "react";
 import jumboData from "../fixtures/jumbotron";
 import { Jumbotron } from "../components/";
+import { AccordionContainer } from "./accordion";
 
 export function JumbotronContainer() {
   return (
@@ -49,6 +50,8 @@ export function JumbotronContainer() {
           </Jumbotron.Pane>
         </Jumbotron>
       ))}
+
+      <AccordionContainer />
     </Jumbotron.Container>
   );
 }
