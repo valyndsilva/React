@@ -9,6 +9,7 @@ import Trending from "./pages/trending/Trending";
 import Search from "./pages/search/Search";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { JumbotronContainer } from "./containers/jumbotron";
+import { FooterContainer } from "./containers/footer";
 
 export default function App() {
   return (
@@ -26,6 +27,7 @@ export default function App() {
           <Route path="/search" element={<Search />} />
         </Routes>
       </Router>
+      <FooterContainer />
     </div>
   );
 }
