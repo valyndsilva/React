@@ -46,6 +46,7 @@ export const Text = styled.p`
   font-size: 13px;
   color: #757575;
   margin-bottom: 40px;
+  margin-top: 24px;
 `;
 
 export const Break = styled.p`
