@@ -9,32 +9,6 @@ export const Background = styled.div`
     top left / cover no-repeat;
 `;
 
-export const Gradient = styled.div`
-  position: absolute;
-  overflow: hidden;
-  z-index: 1;
-  width: 100%;
-  height: 78%;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.4);
-  background-image: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.8) 0,
-    rgba(0, 0, 0, 0) 60%,
-    rgba(0, 0, 0, 0.8) 100%
-  );
-
-  @media (max-width: 949px) {
-    height: 80%;
-  }
-
-  @media (max-width: 549px) {
-    height: 56%;
-  }
-`;
 export const Frame = styled.div``;
 
 export const Container = styled.div`
