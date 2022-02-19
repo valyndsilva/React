@@ -13,7 +13,7 @@ export const Inner = styled.div`
   max-width: 815px;
 
   @media (max-width: 949px) {
-    padding: 70px 0px;
+    padding: 70px 20px;
   }
 `;
 export const Title = styled.h1`

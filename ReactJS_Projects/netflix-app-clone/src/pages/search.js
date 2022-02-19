@@ -8,11 +8,11 @@ import {
 } from "@mui/material";
 import React, { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
-import Navbar from "../../components/Navbar";
+import Navbar from "../components/Navbar";
 import { SearchTwoTone } from "@mui/icons-material";
-import MovieContext from "../../context/MovieContext";
-import SingleContent from "../../components/SeriesContent";
-import CustomPagination from "../../components/CustomPagination";
+import MovieContext from "../context/MovieContext";
+import SingleContent from "../components/SeriesContent";
+import CustomPagination from "../components/CustomPagination";
 import axios from "axios";
 
 export default function Search() {

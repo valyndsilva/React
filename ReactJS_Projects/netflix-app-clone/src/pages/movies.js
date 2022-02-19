@@ -1,16 +1,16 @@
 import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import Navbar from "../../components/Navbar";
-import MovieContext from "../../context/MovieContext";
-import SeriesContent from "../../components/SeriesContent";
-import CustomPagination from "../../components/CustomPagination";
-import Genres from "../../components/Genres";
-import HeroSeries from "../../components/HeroSeries";
+import Navbar from "../components/Navbar";
+import MovieContext from "../context/MovieContext";
+import HeroMovies from "../components/HeroMovies";
+import MoviesContent from "../components/MoviesContent";
+import CustomPagination from "../components/CustomPagination";
+import Genres from "../components/Genres";
 
-export default function Series() {
+export default function Movies() {
   const {
-    selectSeriesData,
+    selectMovieData,
     setPlayTrailer,
     page,
     setPage,
@@ -21,32 +21,31 @@ export default function Series() {
     genres,
     setGenres,
     genreforURL,
-    seriesURL,
+    moviesURL,
   } = useContext(MovieContext);
 
-  const [SeriesData, setSeriesData] = useState([]);
+  const [MoviesData, setMoviesData] = useState([]);
 
-  const fetchSeries = async () => {
-    const { data } = await axios.get(seriesURL);
+  const fetchMovies = async () => {
+    const { data } = await axios.get(moviesURL);
     console.log(data);
-    console.log("fetchSeries:", data.results);
-    setSeriesData(data.results);
+    console.log(data.results);
+    setMoviesData(data.results);
     setNumOfPages(data.total_pages);
   };
 
   useEffect(() => {
-    fetchSeries();
+    fetchMovies();
     // eslint-disable-next-line
   }, [page, genreforURL]);
 
   return (
     <Container>
       <Navbar />
-      <HeroSeries />
-      <Title>Series</Title>
+      <HeroMovies />
+      <Title>Movies</Title>
       <Genres
-        className="genres"
-        type="tv"
+        type="movie"
         selectedGenres={selectedGenres}
         setSelectedGenres={setSelectedGenres}
         genres={genres}
@@ -54,8 +53,8 @@ export default function Series() {
         setPage={setPage}
       />
       <InnerContent>
-        {SeriesData.map((movie, index) => (
-          <SeriesContent
+        {MoviesData.map((movie, index) => (
+          <MoviesContent
             key={movie.id}
             movie={movie}
             index={index}
@@ -67,11 +66,10 @@ export default function Series() {
               movie.name
             }
             date={movie.first_air_date || movie.release_date}
-            media_type="tv"
+            media_type="movie"
             vote_average={movie.vote_average}
-            selectSeriesData={selectSeriesData}
+            selectMovieData={selectMovieData}
             setPlayTrailer={setPlayTrailer}
-            onClick={() => selectSeriesData(movie)}
           />
         ))}
       </InnerContent>
@@ -84,7 +82,6 @@ export default function Series() {
 
 const Container = styled.div`
   width: 100%;
-  margin-top: 10px;
   overflow: hidden;
   min-height: calc(100vh - 70px);
   position: relative;

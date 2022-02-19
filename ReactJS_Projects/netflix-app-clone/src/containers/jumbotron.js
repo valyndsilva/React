@@ -1,7 +1,6 @@
 import React from "react";
 import jumboData from "../fixtures/jumbotron";
 import { Jumbotron } from "../components/";
-import { AccordionContainer } from "./accordion";
 
 export function JumbotronContainer() {
   return (
@@ -41,8 +40,8 @@ export function JumbotronContainer() {
                 )}
                 {item.animationText1 && (
                   <Jumbotron.AnimationText className="jumbotron_animationText">
-                    <div class="text-0">{item.animationText1}</div>
-                    <div class="text-1">{item.animationText2}</div>
+                    <div className="text-0">{item.animationText1}</div>
+                    <div className="text-1">{item.animationText2}</div>
                   </Jumbotron.AnimationText>
                 )}
               </Jumbotron.Animation>
@@ -50,8 +49,6 @@ export function JumbotronContainer() {
           </Jumbotron.Pane>
         </Jumbotron>
       ))}
-
-      <AccordionContainer />
     </Jumbotron.Container>
   );
 }

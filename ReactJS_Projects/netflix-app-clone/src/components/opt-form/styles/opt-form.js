@@ -20,13 +20,21 @@ export const Input = styled.input`
   width: 100%;
   border: 0;
   padding: 10px;
-  height: 48px;
+  height: 70px;
   box-sizing: border-box;
+
+  @media (max-width: 1450px) {
+    height: 60px;
+  }
+
+  @media (max-width: 740px) {
+    height: 48px;
+  }
 `;
 export const Button = styled.button`
   display: flex;
   align-items: center;
-  height: 48px;
+  height: 70px;
   min-height: 40px;
   background: #e50914;
   color: white;
@@ -38,6 +46,14 @@ export const Button = styled.button`
 
   &:hover {
     background: #f40612;
+  }
+
+  @media (max-width: 1450px) {
+    height: 60px;
+  }
+
+  @media (max-width: 740px) {
+    height: 48px;
   }
 
   @media (max-width: 949px) {
@@ -54,7 +70,7 @@ export const Text = styled.p`
   padding: 0 10%;
 
   @media (max-width: 600px) {
-    font-size: 23px;
+    font-size: 18px;
     line-height: 22px;
   }
 `;

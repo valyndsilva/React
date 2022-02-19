@@ -1,60 +1,37 @@
 import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
-import axios from "axios";
-import Navbar from "../../components/Navbar";
-import MovieContext from "../../context/MovieContext";
-import HeroMovies from "../../components/HeroMovies";
-import MoviesContent from "../../components/MoviesContent";
-import CustomPagination from "../../components/CustomPagination";
-import Genres from "../../components/Genres";
+import instance from "axios";
+import Navbar from "../components/Navbar";
+import MovieContext from "../context/MovieContext";
+import Hero from "../components/Hero";
+import TrendingContent from "../components/TrendingContent";
+import CustomPagination from "../components/CustomPagination";
 
-export default function Movies() {
-  const {
-    selectMovieData,
-    setPlayTrailer,
-    page,
-    setPage,
-    numOfPages,
-    setNumOfPages,
-    selectedGenres,
-    setSelectedGenres,
-    genres,
-    setGenres,
-    genreforURL,
-    moviesURL,
-  } = useContext(MovieContext);
+export default function Trending() {
+  const { selectMovie, setPlayTrailer, page, setPage, trendingURL } =
+    useContext(MovieContext);
 
-  const [MoviesData, setMoviesData] = useState([]);
+  const [trendingData, setTrendingData] = useState([]);
 
-  const fetchMovies = async () => {
-    const { data } = await axios.get(moviesURL);
+  const fecthTrending = async () => {
+    const { data } = await instance.get(trendingURL);
     console.log(data);
     console.log(data.results);
-    setMoviesData(data.results);
-    setNumOfPages(data.total_pages);
+    setTrendingData(data.results);
   };
 
   useEffect(() => {
-    fetchMovies();
+    fecthTrending();
     // eslint-disable-next-line
-  }, [page, genreforURL]);
-
+  }, [page]);
   return (
     <Container>
       <Navbar />
-      <HeroMovies />
-      <Title>Movies</Title>
-      <Genres
-        type="movie"
-        selectedGenres={selectedGenres}
-        setSelectedGenres={setSelectedGenres}
-        genres={genres}
-        setGenres={setGenres}
-        setPage={setPage}
-      />
+      <Hero />
+      <Title>Trending</Title>
       <InnerContent>
-        {MoviesData.map((movie, index) => (
-          <MoviesContent
+        {trendingData.map((movie, index) => (
+          <TrendingContent
             key={movie.id}
             movie={movie}
             index={index}
@@ -66,22 +43,21 @@ export default function Movies() {
               movie.name
             }
             date={movie.first_air_date || movie.release_date}
-            media_type="movie"
+            media_type={movie.type}
             vote_average={movie.vote_average}
-            selectMovieData={selectMovieData}
+            selectMovie={selectMovie}
             setPlayTrailer={setPlayTrailer}
           />
         ))}
       </InnerContent>
-      {numOfPages > 1 && (
-        <CustomPagination setPage={setPage} numOfPages={numOfPages} />
-      )}
+      <CustomPagination setPage={setPage} />
     </Container>
   );
 }
 
 const Container = styled.div`
   width: 100%;
+  margin-top: 10px;
   overflow: hidden;
   min-height: calc(100vh - 70px);
   position: relative;
