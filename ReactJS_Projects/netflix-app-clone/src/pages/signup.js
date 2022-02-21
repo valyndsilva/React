@@ -1,14 +1,13 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { FooterContainer } from "../containers/footer";
 import { HeaderContainer } from "../containers/header";
 import { Form } from "../components";
 import * as ROUTES from "../constants/routes";
-import { FirebaseContext } from "../context/FirebaseContext";
 import { useNavigate } from "react-router-dom";
-
+import { auth } from "../lib/firebase.prod.js";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 export default function Signup() {
   const navigate = useNavigate();
-  const { firebase } = useContext(FirebaseContext);
 
   const [firstName, setFirstName] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
@@ -21,19 +20,14 @@ export default function Signup() {
   const handleSignUp = (event) => {
     event.preventDefault();
 
-    //firebase code goes here
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(emailAddress, password)
-      .then((result) => {
-        result.user
-          .updateProfile({
-            displayName: firstName,
-            photoUrl: Math.floor(Math.random() * 5) + 1,
-          })
-          .then(() => {
-            navigate(ROUTES.BROWSE);
-          });
+    createUserWithEmailAndPassword(auth, emailAddress, password)
+      .then(() => {
+        updateProfile(auth.currentUser, {
+          displayName: firstName,
+          photoUrl: Math.floor(Math.random() * 5) + 1,
+        }).then(() => {
+          navigate(ROUTES.BROWSE);
+        });
       })
       .catch((error) => {
         setFirstName("");

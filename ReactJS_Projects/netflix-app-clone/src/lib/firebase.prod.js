@@ -1,5 +1,5 @@
-import Firebase from "firebase/compat/app";
-import "firebase/compat/auth";
+import { getAuth } from "firebase/auth";
+import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 // import { seedDatabase } from "../seed";
 
@@ -12,8 +12,13 @@ const config = {
   appId: "1:196897923772:web:ddcab6269da78d46f0e6b9",
 };
 
-const firebase = Firebase.initializeApp(config);
+const app = firebase.initializeApp(config);
 
 // seedDatabase(Firebase);  //comment out after running once or it will create duplicates in firestore!
 
-export { firebase };
+const db = app.firestore();
+// const auth = firebase.auth();
+const auth = getAuth(app);
+
+export { auth };
+export default db;

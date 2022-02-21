@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-
 import {
   ArrowDropDown,
   NotificationsActive,
@@ -68,7 +67,7 @@ export default function Navbar() {
             <Link className="options__link" href="/movies">
               <span>Help Center</span>
             </Link>
-            <Link className="options__link" href="/trending">
+            <Link className="options__link" href="/">
               <span>Sign out of Netflix</span>
             </Link>
           </Options>
