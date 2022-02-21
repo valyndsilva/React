@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
+import * as ROUTES from "../constants/routes";
 export function IsUserExistsRedirect({ children }) {
   const auth = getAuth();
   //   console.log(auth);
@@ -16,13 +18,14 @@ export function IsUserExistsRedirect({ children }) {
         // ...
       } else {
         // User is signed out
-        signOut(auth);
+        // signOut(auth);
+        return null;
       }
     });
     return unsubscribe;
   }, [auth]);
-  return user ? <Navigate to="/browse" /> : children;
-  // <Navigate replace to={{ pathname: loggedInPath }} />
+
+  return user ? <Navigate to={ROUTES.BROWSE} /> : children;
 }
 
 export function ProtectedRoute({ children }) {
@@ -30,5 +33,5 @@ export function ProtectedRoute({ children }) {
 
   console.log(auth.currentUser);
   //if user exists render browse page
-  return auth.currentUser ? children : <Navigate to="/signin" />;
+  return auth.currentUser ? children : <Navigate to={ROUTES.SIGN_IN} />;
 }
