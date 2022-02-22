@@ -6,6 +6,7 @@ import * as ROUTES from "../constants/routes";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../lib/firebase.prod.js";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+
 export default function Signup() {
   const navigate = useNavigate();
 
@@ -24,7 +25,7 @@ export default function Signup() {
       .then(() => {
         updateProfile(auth.currentUser, {
           displayName: firstName,
-          photoUrl: Math.floor(Math.random() * 5) + 1,
+          photoURL: Math.floor(Math.random() * 5) + 1,
         }).then(() => {
           navigate(ROUTES.BROWSE);
         });

@@ -13,26 +13,22 @@ import {
 } from "./pages/";
 import * as ROUTES from "./constants/routes";
 import { IsUserExistsRedirect, ProtectedRoute } from "./helpers/routes";
+import { useAuthListener } from "./hooks";
 
 export default function App() {
+  const { user } = useAuthListener();
+  console.log(user);
   return (
     <div className="App">
       <Router>
         <Routes>
-          {/* if user does not exist redirect to sign in page else open browse page
-          {!user ? (
-            <Route exact path={ROUTES.SIGN_IN} element={<Signin />} />
-          ) : (
-            <Route exact path={ROUTES.BROWSE} element={<Browse />} />
-          )} */}
-
           {/* <Route exact path={ROUTES.SIGN_IN} element={<Signin />} /> */}
 
           <Route
             exact
             path={ROUTES.SIGN_IN}
             element={
-              <IsUserExistsRedirect>
+              <IsUserExistsRedirect user={user}>
                 <Signin />
               </IsUserExistsRedirect>
             }
@@ -44,7 +40,7 @@ export default function App() {
             exact
             path={ROUTES.SIGN_UP}
             element={
-              <IsUserExistsRedirect>
+              <IsUserExistsRedirect user={user}>
                 <Signup />
               </IsUserExistsRedirect>
             }
@@ -56,7 +52,7 @@ export default function App() {
             exact
             path={ROUTES.BROWSE}
             element={
-              <ProtectedRoute>
+              <ProtectedRoute user={user}>
                 <Browse />
               </ProtectedRoute>
             }
@@ -68,7 +64,7 @@ export default function App() {
             exact
             path={ROUTES.HOME}
             element={
-              <IsUserExistsRedirect>
+              <IsUserExistsRedirect user={user}>
                 <Home />
               </IsUserExistsRedirect>
             }
