@@ -11,9 +11,10 @@ import {
   Movies,
   Series,
 } from "./pages/";
-import * as ROUTES from "./constants/routes";
+import * as ROUTES from "./routes/routes";
 import { IsUserExistsRedirect, ProtectedRoute } from "./helpers/routes";
 import { useAuthListener } from "./hooks";
+import Home2 from "./components/Home";
 
 export default function App() {
   const { user } = useAuthListener();
@@ -75,6 +76,7 @@ export default function App() {
           <Route exact path={ROUTES.TRENDING} element={<Trending />} />
           <Route exact path={ROUTES.MOVIES} element={<Movies />} />
           <Route exact path={ROUTES.SERIES} element={<Series />} />
+          <Route exact path={ROUTES.HOME2} element={<Home2 />} />
           {/* <Route path="/search" element={<Search />} /> */}
         </Routes>
       </Router>

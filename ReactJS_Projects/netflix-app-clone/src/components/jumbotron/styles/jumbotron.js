@@ -88,7 +88,7 @@ export const Item = styled.div`
         outline: 2px solid #000;
         outline-offset: -2px;
         display: block;
-        background: url(images/download-icon.gif) center center no-repeat;
+        background: url(images/misc/download-icon.gif) center center no-repeat;
         background-size: 100%;
         content: "";
         flex-grow: 0;

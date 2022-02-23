@@ -1,7 +1,7 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 
-import * as ROUTES from "../constants/routes";
+import * as ROUTES from "../routes/routes";
 export function IsUserExistsRedirect({ user, children }) {
   // console.log(user);
   return user ? <Navigate to={ROUTES.BROWSE} /> : children;

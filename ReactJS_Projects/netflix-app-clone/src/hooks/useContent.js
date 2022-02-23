@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import db from "../lib/firebase.prod";
 
-export default function useContent(target) {
+export default function useContent(type) {
   const [content, setContent] = useState([]);
   //   console.log(db);
   useEffect(() => {
     // target will be either films or series
-    db.collection(target)
+    db.collection(type)
       .get()
       .then((snapshot) => {
         const allContent = snapshot.docs.map((contentObj) => ({
@@ -23,5 +23,5 @@ export default function useContent(target) {
     // eslint-disable-next-line
   }, []);
 
-  return { [target]: content };
+  return { [type]: content };
 }

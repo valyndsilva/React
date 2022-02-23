@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FooterContainer } from "../containers/footer";
 import { HeaderContainer } from "../containers/header";
 import { Form } from "../components";
-import * as ROUTES from "../constants/routes";
+import * as ROUTES from "../routes/routes";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../lib/firebase.prod.js";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";

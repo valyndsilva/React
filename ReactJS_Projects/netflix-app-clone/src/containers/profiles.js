@@ -1,5 +1,5 @@
 import React from "react";
-import * as ROUTES from "../constants/routes";
+import * as ROUTES from "../routes/routes";
 import { Header } from "../components";
 import { Profiles } from "../components";
 export default function SelectProfileContainer({ user, setProfile }) {

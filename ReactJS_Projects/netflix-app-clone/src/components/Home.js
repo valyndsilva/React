@@ -4,7 +4,7 @@ import MoviesComp from "./MoviesComp";
 import Hero from "./Hero";
 import Navbar from "./Navbar";
 
-export default function Home() {
+export default function Home2() {
   return (
     <Container>
       <Navbar />

@@ -7,3 +7,4 @@ export const WATCH = "/watch";
 export const TRENDING = "/trending";
 export const MOVIES = "/movies";
 export const SERIES = "/series";
+export const HOME2 = "/home";

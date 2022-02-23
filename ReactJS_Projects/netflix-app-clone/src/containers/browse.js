@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from "react";
 import SelectProfileContainer from "./profiles";
 import { auth } from "../lib/firebase.prod.js";
-import { Loading, Header } from "../components";
-import * as ROUTES from "../constants/routes";
+import { Loading, Header, Card, Player } from "../components";
+import * as ROUTES from "../routes/routes";
 import {
   ArrowDropDown,
   InfoOutlined,
   NotificationsActive,
   PlayArrow,
 } from "@mui/icons-material";
+import Fuse from "fuse.js";
+
 export default function BrowseContainer({ slides }) {
   const [profile, setProfile] = useState({});
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
+  const [category, setCategory] = useState("series");
+  const [slideRows, setSlideRows] = useState([]);
+
   const user = auth.currentUser || {};
 
   useEffect(() => {
@@ -22,6 +27,25 @@ export default function BrowseContainer({ slides }) {
     }, 3000);
     // eslint-disable-next-line
   }, [profile.displayName]);
+
+  useEffect(() => {
+    //to set the active slide rows
+    setSlideRows(slides[category]); //slides is either series or movie, category is the genre
+  }, [slides, category]);
+
+  useEffect(() => {
+    const fuse = new Fuse(slideRows, {
+      keys: ["data.title"],
+    });
+    const results = fuse.search(searchTerm).map(({ item }) => item);
+    if (slideRows.length > 0 && searchTerm.length > 3 && results.length > 0) {
+      setSlideRows(results);
+    } else {
+      setSlideRows(slides[category]);
+    }
+    // eslint-disable-next-line
+  }, [searchTerm]);
+
   //if profile.displayName exists show loading and then take to BrowseContainer
   return profile.displayName ? (
     <>
@@ -35,13 +59,36 @@ export default function BrowseContainer({ slides }) {
               alt="Netflix"
             />
             <Header.TextLink>Home</Header.TextLink>
-            <Header.TextLink>Series</Header.TextLink>
-            <Header.TextLink>Films</Header.TextLink>
-            <Header.TextLink>New & Popular</Header.TextLink>
-            <Header.TextLink>My List</Header.TextLink>
+            <Header.TextLink
+              active={category === "series" ? "true" : "false"}
+              onClick={() => setCategory("series")}
+            >
+              Series
+            </Header.TextLink>
+            <Header.TextLink
+              active={category === "films" ? "true" : "false"}
+              onClick={() => setCategory("films")}
+            >
+              Films
+            </Header.TextLink>
+            <Header.TextLink
+              active={category === "trending" ? "true" : "false"}
+              onClick={() => setCategory("trending")}
+            >
+              New & Popular
+            </Header.TextLink>
+            <Header.TextLink
+              active={category === "myList" ? "true" : "false"}
+              onClick={() => setCategory("myList")}
+            >
+              My List
+            </Header.TextLink>
           </Header.Group>
           <Header.Group>
-            <Header.Search searchTerm={searchTerm}></Header.Search>
+            <Header.Search
+              searchTerm={searchTerm}
+              setSearchTerm={setSearchTerm}
+            ></Header.Search>
             <Header.Profile>
               <Header.TextLink>{user.displayName}</Header.TextLink>
               <NotificationsActive className="notificationsIcon" />
@@ -82,6 +129,33 @@ export default function BrowseContainer({ slides }) {
           </Header.Controls>
         </Header.Feature>
       </Header>
+
+      <Card.Group>
+        {slideRows.map((slideItem) => (
+          <Card key={`${category}-${slideItem.title.toLowerCase()}`}>
+            <Card.Title>{slideItem.title}</Card.Title>
+            <Card.Entities>
+              {slideItem.data.map((item) => (
+                <Card.Item key={item.docId} item={item}>
+                  <Card.Image
+                    src={`/images/${category}/${item.genre}/${item.slug}/small.jpg`}
+                  />
+                  <Card.Meta>
+                    <Card.SubTitle>{item.title}</Card.SubTitle>
+                    <Card.Text>{item.description}</Card.Text>
+                  </Card.Meta>
+                </Card.Item>
+              ))}
+            </Card.Entities>
+            <Card.Feature category={category}>
+              <Player>
+                <Player.Button />
+                <Player.Video src="/videos/trailer.mp4" />
+              </Player>
+            </Card.Feature>
+          </Card>
+        ))}
+      </Card.Group>
     </>
   ) : (
     <SelectProfileContainer user={user} setProfile={setProfile} />

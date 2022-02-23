@@ -5,7 +5,7 @@ export const Background = styled.div`
   display: flex;
   flex-direction: column;
   background: url(${({ src }) =>
-      src ? `../images/misc/${src}.jpeg` : "../images/home-bg.jpeg"}),
+      src ? `../images/misc/${src}.jpeg` : "../images/misc/home-bg.jpeg"}),
     top left / cover no-repeat;
   @media (max-width: 1100px) {
     ${({ dontShowOnSmallViewPort }) =>
@@ -290,6 +290,12 @@ export const Profile = styled.div`
   &:hover > ${DropDown} {
     display: flex;
     flex-direction: column;
+
+    button {
+      background-repeat: no-repeat;
+      height: 21px;
+      width: 21px;
+    }
   }
 
   .notificationsIcon {
