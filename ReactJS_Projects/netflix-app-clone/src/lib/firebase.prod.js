@@ -1,6 +1,8 @@
 import { getAuth } from "firebase/auth";
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
+
+// 1) when seeding the database you'll have to uncomment this!
 // import { seedDatabase } from "../seed";
 
 const config = {
@@ -14,7 +16,9 @@ const config = {
 
 const app = firebase.initializeApp(config);
 
-// seedDatabase(Firebase);  //comment out after running once or it will create duplicates in firestore!
+// 2) when seeding the database you'll have to uncomment this!
+// seedDatabase(firebase); //comment out after running once or it will create duplicates in firestore!
+// 3) once you have populated the database (only run once!), re-comment this so you don't get duplicate data
 
 const db = app.firestore();
 // const auth = firebase.auth();

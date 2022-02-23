@@ -9,6 +9,7 @@ import { Link } from "@mui/material";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
+
   // const baseURL = "https://api.themoviedb.org/3";
   useEffect(() => {
     window.onscroll = () => {
@@ -25,10 +26,10 @@ export default function Navbar() {
             <span>Home</span>
           </Link>
           <Link href="/series">
-            <span>TV Shows</span>
+            <span>Series</span>
           </Link>
           <Link href="/movies">
-            <span>Movies</span>
+            <span>Films</span>
           </Link>
           <Link href="/trending">
             <span>New & Popular</span>
@@ -44,10 +45,10 @@ export default function Navbar() {
           <SearchTwoTone />
         </Link>
 
-        <NotificationsActive />
         <a href="/#">
           <span className="username">Valyn</span>
         </a>
+        <NotificationsActive />
         <Avatar src="/images/netflix-avatar.png" />
         <Profile>
           <ArrowDropDown />
