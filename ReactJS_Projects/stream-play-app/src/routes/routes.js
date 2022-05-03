@@ -1,0 +1,10 @@
+export const SIGN_UP = "/signup";
+export const SIGN_IN = "/signin";
+export const MAIN = "/";
+export const HOME = "/home";
+export const SEARCH = "/search";
+export const WATCH = "/watch";
+export const TRENDING = "/trending";
+export const MOVIES = "/movies";
+export const SERIES = "/series";
+export const WATCHLIST = "/watchlist";
