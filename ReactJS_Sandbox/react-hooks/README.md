@@ -96,6 +96,9 @@ function App(){
 }
 ```
 
+Install ESLint plugin for react hooks:
+npm install eslint-plugin-react-hooks --save-dev
+
 React has 10 different hooks:
 
 ## Basic Hooks:
