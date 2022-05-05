@@ -5,7 +5,7 @@ export  function AddContainer({newItem, setNewItem, handleSubmit}) {
   return (
       <Add className="addForm">
         <Add.Label htmlFor="addItem">Add Item</Add.Label>
-        <Add.Input autoFocus id="addItem" type="text" placeholder="Add Item" required/>
+        <Add.Input autoFocus id="addItem" type="text" placeholder="Add Item" required value={newItem} onChange={(e)=>setNewItem(e.target.value)}/>
         <Add.Button type="submit" aria-label="Add Item"><FaPlus/></Add.Button>
       </Add>
   )
