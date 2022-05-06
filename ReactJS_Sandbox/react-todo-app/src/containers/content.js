@@ -1,19 +1,33 @@
-import React from "react";
-import { Content } from "../components";
-import { ListContainer } from "./list";
+import React from 'react';
+import { Content } from '../components';
+import { ListContainer } from './list';
 
-export function ContentContainer({ items, handleCheck, handleDelete }) {
+export function ContentContainer({
+  items,
+  handleCheck,
+  handleDelete,
+  fetchError,
+  isLoading,
+}) {
   return (
     <Content>
-      {items.length ? (
-        <ListContainer
-          items={items}
-          handleCheck={handleCheck}
-          handleDelete={handleDelete}
-        />
-      ) : (
-        <Content.Text>Your list is empty!</Content.Text>
-      )}
+      {isLoading && <p>Loading Items...</p>}
+      {fetchError && <p style={{ color: 'red' }}>{`Error: ${fetchError}`}</p>}
+      {/* {!fetchError && ( */}
+      {!fetchError &&
+      !isLoading && ( // if no error and not loading(false)
+          <>
+            {items.length ? (
+              <ListContainer
+                items={items}
+                handleCheck={handleCheck}
+                handleDelete={handleDelete}
+              />
+            ) : (
+              <Content.Text>Your list is empty!</Content.Text>
+            )}
+          </>
+        )}
     </Content>
   );
 }

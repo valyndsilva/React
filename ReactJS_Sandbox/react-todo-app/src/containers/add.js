@@ -15,12 +15,8 @@ export function AddContainer({ newItem, setNewItem, handleSubmit }) {
         value={newItem}
         onChange={(e) => setNewItem(e.target.value)}
       />
-      <Add.Button
-        type="submit"
-        aria-label="Add Item"
-        onClick={() => inputRef.current.focus()}
-      >
-        <FaPlus />
+      <Add.Button type="submit" aria-label="Add Item">
+        <FaPlus onClick={() => inputRef.current.focus()} />
       </Add.Button>
     </Add>
   );

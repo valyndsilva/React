@@ -1,5 +1,8 @@
 # Getting Started with Create React App
 
+npx json-server -p 3500 -w data/db.json
+-p (port) -w (watch)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
