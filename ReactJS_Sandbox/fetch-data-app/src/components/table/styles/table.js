@@ -6,4 +6,9 @@ export const Container = styled.table`
   padding-top: 52px;
 `;
 
-export const Body = styled.tbody``;
+export const Body = styled.tbody`
+  td {
+    border: 1px solid #000;
+    padding: 0.25rem;
+  }
+`;
