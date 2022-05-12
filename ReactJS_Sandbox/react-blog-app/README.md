@@ -1,6 +1,16 @@
-# Getting Started with Create React App
+# React Blog App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Topics Covered:
+
+React Router & Links
+Axios API Requests Custom Hooks
+Context API & useContext Hooks
+Redux Toolkit
+
+## Start JSON Server:
+
+npx json-server -p 3500 -w data/db.json
+-p (port) -w (watch)
 
 ## Available Scripts
 
