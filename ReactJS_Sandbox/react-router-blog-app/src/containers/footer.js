@@ -1,5 +1,10 @@
 import React from 'react';
 import { Footer } from '../components';
 export default function FooterContainer() {
-  return <Footer>footer</Footer>;
+  const today = new Date();
+  return (
+    <Footer>
+      <Footer.Text>Copyright &copy; {today.getFullYear()}</Footer.Text>
+    </Footer>
+  );
 }

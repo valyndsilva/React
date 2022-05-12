@@ -11,3 +11,4 @@ export const Container = styled.footer`
   display: grid;
   place-content: center;
 `;
+export const Text = styled.p``;

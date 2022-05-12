@@ -9,8 +9,21 @@ export const Container = styled.main`
 `;
 export const Post = styled.article``;
 
-export const Title = styled.h2``;
+export const Title = styled.h2`
+  margin-bottom: 1rem;
+`;
 
-export const Text = styled.p``;
+export const Text = styled.p`
+  margin-bottom: 1rem;
+`;
 
-export const Button = styled.button``;
+export const Button = styled.button`
+  height: 48px;
+  min-width: 48px;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+  background-color: red;
+  color: #fff;
+  cursor: pointer;
+`;

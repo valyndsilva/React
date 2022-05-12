@@ -8,15 +8,10 @@ import {
   NewPostContainer,
   MissingContainer,
 } from './containers';
-// import { Home } from './pages';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useNavigate,
-} from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import * as ROUTES from './routes/routes';
+import { format } from 'date-fns';
 function App() {
   const [posts, setPosts] = useState([
     {
@@ -44,33 +39,77 @@ function App() {
       body: 'lorem ipsum dolor sit amet, consectet',
     },
   ]);
+
   const [search, setSearch] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-  
-  const handleDelete = (id) => {};
+  const [postTitle, setPostTitle] = useState('');
+  const [postBody, setPostBody] = useState('');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const filteredResults = posts.filter(
+      (post) =>
+        post.body.toLowerCase().includes(search.toLowerCase()) ||
+        post.title.toLowerCase().includes(search.toLowerCase())
+    );
+    setSearchResults(filteredResults.reverse()); // newest post at the top
+  }, [posts, search]);
+
+  const handleSubmit = (e) => {
+    e.PreventDefault();
+    const id = posts.length ? posts[posts.length - 1].id + 1 : 1; // last post id +1 : set id to 1
+    console.log(id);
+    const datetime = format(new Date(), 'MMMM dd, yyyy pp');
+    console.log(datetime);
+    const newPost = { id, title: postTitle, datetime, body: postBody };
+    console.log(newPost);
+    const allPosts = [...posts, newPost];
+    console.log(allPosts);
+    setPosts(allPosts);
+    setPostTitle('');
+    setPostBody('');
+    navigate('/');
+  };
+
+  const handleDelete = (id) => {
+    // get posts that are not deleted
+    const postsList = posts.filter((post) => post.id !== id);
+    setPosts(postsList);
+    navigate('/');
+  };
   return (
     <div className="App">
-      <Router>
-        <HeaderContainer title="ReactJS Blog App" />
-        <NavContainer serach={search} setSearch={setSearch} />
-        <Routes>
-          <Route
-            exact
-            index
-            path={ROUTES.HOME}
-            element={<HomeContainer posts={posts} />}
-          />
-          <Route path={ROUTES.NEWPOST} element={<NewPostContainer />} />
-          <Route
-            path={ROUTES.POSTPAGE}
-            element={
-              <PostPageContainer posts={posts} handleDelete={handleDelete} />
-            }
-          />
-          <Route path={ROUTES.ABOUT} element={<AboutContainer />} />
-          <Route path={ROUTES.MISSING} element={<MissingContainer />} />
-        </Routes>
-      </Router>
+      <HeaderContainer title="ReactJS Blog App" />
+      <NavContainer serach={search} setSearch={setSearch} />
+      <Routes>
+        <Route
+          exact
+          index
+          path={ROUTES.HOME}
+          element={<HomeContainer posts={searchResults} />}
+        />
+        <Route
+          path={ROUTES.NEWPOST}
+          element={
+            <NewPostContainer
+              handleSubmit={handleSubmit}
+              postTitle={postTitle}
+              setPostTitle={setPostTitle}
+              postBody={postBody}
+              setPostBody={setPostBody}
+            />
+          }
+        />
+        <Route
+          path={ROUTES.POSTPAGE}
+          element={
+            <PostPageContainer posts={posts} handleDelete={handleDelete} />
+          }
+        />
+        <Route path={ROUTES.ABOUT} element={<AboutContainer />} />
+        <Route path={ROUTES.MISSING} element={<MissingContainer />} />
+      </Routes>
+
       <FooterContainer />
     </div>
   );

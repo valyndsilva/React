@@ -1,6 +1,9 @@
 import React from 'react';
-import { Container } from './styles/footer';
+import { Container, Text } from './styles/footer';
 
-export default function Header({ children, ...restProps }) {
+export default function Footer({ children, ...restProps }) {
   return <Container {...restProps}>{children}</Container>;
 }
+Footer.Text = function FooterText({ children, ...restProps }) {
+  return <Text {...restProps}>{children}</Text>;
+};

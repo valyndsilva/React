@@ -7,3 +7,10 @@ export const Container = styled.main`
   overflow-y: auto;
   background-color: #fff;
 `;
+export const Title = styled.h2`
+  margin-bottom: 1rem;
+`;
+
+export const Text = styled.p`
+  margin-bottom: 1rem;
+`;
