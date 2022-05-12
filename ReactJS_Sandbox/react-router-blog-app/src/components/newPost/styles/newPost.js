@@ -1,18 +1,23 @@
 import styled from 'styled-components/macro';
 
 export const Container = styled.main`
-  /* width: 100%;
+  width: 100%;
   flex-grow: 1;
   padding: 1rem;
   overflow-y: auto;
-  background-color: #fff; */
+  background-color: #fff;
   display: flex;
   flex-direction: column;
 `;
 
 export const Title = styled.h2``;
 
-export const Form = styled.form``;
+export const Form = styled.form`
+  /* @media only screen and (min-width: 610px) {
+    width: 50%;
+    padding: 0.5rem 0;
+  } */
+`;
 
 export const Input = styled.input`
   font-family: 'Open Sans', sans-serif;
@@ -23,6 +28,10 @@ export const Input = styled.input`
   border-radius: 0.25rem;
   margin-right: 0.25rem;
   outline: none;
+
+  /* @media only screen and (min-width: 610px) {
+    margin-left: 0.5rem;
+  } */
 `;
 
 export const TextArea = styled.textarea`
@@ -35,6 +44,10 @@ export const TextArea = styled.textarea`
   border-radius: 0.25rem;
   margin-right: 0.25rem;
   outline: none;
+
+  @media only screen and (min-width: 610px) {
+    height: 300px;
+  }
 `;
 
 export const Label = styled.label`

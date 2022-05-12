@@ -7,11 +7,19 @@ export const Container = styled.nav`
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+
+  @media only screen and (min-width: 610px) {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+  }
 `;
 
 export const Form = styled.form`
   width: 80%;
-  padding: 1rem 0 0 0.75rem;
+  /* padding: 1rem 0 0 0.75rem; */
+  padding: 1rem 0.75rem;
 `;
 
 export const Label = styled.label`
@@ -27,6 +35,9 @@ export const Input = styled.input`
   padding: 0.25rem;
   border-radius: 0.25rem;
   outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const List = styled.ul`
@@ -35,6 +46,10 @@ export const List = styled.ul`
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
+
+  @media only screen and (min-width: 610px) {
+    text-align: right;
+  }
 `;
 
 export const Item = styled.li`
