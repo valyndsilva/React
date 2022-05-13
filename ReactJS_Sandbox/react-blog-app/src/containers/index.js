@@ -5,5 +5,6 @@ export { default as HomeContainer } from './home';
 export { default as AboutContainer } from './about';
 export { default as NewPostContainer } from './newPost';
 export { default as PostPageContainer } from './postPage';
+export { default as EditPostContainer } from './editPost';
 export { default as MissingContainer } from './missing';
 export { default as FeedContainer } from './feed';

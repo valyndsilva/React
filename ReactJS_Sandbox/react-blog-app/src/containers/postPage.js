@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { PostPage } from '../components';
 
-export default function PostPageContainer({ posts, handleDelete }) {
+export default function PostPageContainer({ posts, handleDelete, handleEdit }) {
   const { id } = useParams();
   const post = posts.find((post) => post.id.toString() === id);
   return (
@@ -13,7 +13,11 @@ export default function PostPageContainer({ posts, handleDelete }) {
             <PostPage.Title>{post.title}</PostPage.Title>
             <PostPage.Text className="postDate">{post.datetime}</PostPage.Text>
             <PostPage.Text className="postBody">{post.body}</PostPage.Text>
+            <Link to={`/edit/${post.id}`}>
+              <PostPage.Button className="editBtn">Edit Post</PostPage.Button>
+            </Link>
             <PostPage.Button
+              className="deleteBtn"
               onClick={() => {
                 handleDelete(post.id);
               }}

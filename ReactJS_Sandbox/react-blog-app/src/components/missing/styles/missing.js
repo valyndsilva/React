@@ -13,5 +13,5 @@ export const Title = styled.h2`
 `;
 
 export const Text = styled.p`
-  margin-bottom: 1rem;
+  margin-top: 1rem;
 `;

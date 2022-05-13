@@ -12,6 +12,9 @@ export const Container = styled.main`
 
 export const Title = styled.h2``;
 
+export const Text = styled.p`
+  margin-bottom: 1rem;
+`;
 export const Form = styled.form`
   /* @media only screen and (min-width: 610px) {
     width: 50%;
@@ -25,9 +28,9 @@ export const Input = styled.input`
   min-height: 48px;
   font-size: 1rem;
   padding: 0.25rem;
+  margin-bottom: 1rem;
   border-radius: 0.25rem;
   margin-right: 0.25rem;
-  margin-bottom: 1rem;
   outline: none;
 
   /* @media only screen and (min-width: 610px) {

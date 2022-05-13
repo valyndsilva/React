@@ -27,8 +27,20 @@
     {
       "id": 5,
       "title": "Post 5",
-      "datetime": "May 12, 2022 12:22:48 PM",
-      "body": "Test"
+      "datetime": "May 13, 2022 10:47:12 AM",
+      "body": "Test edited body"
+    },
+    {
+      "id": 6,
+      "title": "Test 6",
+      "datetime": "May 13, 2022 10:47:42 AM",
+      "body": "Test 123"
+    },
+    {
+      "id": 7,
+      "title": "Test 7",
+      "datetime": "May 13, 2022 10:48:05 AM",
+      "body": "Test 7"
     }
   ]
 }

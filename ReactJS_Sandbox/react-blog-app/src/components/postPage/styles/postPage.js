@@ -6,6 +6,13 @@ export const Container = styled.main`
   padding: 1rem;
   overflow-y: auto;
   background-color: #fff;
+  .deleteBtn {
+    background-color: red;
+  }
+
+  .editBtn {
+    background-color: #333;
+  }
 `;
 export const Post = styled.article``;
 
@@ -23,7 +30,7 @@ export const Button = styled.button`
   border-radius: 0.25rem;
   padding: 0.5rem;
   font-size: 1rem;
-  background-color: red;
+  margin-right: 0.5rem;
   color: #fff;
   cursor: pointer;
 `;

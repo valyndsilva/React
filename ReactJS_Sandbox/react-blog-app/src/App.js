@@ -7,6 +7,7 @@ import {
   PostPageContainer,
   NewPostContainer,
   MissingContainer,
+  EditPostContainer,
 } from './containers';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
@@ -46,6 +47,8 @@ function App() {
   const [searchResults, setSearchResults] = useState([]);
   const [postTitle, setPostTitle] = useState('');
   const [postBody, setPostBody] = useState('');
+  const [editTitle, setEditTitle] = useState('');
+  const [editBody, setEditBody] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -71,6 +74,8 @@ function App() {
     };
     fetchPosts();
   }, []);
+
+  // Display Posts Search Results
   useEffect(() => {
     const filteredResults = posts.filter(
       (post) =>
@@ -113,6 +118,23 @@ function App() {
     }
   };
 
+  const handleEdit = async (id) => {
+    const datetime = format(new Date(), 'MMMM dd, yyyy pp');
+    const updatedPost = { id, title: editTitle, datetime, body: editBody };
+    try {
+      const response = await api.put(`/posts/${id}`, updatedPost); //.patch if replacing specific fields
+      // const allPosts = [...posts, newPost];
+      setPosts(
+        posts.map((post) => (post.id === id ? { ...response.data } : post))
+      );
+      setEditTitle('');
+      setEditBody('');
+      navigate('/');
+    } catch (err) {
+      console.log(`Error: ${err.message}`);
+    }
+  };
+
   // const handleDelete = (id) => {
   //   // get posts that are not deleted
   //   const postsList = posts.filter((post) => post.id !== id);
@@ -144,6 +166,7 @@ function App() {
           element={<HomeContainer posts={searchResults} />}
         />
         <Route
+          exact
           path={ROUTES.NEWPOST}
           element={
             <NewPostContainer
@@ -152,6 +175,19 @@ function App() {
               setPostTitle={setPostTitle}
               postBody={postBody}
               setPostBody={setPostBody}
+            />
+          }
+        />
+        <Route
+          path={ROUTES.EDITPOST}
+          element={
+            <EditPostContainer
+              posts={posts}
+              handleEdit={handleEdit}
+              editTitle={editTitle}
+              setEditTitle={setEditTitle}
+              editBody={editBody}
+              setEditBody={setEditBody}
             />
           }
         />
