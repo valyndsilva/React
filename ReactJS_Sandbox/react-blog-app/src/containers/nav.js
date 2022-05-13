@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Nav } from '../components';
 import { Link } from 'react-router-dom';
 import * as ROUTES from '../routes/routes';
-export default function NavContainer({ search, setSearch }) {
+import DataContext from '../context/DataContext';
+export default function NavContainer() {
+  const { search, setSearch } = useContext(DataContext);
   return (
     <Nav>
       <Nav.Form

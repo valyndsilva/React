@@ -1,15 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { EditPost } from '../components';
 import { useParams, Link } from 'react-router-dom';
-
-export default function EditPostContainer({
-  posts,
-  handleEdit,
-  editTitle,
-  setEditTitle,
-  editBody,
-  setEditBody,
-}) {
+import DataContext from '../context/DataContext';
+export default function EditPostContainer() {
+  const { posts, handleEdit, editTitle, setEditTitle, editBody, setEditBody } =
+    useContext(DataContext);
   const { id } = useParams();
   const post = posts.find((post) => post.id.toString() === id);
 

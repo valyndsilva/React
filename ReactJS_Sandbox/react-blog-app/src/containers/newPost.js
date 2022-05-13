@@ -1,13 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { NewPost } from '../components';
-
-export default function NewPostContainer({
-  handleSubmit,
-  postTitle,
-  setPostTitle,
-  postBody,
-  setPostBody,
-}) {
+import DataContext from '../context/DataContext';
+export default function NewPostContainer() {
+  const { handleSubmit, postTitle, setPostTitle, postBody, setPostBody } =
+    useContext(DataContext);
   return (
     <NewPost>
       <NewPost.Title>New Post</NewPost.Title>

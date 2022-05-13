@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Home } from '../components';
 import { FeedContainer } from '../containers';
-export default function HomeContainer({ posts, fetchError, isLoading }) {
+import DataContext from '../context/DataContext';
+export default function HomeContainer() {
+  const { searchResults, fetchError, isLoading } = useContext(DataContext);
   return (
     <Home>
       {/* {posts.length ? (
@@ -17,8 +19,8 @@ export default function HomeContainer({ posts, fetchError, isLoading }) {
       )}
       {!isLoading &&
         !fetchError &&
-        (posts.length ? (
-          <FeedContainer posts={posts} />
+        (searchResults.length ? (
+          <FeedContainer posts={searchResults} />
         ) : (
           <p className="statusMsg">No posts to display!</p>
         ))}
