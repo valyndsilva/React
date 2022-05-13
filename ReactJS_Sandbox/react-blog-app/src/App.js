@@ -14,7 +14,8 @@ import { useState, useEffect } from 'react';
 import * as ROUTES from './routes/routes';
 import { format } from 'date-fns';
 import api from './api/posts';
-
+import useWindowSize from './hooks/useWindowSize';
+import useAxiosFetch from './hooks/useAxiosFetch';
 function App() {
   // const [posts, setPosts] = useState([
   //   {
@@ -50,30 +51,42 @@ function App() {
   const [editTitle, setEditTitle] = useState('');
   const [editBody, setEditBody] = useState('');
   const navigate = useNavigate();
+  const { width } = useWindowSize();
+  // const { data, fetchError, isLoading } = useAxiosFetch(
+  //   'http://localhost:3500/posts'
+  // );
+  const { data, fetchError, isLoading } = useAxiosFetch(
+    'http://localhost:3500/posts'
+  );
+
+  //Remove the code snippet below and replace with the useAxiosFetch hook snippet
+  // useEffect(() => {
+  //   const fetchPosts = async () => {
+  //     try {
+  //       const response = await api.get('/posts');
+  //       // Axios automatically creates the response.json() unlike when you use fetch().
+  //       // Axios also automatically catches errors when they are not in the 200 range of http responses.
+  //       // if (!response.ok) throw Error('Did not receive expected data'); // This is not required with axios as it checks
+  //       // if (response && response.data)
+  //       setPosts(response.data);
+  //     } catch (err) {
+  //       if (err.response) {
+  //         //Got reponse from back-end API but not in 200 response range
+  //         console.log(err.response.data);
+  //         console.log(err.response.status);
+  //         console.log(err.response.headers);
+  //       } else {
+  //         // No response, catches all the errors
+  //         console.log(`Error: ${err.message}`);
+  //       }
+  //     }
+  //   };
+  //   fetchPosts();
+  // }, []);
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await api.get('/posts');
-        // Axios automatically creates the response.json() unlike when you use fetch().
-        // Axios also automatically catches errors when they are not in the 200 range of http responses.
-        // if (!response.ok) throw Error('Did not receive expected data'); // This is not required with axios as it checks
-        // if (response && response.data)
-        setPosts(response.data);
-      } catch (err) {
-        if (err.response) {
-          //Got reponse from back-end API but not in 200 response range
-          console.log(err.response.data);
-          console.log(err.response.status);
-          console.log(err.response.headers);
-        } else {
-          // No response, catches all the errors
-          console.log(`Error: ${err.message}`);
-        }
-      }
-    };
-    fetchPosts();
-  }, []);
+    setPosts(data);
+  }, [data]);
 
   // Display Posts Search Results
   useEffect(() => {
@@ -156,14 +169,20 @@ function App() {
   };
   return (
     <div className="App">
-      <HeaderContainer title="ReactJS Blog App" />
+      <HeaderContainer title="ReactJS Blog App" width={width} />
       <NavContainer serach={search} setSearch={setSearch} />
       <Routes>
         <Route
           exact
           index
           path={ROUTES.HOME}
-          element={<HomeContainer posts={searchResults} />}
+          element={
+            <HomeContainer
+              posts={searchResults}
+              fetchError={fetchError}
+              isLoading={isLoading}
+            />
+          }
         />
         <Route
           exact
