@@ -1,28 +1,43 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { selectAllPosts } from './postsSlice';
-import PostAuthor from './PostAuthor';
-import TimeAgo from './TimeAgo';
-import ReactionButtons from './ReactionButtons';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import PostsExcerpt from './PostsExcerpt';
+import {
+  selectAllPosts,
+  getPostsStatus,
+  getPostsError,
+  fetchPosts,
+} from './postsSlice';
+// import PostAuthor from './PostAuthor';
+// import TimeAgo from './TimeAgo';
+// import ReactionButtons from './ReactionButtons';
 export default function PostsList() {
+  const dispatch = useDispatch();
+
   //   const posts = useSelector((state) => state.posts);
   const posts = useSelector(selectAllPosts);
+  const postStatus = useSelector(getPostsStatus);
+  const error = useSelector(getPostsError);
 
-  const orderedPosts = posts
-    .slice()
-    .sort((a, b) => b.date.localeCompare(a.date)); // latest post on top
+  useEffect(() => {
+    if (postStatus === 'idle') {
+      dispatch(fetchPosts());
+    }
+  }, [postStatus, dispatch]);
 
-  const renderedPosts = orderedPosts.map((post) => (
-    <article key={post.id}>
-      <h3>{post.title}</h3>
-      <p>{post.content.substring(0, 20)}</p>
-      <p className="postCredit">
-        <PostAuthor userId={post.userId} />
-        <TimeAgo timestamp={post.date} />
-      </p>
-      <ReactionButtons post={post} />
-    </article>
-  ));
+  let renderedPosts;
+  if (postStatus === 'loading') {
+    renderedPosts = <p>"Loading..."</p>;
+  } else if (postStatus === 'succeeded') {
+    const orderedPosts = posts
+      .slice()
+      .sort((a, b) => b.date.localeCompare(a.date)); // order latest post on top
+    renderedPosts = orderedPosts.map((post) => (
+      <PostsExcerpt key={post.id} post={post} />
+    ));
+  } else if (postStatus === 'failed') {
+    renderedPosts = <p>{error}</p>;
+  }
+
   return (
     <section>
       <h2>Posts</h2>
