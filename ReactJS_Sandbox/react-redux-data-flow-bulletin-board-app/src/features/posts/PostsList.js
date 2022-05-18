@@ -28,12 +28,12 @@ export default function PostsList() {
   if (postStatus === 'loading') {
     renderedPosts = <p>"Loading..."</p>;
   } else if (postStatus === 'succeeded') {
+    console.log(posts);
     const orderedPosts = posts
       .slice()
       .sort((a, b) => b.date.localeCompare(a.date)); // order latest post on top
-    renderedPosts = orderedPosts.map((post) => (
-      <PostsExcerpt key={post.id} post={post} />
-    ));
+
+    renderedPosts = orderedPosts.map((post) => <PostsExcerpt post={post} />);
   } else if (postStatus === 'failed') {
     renderedPosts = <p>{error}</p>;
   }

@@ -8,7 +8,7 @@ const POSTS_URL = 'https://jsonplaceholder.typicode.com/posts';
 //   {
 //     id: '1',
 //     title: 'Title 1',
-//     content: 'lorem ipsum text 1 goes here',
+//     body: 'lorem ipsum text 1 goes here',
 //     date: sub(new Date(), { minutes: 10 }).toISOString(),
 //     reactions: {
 //       thumbsUp: 0,
@@ -21,7 +21,7 @@ const POSTS_URL = 'https://jsonplaceholder.typicode.com/posts';
 //   {
 //     id: '2',
 //     title: 'Title 2',
-//     content: 'lorem ipsum text 2 goes here',
+//     body: 'lorem ipsum text 2 goes here',
 //     date: sub(new Date(), { minutes: 5 }).toISOString(),
 //     reactions: {
 //       thumbsUp: 0,
@@ -46,6 +46,14 @@ export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
   const response = await axios.get(POSTS_URL);
   return response.data;
 });
+
+export const addNewPost = createAsyncThunk(
+  'posts/addNewPost',
+  async (initialPost) => {
+    const response = await axios.post(POSTS_URL, initialPost);
+    return response.data;
+  }
+);
 
 const postsSlice = createSlice({
   name: 'posts',
@@ -116,6 +124,19 @@ const postsSlice = createSlice({
       .addCase(fetchPosts.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
+      })
+      .addCase(addNewPost.fulfilled, (state, action) => {
+        action.payload.userId = Number(action.payload.userId);
+        action.payload.date = new Date().toISOString();
+        action.payload.reactions = {
+          thumbsUp: 0,
+          wow: 0,
+          heart: 0,
+          rocket: 0,
+          coffee: 0,
+        };
+        console.log(action.payload);
+        state.posts.push(action.payload);
       });
   },
 });
