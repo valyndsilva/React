@@ -5,17 +5,18 @@ import { addNewPost } from './postsSlice';
 import { selectAllUsers } from '../users/usersSlice';
 
 export default function AddPostsForm() {
+  const dispatch = useDispatch();
+
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const [userId, setUserId] = useState('');
+  const [addRequestStatus, setAddRequestStatus] = useState('idle');
 
   const users = useSelector(selectAllUsers);
-  const dispatch = useDispatch();
 
   const onTitleChanged = (e) => setTitle(e.target.value);
   const onBodyChanged = (e) => setBody(e.target.value);
   const onAuthorChanged = (e) => setUserId(e.target.value);
-  const [addRequestStatus, setAddRequestStatus] = useState('idle');
 
   // const canSave = Boolean(title) && Boolean(body) && Boolean(userId);
   const canSave =

@@ -66,12 +66,12 @@ const postsSlice = createSlice({
         state.posts.push(action.payload);
       },
       // callback function
-      prepare(title, content, userId) {
+      prepare(title, body, userId) {
         return {
           payload: {
             id: nanoid(),
             title,
-            content,
+            body,
             date: new Date().toISOString(),
             userId,
             reactions: {
@@ -108,6 +108,7 @@ const postsSlice = createSlice({
         //Adding date and reactions
         let min = 1;
         const loadedPosts = action.payload.map((post) => {
+          // console.log(post);
           post.date = sub(new Date(), { minutes: min++ }).toISOString();
           post.reactions = {
             thumbsUp: 0,
@@ -119,7 +120,8 @@ const postsSlice = createSlice({
           return post;
         });
         // Add any fetched posts to the array
-        state.posts = state.posts.concat(loadedPosts);
+        // state.posts = state.posts.concat(loadedPosts); // causes duplicates so removed
+        state.posts = loadedPosts;
       })
       .addCase(fetchPosts.rejected, (state, action) => {
         state.status = 'failed';

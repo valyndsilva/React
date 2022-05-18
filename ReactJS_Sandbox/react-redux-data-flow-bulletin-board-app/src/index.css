@@ -32,8 +32,11 @@ main {
 section {
   margin-top: 1em;
 }
+ul {
+  list-style: none;
+}
 
-article {
+li {
   margin: 0.5em 0.5em 0.5em 0;
   border: 1px solid whitesmoke;
   border-radius: 10px;
