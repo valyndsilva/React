@@ -1,5 +1,8 @@
-import { createSlice, nanoid } from '@reduxjs/toolkit';
-// import { sub } from 'date-fns';
+import { createSlice, nanoid, createAsyncThunk } from '@reduxjs/toolkit';
+import { sub } from 'date-fns';
+import axios from 'axios';
+
+const POSTS_URL = 'https://jsonplaceholder.typicode.com/posts';
 
 // const initialState = [
 //   {
@@ -35,6 +38,15 @@ const initialState = {
   status: 'idle', //'idle' | 'loading' | 'succeeded' | 'failed'
   error: null,
 };
+
+//createAsyncThunk accepts a "Redux action type string" and a "callback function that should return a promise".
+// It generates promise lifecycle action types based on the action type prefix that you pass in, and returns a thunk action creator that will run the promise callback and dispatch the lifecycle actions based on the returned promise.
+
+export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
+  const response = await axios.get(POSTS_URL);
+  return response.data;
+});
+
 const postsSlice = createSlice({
   name: 'posts',
   initialState,
@@ -73,6 +85,38 @@ const postsSlice = createSlice({
         existingPost.reactions[reaction]++;
       }
     },
+  },
+  extraReducers: (builder) => {
+    // Add reducers for additional action types here
+    // The 'builder' parameter is an object that let's us define additional case reducers that run in response to the actions defined outside the Slice.
+
+    // Cases below are listening to promise status action types that are dispatched by the fetchPosts Thunk.
+    builder
+      .addCase(fetchPosts.pending, (state, action) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchPosts.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        //Adding date and reactions
+        let min = 1;
+        const loadedPosts = action.payload.map((post) => {
+          post.date = sub(new Date(), { minutes: min++ }).toISOString();
+          post.reactions = {
+            thumbsUp: 0,
+            wow: 0,
+            heart: 0,
+            rocket: 0,
+            coffee: 0,
+          };
+          return post;
+        });
+        // Add any fetched posts to the array
+        state.posts = state.posts.concat(loadedPosts);
+      })
+      .addCase(fetchPosts.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      });
   },
 });
 
