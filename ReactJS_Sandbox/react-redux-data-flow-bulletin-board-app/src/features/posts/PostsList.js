@@ -10,7 +10,7 @@ export default function PostsList() {
 
   const orderedPosts = posts
     .slice()
-    .sort((a, b) => b.date.localeCompare(a.date));
+    .sort((a, b) => b.date.localeCompare(a.date)); // latest post on top
 
   const renderedPosts = orderedPosts.map((post) => (
     <article key={post.id}>
