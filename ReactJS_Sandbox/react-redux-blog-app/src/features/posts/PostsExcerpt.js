@@ -3,9 +3,14 @@ import PostAuthor from './PostAuthor';
 import TimeAgo from './TimeAgo';
 import ReactionButtons from './ReactionButtons';
 import { Link } from 'react-router-dom';
+//After createEntityAdapter used:
+import { useSelector } from 'react-redux';
+import { selectPostById } from './postsSlice';
 
 // let PostsExcerpt = ({ post }) => {
-const PostsExcerpt = ({ post }) => {
+// const PostsExcerpt = ({ post }) => {
+const PostsExcerpt = ({ postId }) => {
+  const post = useSelector((state) => selectPostById(state, postId));
   return (
     <article key={post.id}>
       <h2>{post.title}</h2>
@@ -25,7 +30,7 @@ const PostsExcerpt = ({ post }) => {
 
 // We can remove .memo() and use State Normalization instead:
 // Normalization State Structure: Recommended approach for storing items. No duplication of data. Creates an ID Lookup which means items are store in a lookup table by item ID.
-// State Shap: { posts: {ids:[1,2,3,..], entities:{'1':{userId:1, id:1, title:..etc}}}}
+// State Structure: { posts: {ids:[1,2,3,..], entities:{'1':{userId:1, id:1, title:..etc}}}}
 // When you are using Normalized data with redux toolkit the toolkit provides a "createEntityAdapter" API.
 // createEntityAdapter" API: Makes redux slices less complicated and easier to manage. It abstracts more logic from components, has built-in CRUD methods, and has automatic selector generation.
 export default PostsExcerpt;

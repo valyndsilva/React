@@ -3,12 +3,16 @@ import {
   nanoid,
   createAsyncThunk,
   createSelector,
+  createEntityAdapter,
 } from '@reduxjs/toolkit';
 import { sub } from 'date-fns';
 import axios from 'axios';
 
 const POSTS_URL = 'https://jsonplaceholder.typicode.com/posts';
 
+const postsAdapter = createEntityAdapter({
+  sortComparer: (a, b) => b.date.localeCompare(a.date),
+});
 // const initialState = [
 //   {
 //     id: '1',
@@ -38,12 +42,19 @@ const POSTS_URL = 'https://jsonplaceholder.typicode.com/posts';
 //   },
 // ];
 
-const initialState = {
-  posts: [],
+// const initialState = {
+//   posts: [],
+//   status: 'idle', //'idle' | 'loading' | 'succeeded' | 'failed'
+//   error: null,
+//   count: 0,
+// };
+
+//when using createEntityAdapter we restructure the initial state
+const initialState = postsAdapter.getInitialState({
   status: 'idle', //'idle' | 'loading' | 'succeeded' | 'failed'
   error: null,
   count: 0,
-};
+});
 
 //createAsyncThunk accepts a "Redux action type string" and a "callback function that should return a promise".
 // It generates promise lifecycle action types based on the action type prefix that you pass in, and returns a thunk action creator that will run the promise callback and dispatch the lifecycle actions based on the returned promise.
@@ -121,7 +132,9 @@ const postsSlice = createSlice({
     reactionAdded: (state, action) => {
       const { postId, reaction } = action.payload;
       // const existingPost = state.find((post) => post.id === postId);
-      const existingPost = state.posts.find((post) => post.id === postId);
+      // const existingPost = state.posts.find((post) => post.id === postId);
+      // After using createEntityAdapter we chnage existingPost as below:
+      const existingPost = state.entities[postId];
       if (existingPost) {
         existingPost.reactions[reaction]++;
       }
@@ -156,8 +169,10 @@ const postsSlice = createSlice({
           return post;
         });
         // Add any fetched posts to the array
-        // state.posts = state.posts.concat(loadedPosts); // causes duplicates so removed
-        state.posts = loadedPosts;
+        // state.posts = state.posts.concat(loadedPosts); // does not work. causes duplicates so removed
+        // state.posts = loadedPosts;
+        // After using createEntityAdapter we can use pre-defined CRUD methods below:
+        postsAdapter.upsertMany(state, loadedPosts); // loading post
       })
       .addCase(fetchPosts.rejected, (state, action) => {
         state.status = 'failed';
@@ -174,7 +189,9 @@ const postsSlice = createSlice({
           coffee: 0,
         };
         console.log(action.payload);
-        state.posts.push(action.payload);
+        // state.posts.push(action.payload);
+        // After using createEntityAdapter we can use pre-defined CRUD methods below:
+        postsAdapter.addOne(state, action.payload); // adding new post
       })
       .addCase(updatePost.fulfilled, (state, action) => {
         if (!action.payload?.id) {
@@ -183,10 +200,12 @@ const postsSlice = createSlice({
           console.log(action.payload); // return err message
           return;
         }
-        const { id } = action.payload;
+        // const { id } = action.payload;
         action.payload.date = new Date().toISOString();
-        const posts = state.posts.filter((post) => post.id !== id); // filter out the previous post
-        state.posts = [...posts, action.payload];
+        // const posts = state.posts.filter((post) => post.id !== id); // filter out the previous post
+        // state.posts = [...posts, action.payload];
+        // After using createEntityAdapter we can use pre-defined CRUD methods below:
+        postsAdapter.upsertOne(state, action.payload); // update post
       })
       .addCase(deletePost.fulfilled, (state, action) => {
         if (!action.payload?.id) {
@@ -195,21 +214,35 @@ const postsSlice = createSlice({
           return;
         }
         const { id } = action.payload;
-        const posts = state.posts.filter((post) => post.id !== id);
-        state.posts = posts;
+        // const posts = state.posts.filter((post) => post.id !== id);
+        // state.posts = posts;
+        // After using createEntityAdapter we can use pre-defined CRUD methods below:
+        postsAdapter.removeOne(state, id);
       });
   },
 });
 
 // export const selectAllPosts = (state) => state.posts;
-export const selectAllPosts = (state) => state.posts.posts;
+// export const selectAllPosts = (state) => state.posts.posts;
+// export const selectPostById = (state, postId) =>
+//   state.posts.posts.find((post) => post.id === postId);
+
+//Using getSelectors
+// getSelectors creates these selectors and we rename them with aliases using destructuring:
+export const {
+  selectAll: selectAllPosts,
+  selectById: selectPostById,
+  selectIds: selectPostIds,
+} = postsAdapter.getSelectors((state) => state.posts);
+
 export const getPostsStatus = (state) => state.posts.status;
 export const getPostsError = (state) => state.posts.error;
 export const getCount = (state) => state.posts.count;
-export const selectPostById = (state, postId) =>
-  state.posts.posts.find((post) => post.id === postId);
 
-// Creating a memoized selector
+// Creating and using memoizing selector:
+// When using useSelector with an inline selector, a new instance of the selector is created whenever the component is rendered.
+// This works as long as the selector does not maintain any state. However, memoizing selectors (e.g. created via createSelector from reselect) do have internal state, and therefore care must be taken when using them.
+// https://react-redux.js.org/api/hooks#using-memoizing-selectors
 export const selectPostsByUser = createSelector(
   [selectAllPosts, (state, userId) => userId],
   (posts, userId) => posts.filter((post) => post.userId === userId) // only when posts or userId changes we get a new output from this selector.
