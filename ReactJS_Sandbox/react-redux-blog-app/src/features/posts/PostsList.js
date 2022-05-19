@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { selectAllPosts, getPostsStatus, getPostsError } from './postsSlice';
 import PostsExcerpt from './PostsExcerpt';
 
-export default function Posts() {
+export default function PostsList() {
   const posts = useSelector(selectAllPosts);
   const postStatus = useSelector(getPostsStatus);
   const error = useSelector(getPostsError);

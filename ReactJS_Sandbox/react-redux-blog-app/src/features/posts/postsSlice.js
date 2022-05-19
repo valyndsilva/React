@@ -1,4 +1,9 @@
-import { createSlice, nanoid, createAsyncThunk } from '@reduxjs/toolkit';
+import {
+  createSlice,
+  nanoid,
+  createAsyncThunk,
+  createSelector,
+} from '@reduxjs/toolkit';
 import { sub } from 'date-fns';
 import axios from 'axios';
 
@@ -37,6 +42,7 @@ const initialState = {
   posts: [],
   status: 'idle', //'idle' | 'loading' | 'succeeded' | 'failed'
   error: null,
+  count: 0,
 };
 
 //createAsyncThunk accepts a "Redux action type string" and a "callback function that should return a promise".
@@ -120,6 +126,9 @@ const postsSlice = createSlice({
         existingPost.reactions[reaction]++;
       }
     },
+    increaseCount: (state, action) => {
+      state.count = state.count + 1;
+    },
   },
   extraReducers: (builder) => {
     // Add reducers for additional action types here
@@ -196,8 +205,15 @@ const postsSlice = createSlice({
 export const selectAllPosts = (state) => state.posts.posts;
 export const getPostsStatus = (state) => state.posts.status;
 export const getPostsError = (state) => state.posts.error;
+export const getCount = (state) => state.posts.count;
 export const selectPostById = (state, postId) =>
   state.posts.posts.find((post) => post.id === postId);
 
-export const { postAdded, reactionAdded } = postsSlice.actions;
+// Creating a memoized selector
+export const selectPostsByUser = createSelector(
+  [selectAllPosts, (state, userId) => userId],
+  (posts, userId) => posts.filter((post) => post.userId === userId) // only when posts or userId changes we get a new output from this selector.
+);
+
+export const { postAdded, reactionAdded, increaseCount } = postsSlice.actions;
 export default postsSlice.reducer;
