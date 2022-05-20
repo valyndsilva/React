@@ -1,5 +1,5 @@
 {
-  "name": "react-redux-data-flow-bulletin-board-app",
+  "name": "react-redux-bulletin-board-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

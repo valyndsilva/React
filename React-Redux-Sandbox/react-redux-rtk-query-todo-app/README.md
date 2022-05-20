@@ -6,6 +6,7 @@ npm install @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons 
 sudo npm install json-server -g
 json-server --watch data/db.json --port 3500
 
+
 ## Available Scripts
 
 In the project directory, you can run:
