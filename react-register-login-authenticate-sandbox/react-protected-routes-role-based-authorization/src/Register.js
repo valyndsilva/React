@@ -72,39 +72,39 @@ export default function Register() {
       return;
     }
     //If not using a back-end server use the 2 lines below:
-    // console.log(user, pwd);
-    // setSuccess(true);
+    console.log(user, pwd);
+    setSuccess(true);
 
-    // Using axios to submit to the back-end created in the node.js course:
-    try {
-      const response = await axios.post(
-        REGISTER_URL,
-        JSON.stringify({ user, pwd }),
-        {
-          headers: { 'Content-Type': 'application/json' },
-          withCredentials: true,
-        }
-      );
-      console.log(response?.data);
-      console.log(response?.accessToken);
-      console.log(JSON.stringify(response)); // use stringify to avoid getting Obj{Obj}
-      setSuccess(true);
-      //clear state and controlled inputs
-      //need value attribute on inputs for this
-      setUser('');
-      setPwd('');
-      setMatchPwd('');
-    } catch (err) {
-      if (!err?.response) {
-        setErrMsg('No Server Response');
-      } else if (err.response?.status === 409) {
-        setErrMsg('Username Taken');
-      } else {
-        setErrMsg('Registration Failed');
-      }
-      errRef.current.focus();
-    }
-  };
+  //   // Using axios to submit to the back-end web server created in the node.js course:
+  //   try {
+  //     const response = await axios.post(
+  //       REGISTER_URL,
+  //       JSON.stringify({ user, pwd }),
+  //       {
+  //         headers: { 'Content-Type': 'application/json' },
+  //         withCredentials: true,
+  //       }
+  //     );
+  //     console.log(response?.data);
+  //     console.log(response?.accessToken);
+  //     console.log(JSON.stringify(response)); // use stringify to avoid getting Obj{Obj}
+  //     setSuccess(true);
+  //     //clear state and controlled inputs
+  //     //need value attribute on inputs for this
+  //     setUser('');
+  //     setPwd('');
+  //     setMatchPwd('');
+  //   } catch (err) {
+  //     if (!err?.response) {
+  //       setErrMsg('No Server Response');
+  //     } else if (err.response?.status === 409) {
+  //       setErrMsg('Username Taken');
+  //     } else {
+  //       setErrMsg('Registration Failed');
+  //     }
+  //     errRef.current.focus();
+  //   }
+  // };
 
   return (
     <>
@@ -143,6 +143,7 @@ export default function Register() {
               ref={userRef}
               autoComplete="off"
               onChange={(e) => setUser(e.target.value)}
+              value={user}
               required
               aria-invalid={validName ? 'false' : 'true'}
               aria-describedby="uidnote"
