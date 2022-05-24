@@ -5,7 +5,8 @@ import {
   faInfoCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import axios from './api/axios';
+import axios from '../api/axios';
+import { Link } from 'react-router-dom';
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/; // [A-z]: start with lower/uppercase letter, [A-z0-9-_]{3,23}: start with 3 to 23 characters that can include lower/uppercase letters/numbers/-/_
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/; // needs atleast 1 lowercase/ 1 uppercase/ 1 number/1 special character and it can be 8 to 24 characters long
@@ -75,36 +76,37 @@ export default function Register() {
     console.log(user, pwd);
     setSuccess(true);
 
-  //   // Using axios to submit to the back-end web server created in the node.js course:
-  //   try {
-  //     const response = await axios.post(
-  //       REGISTER_URL,
-  //       JSON.stringify({ user, pwd }),
-  //       {
-  //         headers: { 'Content-Type': 'application/json' },
-  //         withCredentials: true,
-  //       }
-  //     );
-  //     console.log(response?.data);
-  //     console.log(response?.accessToken);
-  //     console.log(JSON.stringify(response)); // use stringify to avoid getting Obj{Obj}
-  //     setSuccess(true);
-  //     //clear state and controlled inputs
-  //     //need value attribute on inputs for this
-  //     setUser('');
-  //     setPwd('');
-  //     setMatchPwd('');
-  //   } catch (err) {
-  //     if (!err?.response) {
-  //       setErrMsg('No Server Response');
-  //     } else if (err.response?.status === 409) {
-  //       setErrMsg('Username Taken');
-  //     } else {
-  //       setErrMsg('Registration Failed');
-  //     }
-  //     errRef.current.focus();
-  //   }
-  // };
+    // Using axios to submit to the back-end web server created in the node.js course:
+    try {
+      const response = await axios.post(
+        REGISTER_URL,
+        JSON.stringify({ user, pwd }),
+        {
+          headers: { 'Content-Type': 'application/json' },
+          withCredentials: true,
+        }
+      );
+      console.log(response?.data);
+      console.log(response?.accessToken);
+      // TODO: remove console.logs before deployment
+      console.log(JSON.stringify(response)); // use stringify to avoid getting Obj{Obj}
+      setSuccess(true);
+      //clear state and controlled inputs
+      //need value attribute on inputs for this
+      setUser('');
+      setPwd('');
+      setMatchPwd('');
+    } catch (err) {
+      if (!err?.response) {
+        setErrMsg('No Server Response');
+      } else if (err.response?.status === 409) {
+        setErrMsg('Username Taken');
+      } else {
+        setErrMsg('Registration Failed');
+      }
+      errRef.current.focus();
+    }
+  };
 
   return (
     <>
@@ -112,7 +114,7 @@ export default function Register() {
         <section>
           <h1>Success!</h1>
           <p>
-            <a href="#">Sign In</a>
+            <Link to="#">Sign In</Link>
           </p>
         </section>
       ) : (
@@ -245,7 +247,7 @@ export default function Register() {
             <br />
             <span className="line">
               {/*put router link here*/}
-              <a href="#">Sign In</a>
+              <Link to="#">Sign In</Link>
             </span>
           </p>
         </section>
