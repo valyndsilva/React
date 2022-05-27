@@ -23,7 +23,7 @@ const Users = () => {
         isMounted && setUsers(response.data);
       } catch (err) {
         console.error(err);
-        navigate('/login', { state: { from: location }, replace: true });
+        navigate('/login', { state: { from: location }, replace: true }); // navigates to the location the user was previously on before logout or access token expiry
       }
     };
     getUsers();
