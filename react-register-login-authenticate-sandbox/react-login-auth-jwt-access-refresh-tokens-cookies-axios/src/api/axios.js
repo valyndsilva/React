@@ -16,3 +16,5 @@ export const axiosPrivate = axios.create({
   withCredentials: true,
 });
 //baseURL, headers, withCredentials will all be attached to every request that is from  axiosPrivate.
+
+// Any time the access token expires the refresh token stored in the secure cookie is sent back to the refresh endpoint by axios. A new access token is received and that is used to complete the request for the Users data.

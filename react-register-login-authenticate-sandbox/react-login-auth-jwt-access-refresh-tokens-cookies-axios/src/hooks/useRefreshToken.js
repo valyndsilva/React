@@ -17,3 +17,5 @@ const useRefreshToken = () => {
 };
 
 export default useRefreshToken;
+
+// When using JWT, store access token in app state. Don't put it in localStorage or in a cookie that can be accessed by jasvaScript. And store the refresh token in a http only secure cookie that is not accessed by javascript but can be sent back to that refresh endpoint and recognize to get a new access token.

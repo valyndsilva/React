@@ -1,5 +1,5 @@
 // Create a custom hook to attach the axios interceptors to the axios Private
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { axiosPrivate } from '../api/axios';
 import useRefreshToken from './useRefreshToken';
 import useAuth from './useAuth';
